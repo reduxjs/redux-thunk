@@ -7,6 +7,10 @@ Thunk [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.
 npm install --save redux-thunk
 ```
 
+## What's a thunk?!
+
+TODO
+
 ## Usage
 
 TODO
