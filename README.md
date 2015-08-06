@@ -29,7 +29,7 @@ let foo = () => 1 + 2;
 An action creator that returns a thunk to perform asynchronous dispatch:
 
 ```js
-const INCREMENT_COUNTER = 'INCREMENT_COUNTER'
+const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
 
 function increment() {
   return {
@@ -66,8 +66,8 @@ function incrementIfOdd() {
 To enable redux-thunk use `applyMiddleware()`:
 
 ```js
-import { createStore, applyMiddleware, combineReducers } from 'redux'
-import thunk from 'redux-thunk'
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
 import * as reducers from './reducers/index';
 
 const reducer = combineReducers(reducers);
