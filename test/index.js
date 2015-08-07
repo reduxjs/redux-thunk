@@ -42,15 +42,16 @@ describe('thunk middleware', () => {
       });
 
       it('must return the return value of next if not a function', () => {
-        const actionHandler = nextHandler(() => 'redux');
+        const expected = 'redux';
+        const actionHandler = nextHandler(() => expected);
 
         let outcome = actionHandler();
-        chai.assert.strictEqual(outcome, 'redux');
+        chai.assert.strictEqual(outcome, expected);
       });
 
       it('must return value as expected if a function', () => {
-        const actionHandler = nextHandler();
         const expected = 'rocks';
+        const actionHandler = nextHandler();
 
         let outcome = actionHandler(() => expected);
         chai.assert.strictEqual(outcome, expected);
