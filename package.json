@@ -4,7 +4,7 @@
   "description": "Thunk middleware for Redux.",
   "main": "lib/index.js",
   "scripts": {
-    "prepublish": "rm -rf lib && babel src --out-dir lib",
+    "prepublish": "rimraf lib && babel src --out-dir lib",
     "test": "mocha --compilers js:babel/register --reporter spec test/*.js"
   },
   "repository": {

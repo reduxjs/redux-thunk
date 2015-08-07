@@ -34,11 +34,34 @@ describe('thunk middleware', () => {
         const actionObj = {};
 
         const actionHandler = nextHandler(action => {
-          chai.assert.strictEqual(actionObj, action);
+          chai.assert.strictEqual(action, actionObj);
           done();
         });
 
         actionHandler(actionObj);
+      });
+
+      it('must return the return value of next if not a function', () => {
+        const actionHandler = nextHandler(() => 'redux');
+
+        let outcome = actionHandler();
+        chai.assert.strictEqual(outcome, 'redux');
+      });
+
+      it('must return value as expected if a function', () => {
+        const actionHandler = nextHandler();
+        const expected = 'rocks';
+
+        let outcome = actionHandler(() => expected);
+        chai.assert.strictEqual(outcome, expected);
+      });
+
+      it('must be invoked synchronously if a function', () => {
+        const actionHandler = nextHandler();
+        let mutated = 0;
+
+        actionHandler(() => mutated++);
+        chai.assert.strictEqual(mutated, 1);
       });
     });
   });
