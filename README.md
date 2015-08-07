@@ -16,7 +16,7 @@ A thunk is a function that wraps an expression to delay its evaluation.
 // x === 3
 let x = 1 + 2;
 
-// calculation of 1 + 2 is delayed 
+// calculation of 1 + 2 is delayed
 // foo can be called later to perform the calculation
 // foo is a thunk!
 let foo = () => 1 + 2;
@@ -72,12 +72,15 @@ import * as reducers from './reducers/index';
 
 const reducer = combineReducers(reducers);
 
-// create a store that has redux-thunk middleware enabled 
+// create a store that has redux-thunk middleware enabled
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 const store = createStoreWithMiddleware(reducer);
 ```
-
+## Run tests
+```js
+npm test
+```
 ## License
 
 MIT

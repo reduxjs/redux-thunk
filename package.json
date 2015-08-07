@@ -4,7 +4,8 @@
   "description": "Thunk middleware for Redux.",
   "main": "lib/index.js",
   "scripts": {
-    "prepublish": "rm -rf lib && babel src --out-dir lib"
+    "prepublish": "rimraf lib && babel src --out-dir lib",
+    "test": "mocha --compilers js:babel/register --reporter spec test/*.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,9 @@
     "babel": "^5.6.14",
     "babel-core": "^5.6.15",
     "babel-eslint": "^3.1.20",
+    "chai": "^3.2.0",
     "eslint": "^0.24.0",
-    "eslint-config-airbnb": "0.0.6"
+    "eslint-config-airbnb": "0.0.6",
+    "mocha": "^2.2.5"
   }
 }

@@ -1,0 +1,30 @@
+# EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs.
+# Requires EditorConfig JetBrains Plugin - http://github.com/editorconfig/editorconfig-jetbrains
+
+# Set this file as the topmost .editorconfig
+# (multiple files can be used, and are applied starting from current document location)
+root = true
+
+# Use bracketed regexp to target specific file types or file locations
+[*.{js,json}]
+
+# Use hard or soft tabs ["tab", "space"]
+indent_style = space
+
+# Size of a single indent [an integer, "tab"]
+indent_size = tab
+
+# Number of columns representing a tab character [an integer]
+tab_width = 2
+
+# Line breaks representation ["lf", "cr", "crlf"]
+end_of_line = lf
+
+# ["latin1", "utf-8", "utf-16be", "utf-16le"]
+charset = utf-8
+
+# Remove any whitespace characters preceding newline characters ["true", "false"]
+trim_trailing_whitespace = true
+
+# Ensure file ends with a newline when saving ["true", "false"]
+insert_final_newline = true
