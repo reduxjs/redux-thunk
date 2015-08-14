@@ -1,7 +1,7 @@
 redux-thunk
 =============
 
-Thunk [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
+Thunk [middleware](https://github.com/gaearon/redux/blob/master/docs/advanced/Middleware.md) for Redux.
 
 ```js
 npm install --save redux-thunk
