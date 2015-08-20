@@ -24,7 +24,7 @@ let foo = () => 1 + 2;
 
 ## Usage
 
-`redux-thunk` [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) allows you to write action creators that return a thunk instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The thunk receives the store methods `dispatch` and `getState()` as parameters.
+`redux-thunk` [middleware](https://github.com/rackt/redux/blob/master/docs/advanced/Middleware.md) allows you to write action creators that return a thunk instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The thunk receives the store methods `dispatch` and `getState()` as parameters.
 
 An action creator that returns a thunk to perform asynchronous dispatch:
 
