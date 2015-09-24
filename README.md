@@ -9,7 +9,7 @@ npm install --save redux-thunk
 
 ## What’s a thunk?!
 
-A thunk is a function that wraps an expression to delay its evaluation.
+A [thunk](https://en.wikipedia.org/wiki/Thunk) is a function that wraps an expression to delay its evaluation.
 
 ```js
 // calculation of 1 + 2 is immediate
