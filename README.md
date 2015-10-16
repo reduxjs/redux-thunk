@@ -3,6 +3,10 @@ Redux Thunk
 
 Thunk [middleware](http://rackt.github.io/redux/docs/advanced/Middleware.html) for Redux.
 
+[![build status](https://img.shields.io/travis/gaearon/redux-thunk/master.svg?style=flat-square)](https://travis-ci.org/gaearon/redux-thunk) 
+[![npm version](https://img.shields.io/npm/v/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
+[![npm downloads](https://img.shields.io/npm/dm/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
+
 ```js
 npm install --save redux-thunk
 ```
