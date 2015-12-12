@@ -4,7 +4,12 @@
   "description": "Thunk middleware for Redux.",
   "main": "lib/index.js",
   "scripts": {
-    "prepublish": "rimraf lib && babel src --out-dir lib",
+    "build:lib": "babel src --out-dir lib",
+    "build:umd": "webpack src/index.js dist/redux-thunk.js --config webpack.config.development.js",
+    "build:umd:min": "webpack src/index.js dist/redux-thunk.min.js --config webpack.config.production.js",
+    "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
+    "clean": "rimraf lib dist",
+    "prepublish": "npm run clean && npm run build",
     "test": "mocha --compilers js:babel/register --reporter spec test/*.js"
   },
   "repository": {
@@ -25,10 +30,12 @@
     "babel": "^5.6.14",
     "babel-core": "^5.6.15",
     "babel-eslint": "^3.1.20",
+    "babel-loader": "^5.1.4",
     "chai": "^3.2.0",
     "eslint": "^0.24.0",
     "eslint-config-airbnb": "0.0.6",
     "mocha": "^2.2.5",
-    "rimraf": "^2.4.3"
+    "rimraf": "^2.4.3",
+    "webpack": "^1.9.6"
   }
 }
