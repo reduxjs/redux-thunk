@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Thunk middleware for Redux.",
   "main": "lib/index.js",
+  "files": [
+    "lib",
+    "src"
+  ],
   "scripts": {
     "prepublish": "rimraf lib && babel src --out-dir lib",
     "test": "mocha --compilers js:babel/register --reporter spec test/*.js"
