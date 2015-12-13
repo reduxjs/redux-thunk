@@ -1,3 +1,10 @@
 language: node_js
+sudo: false
+cache:
+  directories:
+    - node_modules
 node_js:
-  - "iojs"
+  - "4"
+  - "5"
+before_install:
+  - npm install -g babel-cli
