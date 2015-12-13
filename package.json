@@ -1,6 +1,6 @@
 {
   "name": "redux-thunk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Thunk middleware for Redux.",
   "main": "lib/index.js",
   "files": [
