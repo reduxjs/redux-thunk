@@ -8,8 +8,8 @@
     "src"
   ],
   "scripts": {
-    "compile": "babel src --out-dir lib",
-    "prepublish": "rimraf lib && npm run compile",
+    "build": "babel src --out-dir lib",
+    "prepublish": "rimraf lib && npm run build",
     "test": "mocha --compilers js:babel-core/register --reporter spec test/*.js"
   },
   "repository": {
