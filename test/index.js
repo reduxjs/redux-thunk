@@ -64,6 +64,26 @@ describe('thunk middleware', () => {
         actionHandler(() => mutated++);
         chai.assert.strictEqual(mutated, 1);
       });
+
+      it('must return value as expected if thunk specified', () => {
+        const expected = 'rocks';
+        const actionHandler = nextHandler();
+
+        let outcome = actionHandler({
+            thunk: () => expected
+        });
+        chai.assert.strictEqual(outcome, expected);
+      });
+
+      it('must be invoked synchronously if thunk specified', () => {
+        const actionHandler = nextHandler();
+        let mutated = 0;
+
+        actionHandler({
+            thunk: () => mutated++
+        });
+        chai.assert.strictEqual(mutated, 1);
+      });
     });
   });
 
