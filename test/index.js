@@ -1,5 +1,5 @@
 import chai from 'chai';
-import thunkMiddleware from '../src/index';
+import thunkMiddleware from '../';
 
 describe('thunk middleware', () => {
   const doDispatch = () => {};
