@@ -80,12 +80,11 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 
-// create a store that has redux-thunk middleware enabled
-const createStoreWithMiddleware = applyMiddleware(
-  thunk
-)(createStore);
-
-const store = createStoreWithMiddleware(rootReducer);
+// Note: this API requires redux@>=3.1.0
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk)
+);
 ```
 
 ## Composition
@@ -97,11 +96,11 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
-// applyMiddleware supercharges createStore with middleware:
-let createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-
-// We can use it exactly like “vanilla” createStore.
-let store = createStoreWithMiddleware(rootReducer);
+// Note: this API requires redux@>=3.1.0
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk)
+);
 
 function fetchSecretSauce() {
   return fetch('https://www.google.com/search?q=secret+sauce');
