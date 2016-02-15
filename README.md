@@ -11,20 +11,11 @@ Thunk [middleware](http://rackt.github.io/redux/docs/advanced/Middleware.html) f
 npm install --save redux-thunk
 ```
 
-## What’s a thunk?!
+## Why Do I Need This?
 
-A [thunk](https://en.wikipedia.org/wiki/Thunk) is a function that wraps an expression to delay its evaluation.
+If you’re not sure whether you need it, you probably don’t.
 
-```js
-// calculation of 1 + 2 is immediate
-// x === 3
-let x = 1 + 2;
-
-// calculation of 1 + 2 is delayed
-// foo can be called later to perform the calculation
-// foo is a thunk!
-let foo = () => 1 + 2;
-```
+**[Read this for an in-depth introduction to thunks in Redux.](http://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559)**
 
 ## Motivation
 
@@ -66,6 +57,22 @@ function incrementIfOdd() {
   };
 }
 ```
+
+## What’s a thunk?!
+
+A [thunk](https://en.wikipedia.org/wiki/Thunk) is a function that wraps an expression to delay its evaluation.
+
+```js
+// calculation of 1 + 2 is immediate
+// x === 3
+let x = 1 + 2;
+
+// calculation of 1 + 2 is delayed
+// foo can be called later to perform the calculation
+// foo is a thunk!
+let foo = () => 1 + 2;
+```
+
 
 ## Installation
 
