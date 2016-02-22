@@ -2,14 +2,18 @@
   "name": "redux-thunk",
   "version": "1.0.3",
   "description": "Thunk middleware for Redux.",
-  "main": "lib/index.js",
+  "main": "lib/index.cjs.js",
+  "jsnext:main": "lib/index.es2015.js",
   "files": [
     "lib",
     "src"
   ],
   "scripts": {
-    "build": "babel src --out-dir lib",
+    "build-cjs": "rollup --config --format cjs --output lib/index.cjs.js",
+    "build-es2015": "rollup --config --format es6 --output lib/index.es2015.js",
+    "build": "npm run build-cjs && npm run build-es2015",
     "prepublish": "rimraf lib && npm run build",
+    "pretest": "npm run prepublish",
     "test": "mocha --compilers js:babel-core/register --reporter spec test/*.js"
   },
   "repository": {
@@ -27,17 +31,17 @@
   "author": "Dan Abramov <dan.abramov@me.com>",
   "license": "MIT",
   "devDependencies": {
-    "babel": "^6.1.18",
-    "babel-cli": "^6.2.0",
     "babel-core": "^6.2.1",
     "babel-eslint": "^5.0.0-beta4",
-    "babel-plugin-add-module-exports": "^0.1.1",
     "babel-preset-es2015": "^6.1.18",
+    "babel-preset-es2015-rollup": "^1.1.1",
     "babel-preset-stage-0": "^6.1.18",
     "chai": "^3.2.0",
     "eslint": "^1.10.2",
     "eslint-config-airbnb": "1.0.2",
     "mocha": "^2.2.5",
-    "rimraf": "^2.4.3"
+    "rimraf": "^2.4.3",
+    "rollup": "^0.25.1",
+    "rollup-plugin-babel": "^2.3.9"
   }
 }
