@@ -1,7 +1,7 @@
 Redux Thunk
 =============
 
-Thunk [middleware](http://rackt.github.io/redux/docs/advanced/Middleware.html) for Redux.
+Thunk [middleware](http://redux.js.org/docs/advanced/Middleware.html) for Redux.
 
 [![build status](https://img.shields.io/travis/gaearon/redux-thunk/master.svg?style=flat-square)](https://travis-ci.org/gaearon/redux-thunk) 
 [![npm version](https://img.shields.io/npm/v/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
@@ -19,7 +19,7 @@ If you’re not sure whether you need it, you probably don’t.
 
 ## Motivation
 
-Redux Thunk [middleware](https://github.com/rackt/redux/blob/master/docs/advanced/Middleware.md) allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods `dispatch` and `getState()` as parameters.
+Redux Thunk [middleware](https://github.com/reactjs/redux/blob/master/docs/advanced/Middleware.md) allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods `dispatch` and `getState()` as parameters.
 
 An action creator that returns a function to perform asynchronous dispatch:
 
@@ -80,7 +80,7 @@ let foo = () => 1 + 2;
 npm install --save redux-thunk
 ```
 
-Then, to enable Redux Thunk, use [`applyMiddleware()`](http://rackt.github.io/redux/docs/api/applyMiddleware.html):
+Then, to enable Redux Thunk, use [`applyMiddleware()`](http://redux.js.org/docs/api/applyMiddleware.html):
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
