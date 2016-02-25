@@ -45,7 +45,7 @@ describe('thunk middleware', () => {
         const expected = 'redux';
         const actionHandler = nextHandler(() => expected);
 
-        let outcome = actionHandler();
+        const outcome = actionHandler();
         chai.assert.strictEqual(outcome, expected);
       });
 
@@ -53,7 +53,7 @@ describe('thunk middleware', () => {
         const expected = 'rocks';
         const actionHandler = nextHandler();
 
-        let outcome = actionHandler(() => expected);
+        const outcome = actionHandler(() => expected);
         chai.assert.strictEqual(outcome, expected);
       });
 
@@ -71,7 +71,7 @@ describe('thunk middleware', () => {
     it('must throw if argument is non-object', done => {
       try {
         thunkMiddleware();
-      } catch(err) {
+      } catch (err) {
         done();
       }
     });

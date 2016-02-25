@@ -5,4 +5,4 @@ function thunkMiddleware({ dispatch, getState }) {
       next(action);
 }
 
-module.exports = thunkMiddleware
+module.exports = thunkMiddleware;
