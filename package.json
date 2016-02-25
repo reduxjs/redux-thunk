@@ -9,8 +9,10 @@
   ],
   "scripts": {
     "build": "babel src --out-dir lib",
-    "prepublish": "rimraf lib && npm run build",
-    "test": "mocha --compilers js:babel-core/register --reporter spec test/*.js"
+    "prepublish": "npm run test && rimraf lib && npm run build",
+    "test": "mocha --compilers js:babel-core/register --reporter spec test/*.js",
+    "posttest": "npm run lint",
+    "lint": "eslint src test"
   },
   "repository": {
     "type": "git",
@@ -37,6 +39,7 @@
     "chai": "^3.2.0",
     "eslint": "^1.10.2",
     "eslint-config-airbnb": "1.0.2",
+    "eslint-plugin-react": "^4.1.0",
     "mocha": "^2.2.5",
     "rimraf": "^2.4.3"
   }
