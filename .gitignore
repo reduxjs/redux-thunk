@@ -3,3 +3,4 @@ coverage
 *.log
 lib
 dist
+es

@@ -13,8 +13,9 @@
     "test": "mocha --compilers js:babel-core/register --reporter spec test/*.js",
     "posttest": "npm run lint",
     "lint": "eslint src test",
-    "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min",
+    "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min && npm run build:es",
     "build:commonjs": "babel src --out-dir lib",
+    "build:es": "BABEL_ENV=es babel src --out-dir es",
     "build:umd": "NODE_ENV=development webpack",
     "build:umd:min": "NODE_ENV=production webpack"
   },
