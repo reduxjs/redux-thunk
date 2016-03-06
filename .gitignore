@@ -2,3 +2,5 @@ node_modules
 coverage
 *.log
 lib
+dist
+es
