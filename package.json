@@ -3,6 +3,7 @@
   "version": "1.0.3",
   "description": "Thunk middleware for Redux.",
   "main": "lib/index.js",
+  "jsnext:main": "es/index.js",
   "files": [
     "lib",
     "src"
