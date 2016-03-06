@@ -1,12 +1,12 @@
 import webpack from 'webpack';
 import path from 'path';
 
-const { NODE_ENV, TARGET } = process.env;
+const { NODE_ENV } = process.env;
 
-const  plugins = [
+const plugins = [
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
+    'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
   }),
 ];
 
@@ -19,16 +19,16 @@ NODE_ENV === 'production'  && plugins.push(
       unsafe: true,
       unsafe_comps: true,
       screw_ie8: true,
-      warnings: false
-    }
+      warnings: false,
+    },
   })
 );
 
 export default {
   module: {
     loaders: [
-      { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ }
-    ]
+      { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ },
+    ],
   },
 
   entry: [
@@ -38,6 +38,7 @@ export default {
   output: {
     path: path.join(__dirname, 'dist'),
     filename,
+    library: 'ReduxThunk',
     libraryTarget: 'umd',
   },
 

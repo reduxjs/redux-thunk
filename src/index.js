@@ -1,8 +1,9 @@
-function thunkMiddleware({ dispatch, getState }) {
-  return next => action =>
-    typeof action === 'function' ?
-      action(dispatch, getState) :
-      next(action);
-}
+export default function thunkMiddleware({ dispatch, getState }) {
+  return next => action => {
+    if (typeof action === 'function') {
+      return action(dispatch, getState);
+    }
 
-module.exports = thunkMiddleware;
+    return next(action);
+  };
+}
