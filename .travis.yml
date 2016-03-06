@@ -1,10 +1,11 @@
 language: node_js
-sudo: false
-cache:
-  directories:
-    - node_modules
 node_js:
   - "4"
   - "5"
-before_install:
-  - npm install -g babel-cli
+script:
+  - npm run clean
+  - npm run build
+  - npm run test
+branches:
+  only:
+    - master
