@@ -11,6 +11,30 @@ Thunk [middleware](http://redux.js.org/docs/advanced/Middleware.html) for Redux.
 npm install --save redux-thunk
 ```
 
+## Note on 2.x Update
+
+Most tutorials today assume Redux Thunk 1.x so you might run into an issue when running their code with 2.x.  
+**If you use Redux Thunk 2.x in CommonJS environment, [don’t forget to add `.default` to your import](https://github.com/gaearon/redux-thunk/releases/tag/v2.0.0):**
+
+```diff
+- var ReduxThunk = require('redux-thunk')
++ var ReduxThunk = require('redux-thunk').default
+```
+
+If you used ES modules, you’re already all good:
+
+```js
+import ReduxThunk from 'redux-thunk' // no changes here 😀
+```
+
+Additionally, since 2.x, we also support a [UMD build](https://npmcdn.com/redux-thunk@2.0.1/dist/redux-thunk.min.js):
+
+```js
+var ReduxThunk = window.ReduxThunk.default
+```
+
+As you can see, it also requires `.default` at the end.
+
 ## Why Do I Need This?
 
 If you’re not sure whether you need it, you probably don’t.
