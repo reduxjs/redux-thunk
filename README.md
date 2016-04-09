@@ -246,7 +246,7 @@ function makeSandwichesForEverybody() {
 store.dispatch(
   makeSandwichesForEverybody()
 ).then(() =>
-  response.send(React.renderToString(<MyApp store={store} />))
+  response.send(ReactDOMServer.renderToString(<MyApp store={store} />))
 );
 
 // I can also dispatch a thunk async action from a component
