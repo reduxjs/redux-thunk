@@ -32,6 +32,7 @@
     "thunk",
     "middleware",
     "redux-middleware",
+    "fsa",
     "flux"
   ],
   "author": "Dan Abramov <dan.abramov@me.com>",
