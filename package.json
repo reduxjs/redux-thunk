@@ -35,6 +35,9 @@
     "flux"
   ],
   "author": "Dan Abramov <dan.abramov@me.com>",
+  "contributors": [
+    "Bart van Andel <bavanandel@gmail.com>"
+  ],
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.6.5",
@@ -69,5 +72,8 @@
     "mocha": "^2.2.5",
     "rimraf": "^2.5.2",
     "webpack": "^1.12.14"
+  },
+  "dependencies": {
+    "flux-standard-action": "^0.6.1"
   }
 }
