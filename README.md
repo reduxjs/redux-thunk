@@ -300,6 +300,23 @@ function fetchUser(id) {
 }
 ```
 
+To pass multiple things, just wrap them in a single object and use destructuring:
+
+```js
+```js
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk.withExtraArgument({ api, whatever }))
+)
+
+// later
+function fetchUser(id) {
+  return (dispatch, getState, { api, whatever }) => {
+    // you can use api and something else here here
+  }
+}
+```
+
 
 ## License
 
