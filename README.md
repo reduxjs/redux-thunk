@@ -303,7 +303,6 @@ function fetchUser(id) {
 To pass multiple things, just wrap them in a single object and use destructuring:
 
 ```js
-```js
 const store = createStore(
   reducer,
   applyMiddleware(thunk.withExtraArgument({ api, whatever }))
