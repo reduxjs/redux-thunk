@@ -316,6 +316,17 @@ function fetchUser(id) {
 }
 ```
 
+You can also import `withExtraArgument` as a single member;
+
+```js
+import { withExtraArgument } from 'redux-thunk';
+
+const store = createStore(
+  reducer,
+  applyMiddleware(withExtraArgument({ api, whatever }))
+)
+```
+
 
 ## License
 

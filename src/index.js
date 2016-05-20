@@ -11,4 +11,5 @@ function createThunkMiddleware(extraArgument) {
 const thunk = createThunkMiddleware();
 thunk.withExtraArgument = createThunkMiddleware;
 
+export const withExtraArgument = thunk.withExtraArgument;
 export default thunk;
