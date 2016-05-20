@@ -1,5 +1,6 @@
 import chai from 'chai';
 import thunkMiddleware from '../src/index';
+import { withExtraArgument } from '../src/index';
 
 describe('thunk middleware', () => {
   const doDispatch = () => {};
@@ -81,6 +82,19 @@ describe('thunk middleware', () => {
     it('must pass the third argument', done => {
       const extraArg = { lol: true };
       thunkMiddleware.withExtraArgument(extraArg)({
+        dispatch: doDispatch,
+        getState: doGetState,
+      })()((dispatch, getState, arg) => {
+        chai.assert.strictEqual(dispatch, doDispatch);
+        chai.assert.strictEqual(getState, doGetState);
+        chai.assert.strictEqual(arg, extraArg);
+        done();
+      });
+    });
+
+    it('can be imported as a single member of the module', done => {
+      const extraArg = { lol: true };
+      withExtraArgument(extraArg)({
         dispatch: doDispatch,
         getState: doGetState,
       })()((dispatch, getState, arg) => {
