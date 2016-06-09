@@ -4,11 +4,13 @@
   "description": "Thunk middleware for Redux.",
   "main": "lib/index.js",
   "jsnext:main": "es/index.js",
+  "typings": "./index.d.ts",
   "files": [
     "lib",
     "es",
     "src",
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "scripts": {
     "clean": "rimraf lib dist es",
@@ -67,7 +69,10 @@
     "eslint-config-airbnb": "1.0.2",
     "eslint-plugin-react": "^4.1.0",
     "mocha": "^2.2.5",
+    "redux": "^3.4.0",
     "rimraf": "^2.5.2",
+    "typescript": "^1.8.10",
+    "typescript-definition-tester": "0.0.4",
     "webpack": "^1.12.14"
   }
 }
