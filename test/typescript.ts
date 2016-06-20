@@ -1,5 +1,5 @@
 import {Store, Middleware} from 'redux';
-import thunk from '../index.d.ts';
+import thunk, {ThunkAction} from '../index.d.ts';
 
 
 declare const store: Store<{foo: string}>;
@@ -19,3 +19,15 @@ const middleware: Middleware = thunk.withExtraArgument('bar');
 store.dispatch((dispatch, getState, extraArg) => {
   console.log(extraArg);
 });
+
+const thunkAction: ThunkAction<void, {foo: string}, {bar: number}> =
+  (dispatch, getState, extraArg) => {
+    const foo: string = getState().foo;
+    const bar: number = extraArg.bar;
+
+    dispatch({type: 'FOO'});
+  };
+
+const thunkActionDispatchOnly: ThunkAction<void, {}, {}> = dispatch => {
+  dispatch({type: 'FOO'});
+};
