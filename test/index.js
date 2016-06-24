@@ -1,5 +1,7 @@
 import chai from 'chai';
 import thunkMiddleware from '../src/index';
+import * as tt from 'typescript-definition-tester';
+
 
 describe('thunk middleware', () => {
   const doDispatch = () => {};
@@ -89,6 +91,18 @@ describe('thunk middleware', () => {
         chai.assert.strictEqual(arg, extraArg);
         done();
       });
+    });
+  });
+
+  describe('TypeScript definitions', function test() {
+    this.timeout(0);
+
+    it('should compile against index.d.ts', (done) => {
+      tt.compileDirectory(
+        __dirname,
+        fileName => fileName.match(/\.ts$/),
+        () => done()
+      );
     });
   });
 });
