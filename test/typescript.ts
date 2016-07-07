@@ -1,6 +1,5 @@
-import {Store, Middleware} from 'redux';
-import thunk, {ThunkAction} from '../index.d.ts';
-
+import { Action, Dispatch as ReduxDispatch, Middleware } from 'redux';
+import thunk, { Dispatch, ThunkAction, Store } from '../index.d.ts';
 
 declare const store: Store<{foo: string}>;
 
@@ -30,4 +29,8 @@ const thunkAction: ThunkAction<void, {foo: string}, {bar: number}> =
 
 const thunkActionDispatchOnly: ThunkAction<void, {}, {}> = dispatch => {
   dispatch({type: 'FOO'});
+};
+
+export const otherMiddleware: Middleware = (store: Store<any>) => (next: ReduxDispatch<any>) => (action: Action) => {
+  next(action);
 };
