@@ -14,7 +14,9 @@ store.dispatch((dispatch, getState) => {
   const foo: string = state.foo;
 });
 
-const middleware: Middleware = thunk.withExtraArgument('bar');
+const middlewareWithExtraArgument: Middleware = thunk.withExtraArgument('bar');
+const middlewareWithStateInjectors: Middleware =
+  thunk.withExtraArgument('bar', { state: (getState: any) => getState() });
 
 store.dispatch((dispatch, getState, extraArg) => {
   console.log(extraArg);
