@@ -81,14 +81,35 @@ describe('thunk middleware', () => {
 
   describe('withExtraArgument', () => {
     it('must pass the third argument', done => {
-      const extraArg = { lol: true };
-      thunkMiddleware.withExtraArgument(extraArg)({
+      const foo = true;
+      const bar = false;
+
+      thunkMiddleware.withExtraArgument(foo, bar)({
         dispatch: doDispatch,
         getState: doGetState,
-      })()((dispatch, getState, arg) => {
+      })()((dispatch, getState, ...rest) => {
         chai.assert.strictEqual(dispatch, doDispatch);
         chai.assert.strictEqual(getState, doGetState);
-        chai.assert.strictEqual(arg, extraArg);
+        chai.assert.strictEqual(rest[0], foo);
+        chai.assert.strictEqual(rest[1], bar);
+        done();
+      });
+    });
+
+    it('must accept a one object parameter', (done) => {
+      const extraArgs = {
+        foo: true,
+        bar: false,
+      };
+
+      thunkMiddleware.withExtraArgument(extraArgs)({
+        dispatch: doDispatch,
+        getState: doGetState,
+      })()((dispatch, getState, args) => {
+        chai.assert.strictEqual(dispatch, doDispatch);
+        chai.assert.strictEqual(getState, doGetState);
+        chai.assert.strictEqual(args.foo, extraArgs.foo);
+        chai.assert.strictEqual(args.bar, extraArgs.bar);
         done();
       });
     });
