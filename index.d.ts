@@ -10,9 +10,12 @@ declare module "redux" {
   }
 }
 
+type StateInjectors = {
+    [key: string]: (getState: () => any) => any;
+}
 
 declare const thunk: Middleware & {
-  withExtraArgument(extraArgument: any): Middleware;
+  withExtraArgument(extraArgument: any, stateInjectors?: StateInjectors): Middleware;
 };
 
 export default thunk;

@@ -92,6 +92,40 @@ describe('thunk middleware', () => {
         done();
       });
     });
+
+    it('must inject state into the third argument where state injectors are provided', done => {
+      const testState = {
+        a: 1,
+        b: [2, 3],
+        c: {
+          i: 4,
+          ii: 5,
+        },
+      };
+      const getTestState = () => testState;
+      const sum = ({ a, b, c }) => a + b[0] + b[1] + c.i + c.ii;
+      const stateInjectors = {
+        sumImmediate: (getState) => sum(getState()),
+        sumDeferred: (getState) => () => sum(getState()),
+      };
+      const extraArg = { lol: true, it: { should: 'be the same object' } };
+
+      thunkMiddleware.withExtraArgument(extraArg, stateInjectors)({
+        dispatch: doDispatch,
+        getState: getTestState,
+      })()((dispatch, getState, arg) => {
+        chai.assert.strictEqual(dispatch, doDispatch);
+        chai.assert.strictEqual(getState, getTestState);
+        chai.assert.strictEqual(arg.lol, true);
+        chai.assert.strictEqual(arg.it, extraArg.it);
+        chai.assert.strictEqual(arg.sumImmediate, 15);
+        chai.assert.strictEqual(arg.sumDeferred(), 15);
+        testState.a++;
+        chai.assert.strictEqual(arg.sumImmediate, 15); // no change, value was resolved at thunk creation
+        chai.assert.strictEqual(arg.sumDeferred(), 16); // updated, latest state is always fetched
+        done();
+      });
+    });
   });
 
   describe('TypeScript definitions', function test() {
