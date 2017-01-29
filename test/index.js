@@ -94,6 +94,63 @@ describe('thunk middleware', () => {
     });
   });
 
+  describe('withMiddleware', () => {
+    it('must dispatch if action is a string', done => {
+      const expected = 'redux';
+      const actionHandler = thunkMiddleware.withMiddleware({
+        onDispatch: dispatch => (arg1, arg2) => (typeof arg1 === 'string' ? dispatch({
+          type: arg1,
+          payload: arg2,
+        }) : dispatch(arg1)),
+      })({
+        dispatch: action => action,
+        getState: doGetState,
+      })();
+
+
+      actionHandler((dispatch) => {
+        const outcome = dispatch(expected);
+        chai.assert.strictEqual(outcome.type, expected);
+        done();
+      });
+    });
+
+    it('must must return custom state', done => {
+      const expectedState = 'redux';
+      const actionHandler = thunkMiddleware.withMiddleware({
+        onGetState: () => () => expectedState,
+      })({
+        dispatch: doDispatch,
+        getState: doGetState,
+      })();
+
+
+      actionHandler((dispatch, getState) => {
+        const outcome = getState();
+        chai.assert.strictEqual(outcome, expectedState);
+        done();
+      });
+    });
+
+    it('must pass the third argument', done => {
+      const extraArg = { lol: true };
+      const actionHandler = thunkMiddleware.withMiddleware({
+        onExtraArgument: () => extraArg,
+      })({
+        dispatch: doDispatch,
+        getState: doGetState,
+      })();
+
+      actionHandler((dispatch, getState, arg) => {
+        chai.assert.strictEqual(dispatch, doDispatch);
+        chai.assert.strictEqual(getState, doGetState);
+        chai.assert.strictEqual(arg, extraArg);
+        done();
+      });
+    });
+  });
+
+
   describe('TypeScript definitions', function test() {
     this.timeout(0);
 
