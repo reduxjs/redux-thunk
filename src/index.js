@@ -3,6 +3,9 @@ function createThunkMiddleware(extraArgument) {
     if (typeof action === 'function') {
       return action(dispatch, getState, extraArgument);
     }
+    if (action && typeof action.payload === 'function') {
+      return action.payload(dispatch, getState, extraArgument);
+    }
 
     return next(action);
   };
