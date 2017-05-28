@@ -73,6 +73,6 @@
     "rimraf": "^2.5.2",
     "typescript": "^1.8.10",
     "typescript-definition-tester": "0.0.4",
-    "webpack": "^1.12.14"
+    "webpack": "^2.6.1"
   }
 }
