@@ -4,7 +4,7 @@ import path from 'path';
 const { NODE_ENV } = process.env;
 
 const plugins = [
-  new webpack.optimize.OccurenceOrderPlugin(),
+  new webpack.optimize.OccurrenceOrderPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
   }),
@@ -12,7 +12,7 @@ const plugins = [
 
 const filename = `redux-thunk${NODE_ENV === 'production' ? '.min' : ''}.js`;
 
-NODE_ENV === 'production'  && plugins.push(
+NODE_ENV === 'production' && plugins.push(
   new webpack.optimize.UglifyJsPlugin({
     compressor: {
       pure_getters: true,
@@ -26,8 +26,14 @@ NODE_ENV === 'production'  && plugins.push(
 
 export default {
   module: {
-    loaders: [
-      { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ },
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
     ],
   },
 
