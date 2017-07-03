@@ -311,7 +311,7 @@ const store = createStore(
 // later
 function fetchUser(id) {
   return (dispatch, getState, { api, whatever }) => {
-    // you can use api and something else here here
+    // you can use api and whatever here
   }
 }
 ```
