@@ -1,12 +1,12 @@
 import {Middleware, Dispatch} from "redux";
 
 
-export type ThunkAction<R, S, E> = (dispatch: Dispatch<S>, getState: () => S,
+export type ThunkAction<R = any, S = {}, E = any> = (dispatch: Dispatch<S>, getState: () => S,
                                     extraArgument: E) => R;
 
 declare module "redux" {
   export interface Dispatch<S> {
-    <R, E>(asyncAction: ThunkAction<R, S, E>): R;
+    <R = any, E = any>(asyncAction: ThunkAction<R, S, E>): R;
   }
 }
 
