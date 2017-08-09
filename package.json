@@ -71,7 +71,7 @@
     "mocha": "^2.2.5",
     "redux": "^3.4.0",
     "rimraf": "^2.5.2",
-    "typescript": "^1.8.10",
+    "typescript": "^2.4.2",
     "typescript-definition-tester": "0.0.4",
     "webpack": "^1.12.14"
   }
