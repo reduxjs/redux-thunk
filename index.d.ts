@@ -6,7 +6,7 @@ export type ThunkAction<R, S, E> = (dispatch: Dispatch<S>, getState: () => S,
 
 declare module "redux" {
   export interface Dispatch<S> {
-    <R, E>(asyncAction: ThunkAction<R, S, E>): R;
+    <R, E>(asyncAction: ThunkAction<R, S, E> | S): R;
   }
 }
 
