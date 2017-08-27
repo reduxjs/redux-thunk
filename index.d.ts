@@ -1,8 +1,13 @@
 import {Middleware, Dispatch} from "redux";
 
-
-export type ThunkAction<R, S, E> = (dispatch: Dispatch<S>, getState: () => S,
-                                    extraArgument: E) => R;
+/**
+	Should extend Action
+	it allows us to make custom action interfaces
+*/
+export interface ThunkAction<R, S, E> extends Action {
+  (dispatch: Dispatch<S>, getState: () => S,
+   extraArgument: E): R; 
+}
 
 declare module "redux" {
   export interface Dispatch<S> {
