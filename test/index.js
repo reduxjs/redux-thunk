@@ -32,6 +32,18 @@ describe('thunk middleware', () => {
         });
       });
 
+      it('must run functions at action.payload (flux standard actions) with dispatch and getState', done => {
+        const actionHandler = nextHandler();
+        actionHandler({
+          type: 'TEST',
+          payload: (dispatch, getState) => {
+            chai.assert.strictEqual(dispatch, doDispatch);
+            chai.assert.strictEqual(getState, doGetState);
+            done();
+          },
+        });
+      });
+
       it('must pass action to next if not a function', done => {
         const actionObj = {};
 

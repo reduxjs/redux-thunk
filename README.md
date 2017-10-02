@@ -316,6 +316,26 @@ function fetchUser(id) {
 }
 ```
 
+## Flux Standard Actions
+
+Action creators that return [Flux Standard Actions (FSAs)](https://github.com/acdlite/flux-standard-action)
+are supported out of the box:
+
+```js
+function myFsaActionCreator() {
+  return {
+    type: 'SOME_ASYNC_THING',
+    payload: () => {
+      return (dispatch, getState) => {
+        setTimeout(() => {
+          dispatch({type: 'ANOTHER ACTION'});
+        }, 1000)
+      }
+    }
+  }
+}
+```
+
 
 ## License
 
