@@ -6,6 +6,7 @@ Thunk [middleware](http://redux.js.org/docs/advanced/Middleware.html) for Redux.
 [![build status](https://img.shields.io/travis/gaearon/redux-thunk/master.svg?style=flat-square)](https://travis-ci.org/gaearon/redux-thunk) 
 [![npm version](https://img.shields.io/npm/v/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 [![npm downloads](https://img.shields.io/npm/dm/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
+[![jsdelivr hits](https://data.jsdelivr.com/v1/package/npm/redux-thunk/badge)](https://www.jsdelivr.com/package/npm/redux-thunk)
 
 ```js
 npm install --save redux-thunk
