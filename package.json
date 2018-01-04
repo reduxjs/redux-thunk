@@ -3,6 +3,7 @@
   "version": "2.2.0",
   "description": "Thunk middleware for Redux.",
   "main": "lib/index.js",
+  "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "typings": "./index.d.ts",
   "files": [
