@@ -105,6 +105,7 @@ npm install --save redux-thunk
 ```
 
 Then, to enable Redux Thunk, use [`applyMiddleware()`](http://redux.js.org/docs/api/applyMiddleware.html):
+**If you have more than one middleware to apply and you want to use your promises after dispatching an action, you MUST put redux-thunk middleware first:**
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
