@@ -1,16 +1,20 @@
-import {Store, Middleware} from 'redux';
-import thunk, {ThunkAction} from '../index';
+import { createStore, applyMiddleware } from 'redux';
+import thunk, { ThunkAction } from '../index';
 
 type State = {
-  foo: string
+  foo: string;
 };
 
 type Actions = { type: 'FOO' };
 
-declare const store: Store<State, Actions>;
+function fakeReducer(state: State, action: Actions): State {
+  return state;
+}
+
+const store = createStore(fakeReducer, applyMiddleware(thunk));
 
 store.dispatch(dispatch => {
-  dispatch({type: 'FOO'});
+  dispatch({ type: 'FOO' });
 });
 
 function testGetState(): ThunkAction<void, State, {}, Actions> {
@@ -22,20 +26,27 @@ function testGetState(): ThunkAction<void, State, {}, Actions> {
 
 store.dispatch(testGetState());
 
-const middleware: Middleware = thunk.withExtraArgument('bar');
+const storeThunkArg = createStore(
+  fakeReducer,
+  applyMiddleware(thunk.withExtraArgument('bar'))
+);
 
-store.dispatch((dispatch, getState, extraArg) => {
+storeThunkArg.dispatch((dispatch, getState, extraArg) => {
+  const bar: string = extraArg;
   console.log(extraArg);
 });
 
-const thunkAction: ThunkAction<void, {foo: string}, {bar: number}> =
-  (dispatch, getState, extraArg) => {
-    const foo: string = getState().foo;
-    const bar: number = extraArg.bar;
+const thunkAction: ThunkAction<void, State, { bar: number }, Actions> = (
+  dispatch,
+  getState,
+  extraArg
+) => {
+  const foo: string = getState().foo;
+  const bar: number = extraArg.bar;
 
-    dispatch({type: 'FOO'});
-  };
+  dispatch({ type: 'FOO' });
+};
 
-const thunkActionDispatchOnly: ThunkAction<void, {}, {}> = dispatch => {
-  dispatch({type: 'FOO'});
+const thunkActionDispatchOnly: ThunkAction<void, {}, {}, Actions> = dispatch => {
+  dispatch({ type: 'FOO' });
 };
