@@ -1,18 +1,26 @@
 import {Store, Middleware} from 'redux';
-import thunk, {ThunkAction} from '../index.d.ts';
+import thunk, {ThunkAction} from '../index';
 
+type State = {
+  foo: string
+};
 
-declare const store: Store<{foo: string}>;
+type Actions = { type: 'FOO' };
+
+declare const store: Store<State, Actions>;
 
 store.dispatch(dispatch => {
   dispatch({type: 'FOO'});
 });
 
-store.dispatch((dispatch, getState) => {
-  const state = getState();
+function testGetState(): ThunkAction<void, State, {}, Actions> {
+  return (dispatch, getState) => {
+    const state = getState();
+    const foo: string = state.foo;
+  };
+}
 
-  const foo: string = state.foo;
-});
+store.dispatch(testGetState());
 
 const middleware: Middleware = thunk.withExtraArgument('bar');
 
