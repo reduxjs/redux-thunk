@@ -7,7 +7,11 @@ type State = {
 
 type Actions = { type: 'FOO' };
 
-function fakeReducer(state: State, action: Actions): State {
+const initialState: State = {
+  foo: 'foo'
+};
+
+function fakeReducer(state: State = initialState, action: Actions): State {
   return state;
 }
 
