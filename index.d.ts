@@ -11,10 +11,10 @@ export type ThunkAction<R, S, E, A extends Action> = (
   extraArgument: E
 ) => R;
 
-type ThunkMiddleware<E> = Middleware<ThunkDispatch<S, E, A>, S, ThunkDispatch<S, E, A>>;
+export type ThunkMiddleware<S = {}, A extends Action = AnyAction, E = undefined> = Middleware<ThunkDispatch<S, E, A>, S, ThunkDispatch<S, E, A>>;
 
-declare const thunk: ThunkMiddleware<undefined> & {
-  withExtraArgument<E>(extraArgument: E): ThunkMiddleware<E>
-};
+declare const thunk: ThunkMiddleware & {
+  withExtraArgument<E>(extraArgument: E): ThunkMiddleware<{}, AnyAction, E>
+}
 
 export default thunk;

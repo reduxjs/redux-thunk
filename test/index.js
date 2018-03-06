@@ -1,6 +1,6 @@
 import chai from 'chai';
 import thunkMiddleware from '../src/index';
-import { check } from 'typings-tester';
+import { checkDirectory } from 'typings-tester';
 
 
 describe('thunk middleware', () => {
@@ -98,7 +98,7 @@ describe('thunk middleware', () => {
     this.timeout(0);
 
     it('should compile against index.d.ts', () => {
-      check([__dirname + '/typescript.ts'], __dirname + '/tsconfig.json');
+      checkDirectory(__dirname);
     });
   });
 });

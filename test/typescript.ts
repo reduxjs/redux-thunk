@@ -1,11 +1,13 @@
 import { createStore, applyMiddleware } from 'redux';
-import thunk, { ThunkAction } from '../index';
+import thunk, { ThunkAction, ThunkMiddleware } from '../index';
 
 type State = {
   foo: string;
 };
 
-type Actions = { type: 'FOO' };
+type Actions = { type: 'FOO' } | { type: 'BAR', result: number };
+
+type ThunkResult<R> = ThunkAction<R, State, undefined, Actions>;
 
 const initialState: State = {
   foo: 'foo'
@@ -15,42 +17,52 @@ function fakeReducer(state: State = initialState, action: Actions): State {
   return state;
 }
 
-const store = createStore(fakeReducer, applyMiddleware(thunk));
+const store = createStore(fakeReducer, applyMiddleware(thunk as ThunkMiddleware<State, Actions>));
 
 store.dispatch(dispatch => {
   dispatch({ type: 'FOO' });
+  // typings:expect-error
+  dispatch({ type: 'BAR' })
+  dispatch({ type: 'BAR', result: 5 })
+  // typings:expect-error
+  store.dispatch({ type: 'BAZ'});
 });
 
-function testGetState(): ThunkAction<void, State, {}, Actions> {
+function testGetState(): ThunkResult<void> {
   return (dispatch, getState) => {
     const state = getState();
     const foo: string = state.foo;
+    dispatch({ type: 'FOO' });
+    // typings:expect-error
+    dispatch({ type: 'BAR'});
+    dispatch({ type: 'BAR', result: 5 });
+    // typings:expect-error
+    dispatch({ type: 'BAZ'});
+    // Can dispatch another thunk action
+    dispatch(testGetState());
   };
 }
 
+store.dispatch({ type: 'FOO' });
+// typings:expect-error
+store.dispatch({ type: 'BAR' })
+store.dispatch({ type: 'BAR', result: 5 })
+// typings:expect-error
+store.dispatch({ type: 'BAZ'});
 store.dispatch(testGetState());
 
 const storeThunkArg = createStore(
   fakeReducer,
-  applyMiddleware(thunk.withExtraArgument('bar'))
+  applyMiddleware(thunk.withExtraArgument('bar') as ThunkMiddleware<State, Actions, string>)
 );
 
 storeThunkArg.dispatch((dispatch, getState, extraArg) => {
   const bar: string = extraArg;
+  store.dispatch({ type: 'FOO' });
+  // typings:expect-error
+  store.dispatch({ type: 'BAR' })
+  store.dispatch({ type: 'BAR', result: 5 })
+  // typings:expect-error
+  store.dispatch({ type: 'BAZ'});
   console.log(extraArg);
 });
-
-const thunkAction: ThunkAction<void, State, { bar: number }, Actions> = (
-  dispatch,
-  getState,
-  extraArg
-) => {
-  const foo: string = getState().foo;
-  const bar: number = extraArg.bar;
-
-  dispatch({ type: 'FOO' });
-};
-
-const thunkActionDispatchOnly: ThunkAction<void, {}, {}, Actions> = dispatch => {
-  dispatch({ type: 'FOO' });
-};
