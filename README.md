@@ -1,7 +1,7 @@
 Redux Thunk
 =============
 
-Thunk [middleware](http://redux.js.org/docs/advanced/Middleware.html) for Redux.
+Thunk [middleware](https://redux.js.org/advanced/middleware) for Redux.
 
 [![build status](https://img.shields.io/travis/gaearon/redux-thunk/master.svg?style=flat-square)](https://travis-ci.org/gaearon/redux-thunk) 
 [![npm version](https://img.shields.io/npm/v/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
@@ -104,7 +104,7 @@ let foo = () => 1 + 2;
 npm install --save redux-thunk
 ```
 
-Then, to enable Redux Thunk, use [`applyMiddleware()`](http://redux.js.org/docs/api/applyMiddleware.html):
+Then, to enable Redux Thunk, use [`applyMiddleware()`](https://redux.js.org/api-reference/applymiddleware):
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
