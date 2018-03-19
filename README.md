@@ -316,6 +316,9 @@ function fetchUser(id) {
 }
 ```
 
+## Example for Web Sockets
+
++[This article](https://medium.com/@gethylgeorge/using-socket-io-in-react-redux-app-to-handle-real-time-data-c0e734297795) outlines an example of how to use redux-thunk with WebSockets. The implementation can be found in a Github repo, starting on [this file](https://github.com/Gethyl/RealTimeTodo/blob/master/src/js/components/Layout.js). The example uses socket.io, but using web sockets directly should be similar.
 
 ## License
 
