@@ -39,8 +39,15 @@ function testGetState(): ThunkResult<void> {
     // typings:expect-error
     dispatch({ type: 'BAZ'});
     // Can dispatch another thunk action
-    dispatch(testGetState());
+    dispatch(anotherThunkAction());
   };
+}
+
+function anotherThunkAction(): ThunkResult<string> {
+  return (dispatch, getState) => {
+    dispatch({ type: 'FOO' });
+    return 'hello';
+  }
 }
 
 store.dispatch({ type: 'FOO' });
