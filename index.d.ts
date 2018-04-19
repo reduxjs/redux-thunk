@@ -1,6 +1,6 @@
 import { Middleware, Action, AnyAction } from "redux";
 
-interface ThunkDispatch<S, E, A extends Action> {
+export interface ThunkDispatch<S, E, A extends Action> {
   <T extends A>(action: T): T;
   <R>(asyncAction: ThunkAction<R, S, E, A>): R;
 }
