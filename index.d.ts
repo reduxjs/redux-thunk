@@ -2,7 +2,7 @@ import { Middleware, Dispatch, AnyAction } from "redux";
 
 
 export type ThunkAction<R, S, E = any> = (dispatch: Dispatch, getState: () => S,
-                                          extraArgument: E) => R;
+  extraArgument: E) => R;
 
 
 declare module "redux" {

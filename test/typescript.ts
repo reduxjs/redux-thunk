@@ -1,5 +1,5 @@
 import {Store, Middleware} from 'redux';
-import thunk, {ThunkAction} from '../index.d.ts';
+import thunk, {ThunkAction} from '../index';
 
 
 declare const store: Store<{foo: string}>;
@@ -8,7 +8,7 @@ store.dispatch(dispatch => {
   dispatch({type: 'FOO'});
 });
 
-store.dispatch((dispatch, getState) => {
+store.dispatch((dispatch, getState: () => {foo: string}) => {
   const state = getState();
 
   const foo: string = state.foo;
