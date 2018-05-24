@@ -1,6 +1,6 @@
 import chai from 'chai';
 import thunkMiddleware from '../src/index';
-import * as tt from 'typescript-definition-tester';
+import { checkDirectory } from 'typings-tester';
 
 
 describe('thunk middleware', () => {
@@ -97,12 +97,8 @@ describe('thunk middleware', () => {
   describe('TypeScript definitions', function test() {
     this.timeout(0);
 
-    it('should compile against index.d.ts', (done) => {
-      tt.compileDirectory(
-        __dirname,
-        fileName => fileName.match(/\.ts$/),
-        () => done()
-      );
+    it('should compile against index.d.ts', () => {
+      checkDirectory(__dirname);
     });
   });
 });

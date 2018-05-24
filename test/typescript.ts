@@ -1,33 +1,75 @@
-import {Store, Middleware} from 'redux';
-import thunk, {ThunkAction} from '../index.d.ts';
+import { createStore, applyMiddleware } from 'redux';
+import thunk, { ThunkAction, ThunkMiddleware } from '../index';
 
+type State = {
+  foo: string;
+};
 
-declare const store: Store<{foo: string}>;
+type Actions = { type: 'FOO' } | { type: 'BAR', result: number };
+
+type ThunkResult<R> = ThunkAction<R, State, undefined, Actions>;
+
+const initialState: State = {
+  foo: 'foo'
+};
+
+function fakeReducer(state: State = initialState, action: Actions): State {
+  return state;
+}
+
+const store = createStore(fakeReducer, applyMiddleware(thunk as ThunkMiddleware<State, Actions>));
 
 store.dispatch(dispatch => {
-  dispatch({type: 'FOO'});
+  dispatch({ type: 'FOO' });
+  // typings:expect-error
+  dispatch({ type: 'BAR' })
+  dispatch({ type: 'BAR', result: 5 })
+  // typings:expect-error
+  store.dispatch({ type: 'BAZ'});
 });
 
-store.dispatch((dispatch, getState) => {
-  const state = getState();
+function testGetState(): ThunkResult<void> {
+  return (dispatch, getState) => {
+    const state = getState();
+    const foo: string = state.foo;
+    dispatch({ type: 'FOO' });
+    // typings:expect-error
+    dispatch({ type: 'BAR'});
+    dispatch({ type: 'BAR', result: 5 });
+    // typings:expect-error
+    dispatch({ type: 'BAZ'});
+    // Can dispatch another thunk action
+    dispatch(anotherThunkAction());
+  };
+}
 
-  const foo: string = state.foo;
-});
+function anotherThunkAction(): ThunkResult<string> {
+  return (dispatch, getState) => {
+    dispatch({ type: 'FOO' });
+    return 'hello';
+  }
+}
 
-const middleware: Middleware = thunk.withExtraArgument('bar');
+store.dispatch({ type: 'FOO' });
+// typings:expect-error
+store.dispatch({ type: 'BAR' })
+store.dispatch({ type: 'BAR', result: 5 })
+// typings:expect-error
+store.dispatch({ type: 'BAZ'});
+store.dispatch(testGetState());
 
-store.dispatch((dispatch, getState, extraArg) => {
+const storeThunkArg = createStore(
+  fakeReducer,
+  applyMiddleware(thunk.withExtraArgument('bar') as ThunkMiddleware<State, Actions, string>)
+);
+
+storeThunkArg.dispatch((dispatch, getState, extraArg) => {
+  const bar: string = extraArg;
+  store.dispatch({ type: 'FOO' });
+  // typings:expect-error
+  store.dispatch({ type: 'BAR' })
+  store.dispatch({ type: 'BAR', result: 5 })
+  // typings:expect-error
+  store.dispatch({ type: 'BAZ'});
   console.log(extraArg);
 });
-
-const thunkAction: ThunkAction<void, {foo: string}, {bar: number}> =
-  (dispatch, getState, extraArg) => {
-    const foo: string = getState().foo;
-    const bar: number = extraArg.bar;
-
-    dispatch({type: 'FOO'});
-  };
-
-const thunkActionDispatchOnly: ThunkAction<void, {}, {}> = dispatch => {
-  dispatch({type: 'FOO'});
-};
