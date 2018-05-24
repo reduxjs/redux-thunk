@@ -4,6 +4,7 @@
   "description": "Thunk middleware for Redux.",
   "main": "lib/index.js",
   "jsnext:main": "es/index.js",
+  "module": "es/index.js",
   "typings": "./index.d.ts",
   "files": [
     "lib",
