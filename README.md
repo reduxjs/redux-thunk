@@ -262,10 +262,10 @@ class SandwichShop extends Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.forPerson !== this.props.forPerson) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.forPerson !== this.props.forPerson) {
       this.props.dispatch(
-        makeASandwichWithSecretSauce(nextProps.forPerson)
+        makeASandwichWithSecretSauce(this.props.forPerson)
       );
     }
   }
