@@ -44,6 +44,7 @@
     "babel-core": "^6.6.5",
     "babel-eslint": "^5.0.0-beta4",
     "babel-loader": "^6.2.4",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-check-es2015-constants": "^6.6.5",
     "babel-plugin-transform-es2015-arrow-functions": "^6.5.2",
     "babel-plugin-transform-es2015-block-scoped-functions": "^6.6.5",
