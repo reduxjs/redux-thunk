@@ -3,7 +3,7 @@ Redux Thunk
 
 Thunk [middleware](https://redux.js.org/advanced/middleware) for Redux.
 
-[![build status](https://img.shields.io/travis/gaearon/redux-thunk/master.svg?style=flat-square)](https://travis-ci.org/gaearon/redux-thunk) 
+[![build status](https://img.shields.io/travis/gaearon/redux-thunk/master.svg?style=flat-square)](https://travis-ci.org/gaearon/redux-thunk)
 [![npm version](https://img.shields.io/npm/v/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 [![npm downloads](https://img.shields.io/npm/dm/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 
@@ -300,7 +300,23 @@ function fetchUser(id) {
 }
 ```
 
-To pass multiple things, just wrap them in a single object and use destructuring:
+You can pass multiple things like that:
+
+```js
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk.withExtraArgument(api, whatever))
+)
+
+// later
+function fetchUser(id) {
+  return (dispatch, getState, api, whatever) => {
+    // you can use api and something else here here
+  }
+}
+```
+
+Or use with a destructuring if you want:
 
 ```js
 const store = createStore(
@@ -315,7 +331,6 @@ function fetchUser(id) {
   }
 }
 ```
-
 
 ## License
 
