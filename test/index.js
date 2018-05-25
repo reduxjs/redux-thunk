@@ -80,6 +80,19 @@ describe('thunk middleware', () => {
   });
 
   describe('withExtraArgument', () => {
+    describe('extra argument is a function', () => {
+      it('should call extra argument with dispatch and getState', (done) => {
+        const extraArg = (dispatch, getState) => {
+          chai.assert.strictEqual(dispatch, doDispatch);
+          chai.assert.strictEqual(getState, doGetState);
+          done();
+        };
+        thunkMiddleware.withExtraArgument(extraArg)({
+          dispatch: doDispatch,
+          getState: doGetState,
+        })()(() => {});
+      });
+    });
     it('must pass the third argument', done => {
       const extraArg = { lol: true };
       thunkMiddleware.withExtraArgument(extraArg)({
