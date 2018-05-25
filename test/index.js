@@ -32,7 +32,17 @@ describe('thunk middleware', () => {
         });
       });
 
-      it('must pass action to next if not a function', done => {
+      it('must run the given action payload function with dispatch and getState', done => {
+        const actionHandler = nextHandler();
+
+        actionHandler({ payload: (dispatch, getState) => {
+          chai.assert.strictEqual(dispatch, doDispatch);
+          chai.assert.strictEqual(getState, doGetState);
+          done();
+        }});
+      });
+
+      it('must pass action to next if nether action nor action payload is not a function', done => {
         const actionObj = {};
 
         const actionHandler = nextHandler(action => {
@@ -43,7 +53,7 @@ describe('thunk middleware', () => {
         actionHandler(actionObj);
       });
 
-      it('must return the return value of next if not a function', () => {
+      it('must return the return value of next if nether action nor action payload is not a function', () => {
         const expected = 'redux';
         const actionHandler = nextHandler(() => expected);
 
@@ -59,11 +69,27 @@ describe('thunk middleware', () => {
         chai.assert.strictEqual(outcome, expected);
       });
 
+      it('must return value as expected if action payload is a function', () => {
+        const expected = 'rocks';
+        const actionHandler = nextHandler();
+
+        const outcome = actionHandler({ payload: () => expected });
+        chai.assert.strictEqual(outcome, expected);
+      });
+
       it('must be invoked synchronously if a function', () => {
         const actionHandler = nextHandler();
         let mutated = 0;
 
         actionHandler(() => mutated++);
+        chai.assert.strictEqual(mutated, 1);
+      });
+
+      it('must be invoked synchronously if action payload is a function', () => {
+        const actionHandler = nextHandler();
+        let mutated = 0;
+
+        actionHandler({ payload: () => mutated++ });
         chai.assert.strictEqual(mutated, 1);
       });
     });
