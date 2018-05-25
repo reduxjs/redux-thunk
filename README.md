@@ -27,7 +27,7 @@ If you used ES modules, you’re already all good:
 import ReduxThunk from 'redux-thunk' // no changes here 😀
 ```
 
-Additionally, since 2.x, we also support a [UMD build](https://npmcdn.com/redux-thunk@2.0.1/dist/redux-thunk.min.js):
+Additionally, since 2.x, we also support a [UMD build](https://unpkg.com/redux-thunk@2.0.1/dist/redux-thunk.min.js):
 
 ```js
 var ReduxThunk = window.ReduxThunk.default
