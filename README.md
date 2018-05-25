@@ -97,6 +97,7 @@ let x = 1 + 2;
 let foo = () => 1 + 2;
 ```
 
+The term [originated](https://en.wikipedia.org/wiki/Thunk#cite_note-1) as a humorous past-tense version of "think". 
 
 ## Installation
 
