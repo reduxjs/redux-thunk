@@ -1,9 +1,20 @@
 {
   "name": "redux-thunk",
   "version": "2.2.0",
+  "license": "MIT",
   "description": "Thunk middleware for Redux.",
+  "repository": "github:reduxjs/redux-thunk",
+  "bugs": "https://github.com/reduxjs/redux-thunk/issues",
+  "homepage": "https://github.com/reduxjs/redux-thunk",
+  "keywords": [
+    "redux",
+    "thunk",
+    "middleware",
+    "redux-middleware",
+    "flux"
+  ],
+  "author": "Dan Abramov <dan.abramov@me.com>",
   "main": "lib/index.js",
-  "jsnext:main": "es/index.js",
   "module": "es/index.js",
   "typings": "./index.d.ts",
   "files": [
@@ -15,30 +26,15 @@
   ],
   "scripts": {
     "clean": "rimraf lib dist es",
-    "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min && npm run build:es",
-    "prepublish": "npm run clean && npm run test && npm run build",
-    "posttest": "npm run lint",
+    "prepare": "npm run clean && npm run lint && npm run test && npm run build",
     "lint": "eslint src test",
     "test": "cross-env BABEL_ENV=commonjs mocha --compilers js:babel-core/register --reporter spec test/*.js",
+    "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min && npm run build:es",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
     "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack",
     "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gaearon/redux-thunk.git"
-  },
-  "homepage": "https://github.com/gaearon/redux-thunk",
-  "keywords": [
-    "redux",
-    "thunk",
-    "middleware",
-    "redux-middleware",
-    "flux"
-  ],
-  "author": "Dan Abramov <dan.abramov@me.com>",
-  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-core": "^6.6.5",

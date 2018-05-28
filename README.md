@@ -3,7 +3,7 @@ Redux Thunk
 
 Thunk [middleware](https://redux.js.org/advanced/middleware) for Redux.
 
-[![build status](https://img.shields.io/travis/gaearon/redux-thunk/master.svg?style=flat-square)](https://travis-ci.org/gaearon/redux-thunk) 
+[![build status](https://img.shields.io/travis/reduxjs/redux-thunk/master.svg?style=flat-square)](https://travis-ci.org/reduxjs/redux-thunk) 
 [![npm version](https://img.shields.io/npm/v/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 [![npm downloads](https://img.shields.io/npm/dm/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 
@@ -14,7 +14,7 @@ npm install --save redux-thunk
 ## Note on 2.x Update
 
 Most tutorials today assume Redux Thunk 1.x so you might run into an issue when running their code with 2.x.  
-**If you use Redux Thunk 2.x in CommonJS environment, [don’t forget to add `.default` to your import](https://github.com/gaearon/redux-thunk/releases/tag/v2.0.0):**
+**If you use Redux Thunk 2.x in CommonJS environment, [don’t forget to add `.default` to your import](https://github.com/reduxjs/redux-thunk/releases/tag/v2.0.0):**
 
 ```diff
 - var ReduxThunk = require('redux-thunk')
@@ -27,7 +27,7 @@ If you used ES modules, you’re already all good:
 import ReduxThunk from 'redux-thunk' // no changes here 😀
 ```
 
-Additionally, since 2.x, we also support a [UMD build](https://unpkg.com/redux-thunk@2.0.1/dist/redux-thunk.min.js):
+Additionally, since 2.x, we also support a [UMD build](https://unpkg.com/redux-thunk/dist/redux-thunk.min.js):
 
 ```js
 var ReduxThunk = window.ReduxThunk.default

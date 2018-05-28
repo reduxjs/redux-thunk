@@ -1,11 +1,6 @@
 language: node_js
 node_js:
-  - "4"
-  - "5"
+  - "node"
 script:
-  - npm run clean
   - npm run build
-  - npm run test
-branches:
-  only:
-    - master
+  - npm test
