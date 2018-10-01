@@ -8,7 +8,7 @@ Thunk [middleware](https://redux.js.org/advanced/middleware) for Redux.
 [![npm downloads](https://img.shields.io/npm/dm/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 
 ```js
-npm install --save redux-thunk
+npm install redux-thunk
 ```
 
 ## Note on 2.x Update
@@ -102,7 +102,7 @@ The term [originated](https://en.wikipedia.org/wiki/Thunk#cite_note-1) as a humo
 ## Installation
 
 ```
-npm install --save redux-thunk
+npm install redux-thunk
 ```
 
 Then, to enable Redux Thunk, use [`applyMiddleware()`](https://redux.js.org/api-reference/applymiddleware):
