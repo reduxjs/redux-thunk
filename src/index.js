@@ -1,7 +1,7 @@
-function createThunkMiddleware(extraArgument) {
+function createThunkMiddleware(...extraArguments) {
   return ({ dispatch, getState }) => next => action => {
     if (typeof action === 'function') {
-      return action(dispatch, getState, extraArgument);
+      return action(dispatch, getState, ...extraArguments);
     }
 
     return next(action);
