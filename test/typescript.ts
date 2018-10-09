@@ -78,3 +78,12 @@ const callDispatchAsync_anyAction = (dispatch: ThunkDispatch<State, undefined, a
   const asyncThunk = (): ThunkResult<Promise<void>> => () => ({} as Promise<void>);
   dispatch(asyncThunk()).then(() => console.log('done'))
 }
+const callDispatchAsync_specificActions = (dispatch: ThunkDispatch<State, undefined, Actions>) => {
+  const asyncThunk = (): ThunkResult<Promise<void>> => () => ({} as Promise<void>);
+  dispatch(asyncThunk()).then(() => console.log('done'))
+}
+const callDispatchAny = (dispatch: ThunkDispatch<State, undefined, Actions>) => {
+  const asyncThunk = (): any => () => ({} as Promise<void>);
+  dispatch(asyncThunk()) // result is any
+    .then(() => console.log('done')) 
+}
