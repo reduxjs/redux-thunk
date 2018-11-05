@@ -1,5 +1,14 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk, { ThunkAction, ThunkMiddleware, ThunkDispatch } from '../index';
+import {
+  applyMiddleware,
+  bindActionCreators,
+  createStore,
+} from 'redux';
+
+import thunk, {
+  ThunkAction,
+  ThunkDispatch,
+  ThunkMiddleware,
+} from '../index';
 
 type State = {
   foo: string;
@@ -50,6 +59,34 @@ function anotherThunkAction(): ThunkResult<string> {
   }
 }
 
+function promiseThunkAction(): ThunkResult<Promise<boolean>> {
+  return async (dispatch, getState) => {
+    dispatch({ type: 'FOO' });
+    return false;
+  }
+}
+
+const standardAction = () => ({ type: 'FOO' });
+
+// test that bindActionCreators correctly returns actions responses of ThunkActions
+// also ensure standard action creators still work as expected
+const actions = bindActionCreators({
+  anotherThunkAction,
+  promiseThunkAction,
+  standardAction,
+}, store.dispatch);
+
+actions.anotherThunkAction() === 'hello';
+// typings:expect-error
+actions.anotherThunkAction() === false;
+actions.promiseThunkAction().then((res) => console.log(res));
+// typings:expect-error
+actions.promiseThunkAction().prop;
+actions.standardAction().type;
+// typings:expect-error
+actions.standardAction().other;
+
+
 store.dispatch({ type: 'FOO' });
 // typings:expect-error
 store.dispatch({ type: 'BAR' })
@@ -85,5 +122,5 @@ const callDispatchAsync_specificActions = (dispatch: ThunkDispatch<State, undefi
 const callDispatchAny = (dispatch: ThunkDispatch<State, undefined, Actions>) => {
   const asyncThunk = (): any => () => ({} as Promise<void>);
   dispatch(asyncThunk()) // result is any
-    .then(() => console.log('done')) 
+    .then(() => console.log('done'))
 }

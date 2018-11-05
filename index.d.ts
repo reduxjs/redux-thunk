@@ -1,4 +1,10 @@
-import { Middleware, Action, AnyAction } from "redux";
+import {
+  Action,
+  ActionCreatorsMapObject,
+  AnyAction,
+  Dispatch,
+  Middleware,
+} from 'redux';
 
 export interface ThunkDispatch<S, E, A extends Action> {
   <R>(thunkAction: ThunkAction<R, S, E, A>): R;
@@ -18,3 +24,17 @@ declare const thunk: ThunkMiddleware & {
 }
 
 export default thunk;
+
+/**
+ * Redux behaviour changed by middleware, so overloads here
+ */
+declare module 'redux' {
+  /**
+   * Overload for bindActionCreators redux function, returns expects responses
+   * from thunk actions
+   */
+  function bindActionCreators<M extends ActionCreatorsMapObject<any>>(
+    actionCreators: M,
+    dispatch: Dispatch,
+  ): { [N in keyof M]: ReturnType<M[N]> extends ThunkAction<any, any, any, any> ? (...args: Parameters<M[N]>) => ReturnType<ReturnType<M[N]>> : M[N] }
+}
