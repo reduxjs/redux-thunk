@@ -17,6 +17,15 @@ export type ThunkAction<R, S, E, A extends Action> = (
   extraArgument: E
 ) => R;
 
+/**
+ * Takes a ThunkAction and returns a function signature which matches how it would appear when processed using
+ * bindActionCreators
+ *
+ * @template T ThunkAction to be wrapped
+ */
+export type ThunkActionDispatch<T extends ThunkAction<any, any, any, any>> = (...args: Parameters<T>)
+  => ReturnType<ReturnType<T>>;
+
 export type ThunkMiddleware<S = {}, A extends Action = AnyAction, E = undefined> = Middleware<ThunkDispatch<S, E, A>, S, ThunkDispatch<S, E, A>>;
 
 declare const thunk: ThunkMiddleware & {
