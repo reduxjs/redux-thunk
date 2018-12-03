@@ -6,6 +6,7 @@ import {
 
 import thunk, {
   ThunkAction,
+  ThunkActionDispatch,
   ThunkDispatch,
   ThunkMiddleware,
 } from '../index';
@@ -68,13 +69,21 @@ function promiseThunkAction(): ThunkResult<Promise<boolean>> {
 
 const standardAction = () => ({ type: 'FOO' });
 
+interface ActionDispatchs {
+  anotherThunkAction: ThunkActionDispatch<typeof anotherThunkAction>;
+  promiseThunkAction: ThunkActionDispatch<typeof promiseThunkAction>;
+  standardAction: typeof standardAction;
+}
+
 // test that bindActionCreators correctly returns actions responses of ThunkActions
 // also ensure standard action creators still work as expected
-const actions = bindActionCreators({
+const actions: ActionDispatchs = bindActionCreators({
   anotherThunkAction,
   promiseThunkAction,
   standardAction,
 }, store.dispatch);
+
+
 
 actions.anotherThunkAction() === 'hello';
 // typings:expect-error

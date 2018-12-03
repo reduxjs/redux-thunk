@@ -23,7 +23,7 @@ export type ThunkAction<R, S, E, A extends Action> = (
  *
  * @template T ThunkAction to be wrapped
  */
-export type ThunkActionDispatch<T extends ThunkAction<any, any, any, any>> = (...args: Parameters<T>)
+export type ThunkActionDispatch<T extends (...args: any[]) => ThunkAction<any, any, any, any>> = (...args: Parameters<T>)
   => ReturnType<ReturnType<T>>;
 
 export type ThunkMiddleware<S = {}, A extends Action = AnyAction, E = undefined> = Middleware<ThunkDispatch<S, E, A>, S, ThunkDispatch<S, E, A>>;
