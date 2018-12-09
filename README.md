@@ -57,6 +57,8 @@ For more details on why thunks are useful, see:
   https://medium.com/fullstack-academy/thunks-in-redux-the-basics-85e538a3fe60  
   A detailed look at what thunks are, what they solve, and how to use them.
   
+You may also want to read the **[Redux FAQ entry on choosing which async middleware to use](https://redux.js.org/faq/actions#what-async-middleware-should-i-use-how-do-you-decide-between-thunks-sagas-observables-or-something-else)**.
+  
 While the thunk middleware is not directly included with the Redux core library, it is used by default in our **[`redux-starter-kit` package](https://github.com/reduxjs/redux-starter-kit)**.
 
 ## Motivation
