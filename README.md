@@ -37,9 +37,27 @@ As you can see, it also requires `.default` at the end.
 
 ## Why Do I Need This?
 
-If you’re not sure whether you need it, you probably don’t.
+Thunks are the recommended middleware for basic Redux side effects logic, including complex synchronous logic that needs access to the store, and simple async logic like AJAX requests.
 
-**[Read this for an in-depth introduction to thunks in Redux.](http://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559)**
+For more details on why thunks are useful, see:
+
+- **Stack Overflow: Dispatching Redux Actions with a Timeout**  
+  http://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559  
+  Dan Abramov explains the basics of managing async behavior in Redux, walking through a progressive series of approaches (inline async calls, async action creators, thunk middleware).
+
+- **Stack Overflow: Why do we need middleware for async flow in Redux?**  
+  http://stackoverflow.com/questions/34570758/why-do-we-need-middleware-for-async-flow-in-redux/34599594#34599594  
+  Dan Abramov gives reasons for using thunks and async middleware, and some useful patterns for using thunks.
+
+- **What the heck is a "thunk"?**  
+  https://daveceddia.com/what-is-a-thunk/  
+  A quick explanation for what the word "thunk" means in general, and for Redux specifically.
+
+- **Thunks in Redux: The Basics**  
+  https://medium.com/fullstack-academy/thunks-in-redux-the-basics-85e538a3fe60  
+  A detailed look at what thunks are, what they solve, and how to use them.
+  
+While the thunk middleware is not directly included with the Redux core library, it is used by default in our **[`redux-starter-kit` package](https://github.com/reduxjs/redux-starter-kit)**.
 
 ## Motivation
 
