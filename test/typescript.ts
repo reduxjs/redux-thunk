@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
-import thunk, { ThunkAction, ThunkMiddleware } from '../index';
+import thunk, { ThunkAction, ThunkMiddleware, ThunkDispatch } from '../index';
 
 type State = {
   foo: string;
@@ -73,3 +73,17 @@ storeThunkArg.dispatch((dispatch, getState, extraArg) => {
   store.dispatch({ type: 'BAZ'});
   console.log(extraArg);
 });
+
+const callDispatchAsync_anyAction = (dispatch: ThunkDispatch<State, undefined, any>) => {
+  const asyncThunk = (): ThunkResult<Promise<void>> => () => ({} as Promise<void>);
+  dispatch(asyncThunk()).then(() => console.log('done'))
+}
+const callDispatchAsync_specificActions = (dispatch: ThunkDispatch<State, undefined, Actions>) => {
+  const asyncThunk = (): ThunkResult<Promise<void>> => () => ({} as Promise<void>);
+  dispatch(asyncThunk()).then(() => console.log('done'))
+}
+const callDispatchAny = (dispatch: ThunkDispatch<State, undefined, Actions>) => {
+  const asyncThunk = (): any => () => ({} as Promise<void>);
+  dispatch(asyncThunk()) // result is any
+    .then(() => console.log('done')) 
+}
