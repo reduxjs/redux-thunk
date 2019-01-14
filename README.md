@@ -337,6 +337,20 @@ function fetchUser(id) {
 }
 ```
 
+### Using state in your custom argument
+If you need some dynamic configuration in your custom argument (like an api token in a multi-tenant application), you can pass a function that receives the getState function, returning the custom argument. Example:
+
+```js
+const someArg = getState => ({
+  myDinamyValue: getState().myValue
+  myStaticValue: 123
+});
+
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk.withExtraArgument(someArg))
+)
+```
 
 ## License
 
