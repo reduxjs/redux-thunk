@@ -92,6 +92,24 @@ describe('thunk middleware', () => {
         done();
       });
     });
+
+    it('must call with `getState` when is function', done => {
+      const extraArg = getState => {
+        chai.assert.strictEqual(getState, doGetState);
+        return { argGetState: getState };
+      };
+
+      thunkMiddleware.withExtraArgument(extraArg)({
+        dispatch: doDispatch,
+        getState: doGetState,
+      })()((dispatch, getState, arg) => {
+        chai.assert.strictEqual(dispatch, doDispatch);
+        chai.assert.strictEqual(getState, doGetState);
+        chai.assert.strictEqual(arg.argGetState, doGetState);
+        chai.assert.deepEqual(arg, extraArg(doGetState));
+        done();
+      });
+    });
   });
 
   describe('TypeScript definitions', function test() {
