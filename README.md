@@ -221,7 +221,7 @@ store.dispatch(
 // from the dispatch, so I can chain Promises as long as I return them.
 
 store.dispatch(
-  makeASandwichWithSecretSauce('My wife')
+  makeASandwichWithSecretSauce('My partner')
 ).then(() => {
   console.log('Done!');
 });
