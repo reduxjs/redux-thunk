@@ -193,9 +193,9 @@ store.dispatch(withdrawMoney(100));
 // such as an API call, or a router transition?
 
 // Meet thunks.
-// A thunk is a function that returns a function.
-// This is a thunk.
-
+// A thunk in this context is a function that can be dispatched to perform async
+// activity and can dispatch actions and read state. This is an action creator
+// that returns a thunk.
 function makeASandwichWithSecretSauce(forPerson) {
 
   // Invert control!
