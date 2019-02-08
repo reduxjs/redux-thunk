@@ -197,11 +197,9 @@ store.dispatch(withdrawMoney(100));
 // activity and can dispatch actions and read state. This is an action creator
 // that returns a thunk.
 function makeASandwichWithSecretSauce(forPerson) {
-
-  // Invert control!
-  // Return a function that accepts `dispatch` so we can dispatch later.
-  // Thunk middleware knows how to turn thunk async actions into actions.
-
+  // Invert control!, return a function.
+  // Thunk middleware knows to call thunk async actions, passing `dispatch` and
+  // `getState` so we can dispatch later, with access to state.
   return function (dispatch) {
     return fetchSecretSauce().then(
       sauce => dispatch(makeASandwich(forPerson, sauce)),
