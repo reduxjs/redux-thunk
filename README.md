@@ -193,15 +193,14 @@ store.dispatch(withdrawMoney(100));
 // such as an API call, or a router transition?
 
 // Meet thunks.
-// A thunk is a function that returns a function.
-// This is a thunk.
-
+// A thunk in this context is a function that can be dispatched to perform async
+// activity and can dispatch actions and read state. 
+// This is an action creator that returns a thunk:
 function makeASandwichWithSecretSauce(forPerson) {
-
-  // Invert control!
-  // Return a function that accepts `dispatch` so we can dispatch later.
-  // Thunk middleware knows how to turn thunk async actions into actions.
-
+  // We can invert control here by returning a function - the "thunk".
+  // When this function is passed to `dispatch`, the thunk middleware will intercept it,
+  // and call it with `dispatch` and `getState` as arguments. 
+  // This gives the thunk function the ability to run some logic, and still interact with the store.
   return function (dispatch) {
     return fetchSecretSauce().then(
       sauce => dispatch(makeASandwich(forPerson, sauce)),
