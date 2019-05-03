@@ -2,7 +2,6 @@ import {
   Action,
   ActionCreatorsMapObject,
   AnyAction,
-  Dispatch,
   Middleware
 } from "redux";
 
@@ -100,6 +99,18 @@ export default thunk;
  * Redux behaviour changed by middleware, so overloads here
  */
 declare module "redux" {
+  /*
+   * Overload to add thunk support to Redux's dispatch() function.
+   * Useful for react-redux or any other library which could use this type.
+   */
+  export interface Dispatch<
+    A extends Action<any> = AnyAction,
+  > {
+    <TReturnType, TState, TExtraThunkArg>(
+      thunkAction: ThunkAction<TReturnType, TState, TExtraThunkArg, A>
+    ): TReturnType;
+  }
+
   /**
    * Overload for bindActionCreators redux function, returns expects responses
    * from thunk actions
