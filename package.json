@@ -35,6 +35,9 @@
     "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack",
     "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack"
   },
+  "peerDependencies": {
+    "redux": "^4.0.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-core": "^6.6.5",
