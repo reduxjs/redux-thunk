@@ -27,7 +27,11 @@ export interface ThunkDispatch<
   ): TReturnType;
   <A extends TBasicAction>(action: A): A;
   // This overload is the union of the two above (see TS issue #14107).
-  <R, T extends A>(action: T | ThunkAction<R, S, E, A>): T | R;
+  <TReturnType, TAction extends TBasicAction>(
+    action:
+      | TAction
+      | ThunkAction<TReturnType, TState, TExtraThunkArg, TBasicAction>
+  ): TAction | TReturnType;
 }
 
 /**
