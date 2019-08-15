@@ -109,7 +109,7 @@ const storeThunkArg = createStore(
   applyMiddleware(thunk.withExtraArgument('bar') as ThunkMiddleware<State, Actions, string>)
 );
 
-storeThunkArg.dispatch((dispatch, getState, extraArg) => {
+const thunkAction: ThunkAction<void, State, string, Actions> = (dispatch, getState, extraArg) => {
   const bar: string = extraArg;
   store.dispatch({ type: 'FOO' });
   // typings:expect-error
@@ -118,7 +118,10 @@ storeThunkArg.dispatch((dispatch, getState, extraArg) => {
   // typings:expect-error
   store.dispatch({ type: 'BAZ'});
   console.log(extraArg);
-});
+}
+
+// thunkAction must be explicitly typed
+storeThunkArg.dispatch(thunkAction);
 
 const callDispatchAsync_anyAction = (dispatch: ThunkDispatch<State, undefined, any>) => {
   const asyncThunk = (): ThunkResult<Promise<void>> => () => ({} as Promise<void>);
