@@ -3,8 +3,8 @@ import {
   ActionCreatorsMapObject,
   AnyAction,
   Dispatch,
-  Middleware
-} from "redux";
+  Middleware,
+} from 'redux';
 
 /**
  * The dispatch method as modified by React-Thunk; overloaded so that you can
@@ -23,14 +23,14 @@ export interface ThunkDispatch<
   TBasicAction extends Action
 > {
   <TReturnType>(
-    thunkAction: ThunkAction<TReturnType, TState, TExtraThunkArg, TBasicAction>
+    thunkAction: ThunkAction<TReturnType, TState, TExtraThunkArg, TBasicAction>,
   ): TReturnType;
   <A extends TBasicAction>(action: A): A;
   // This overload is the union of the two above (see TS issue #14107).
   <TReturnType, TAction extends TBasicAction>(
     action:
       | TAction
-      | ThunkAction<TReturnType, TState, TExtraThunkArg, TBasicAction>
+      | ThunkAction<TReturnType, TState, TExtraThunkArg, TBasicAction>,
   ): TAction | TReturnType;
 }
 
@@ -55,7 +55,7 @@ export type ThunkAction<
 > = (
   dispatch: ThunkDispatch<TState, TExtraThunkArg, TBasicAction>,
   getState: () => TState,
-  extraArgument: TExtraThunkArg
+  extraArgument: TExtraThunkArg,
 ) => TReturnType;
 
 /**
@@ -94,7 +94,7 @@ declare const thunk: ThunkMiddleware & {
     TState = {},
     TBasicAction extends Action<any> = AnyAction
   >(
-    extraArgument: TExtraThunkArg
+    extraArgument: TExtraThunkArg,
   ): ThunkMiddleware<TState, TBasicAction, TExtraThunkArg>;
 };
 
@@ -103,7 +103,7 @@ export default thunk;
 /**
  * Redux behaviour changed by middleware, so overloads here
  */
-declare module "redux" {
+declare module 'redux' {
   /**
    * Overload for bindActionCreators redux function, returns expects responses
    * from thunk actions
@@ -112,7 +112,7 @@ declare module "redux" {
     TActionCreators extends ActionCreatorsMapObject<any>
   >(
     actionCreators: TActionCreators,
-    dispatch: Dispatch
+    dispatch: Dispatch,
   ): {
     [TActionCreatorName in keyof TActionCreators]: ReturnType<
       TActionCreators[TActionCreatorName]
@@ -120,6 +120,6 @@ declare module "redux" {
       ? (
           ...args: Parameters<TActionCreators[TActionCreatorName]>
         ) => ReturnType<ReturnType<TActionCreators[TActionCreatorName]>>
-      : TActionCreators[TActionCreatorName]
+      : TActionCreators[TActionCreatorName];
   };
 }

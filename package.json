@@ -16,13 +16,12 @@
   "author": "Dan Abramov <dan.abramov@me.com>",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "typings": "./index.d.ts",
+  "types": "src/index.d.ts",
   "files": [
     "lib",
     "es",
     "src",
-    "dist",
-    "index.d.ts"
+    "dist"
   ],
   "scripts": {
     "clean": "rimraf lib dist es",
@@ -35,6 +34,29 @@
     "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development npx webpack",
     "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production npx webpack"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "proseWrap": "always",
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
   "peerDependencies": {
     "redux": "^4"
   },
@@ -43,15 +65,22 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/register": "^7.5.5",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
     "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
     "eslint": "^6.2.2",
     "eslint-config-airbnb": "18.0.1",
+    "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
+    "husky": "^3.0.4",
+    "lint-staged": "^9.2.5",
     "mocha": "^6.2.0",
+    "prettier": "^1.18.2",
     "redux": "^4",
     "rimraf": "^3.0.0",
     "typescript": "^3.6.2",

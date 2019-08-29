@@ -1,6 +1,10 @@
 language: node_js
+
 node_js:
-  - "node"
+  - 'lts/*'
+
+cache: npm
+
 script:
   - npm run build
   - npm test
