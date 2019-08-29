@@ -2,18 +2,9 @@ language: node_js
 
 node_js:
   - 'lts/*'
-  - '10'
-  - '8'
 
 cache: npm
-
-branches:
-  only:
-    - master
 
 script:
   - npm run build
   - npm test
-
-after_success:
-  - npx semantic-release
