@@ -89,9 +89,13 @@ export type ThunkMiddleware<
 >;
 
 declare const thunk: ThunkMiddleware & {
-  withExtraArgument<TExtraThunkArg>(
+  withExtraArgument<
+    TExtraThunkArg,
+    TState = {},
+    TBasicAction extends Action<any> = AnyAction
+  >(
     extraArgument: TExtraThunkArg
-  ): ThunkMiddleware<{}, AnyAction, TExtraThunkArg>;
+  ): ThunkMiddleware<TState, TBasicAction, TExtraThunkArg>;
 };
 
 export default thunk;
