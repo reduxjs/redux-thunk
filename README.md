@@ -1,9 +1,8 @@
-Redux Thunk
-=============
+# Redux Thunk
 
 Thunk [middleware](https://redux.js.org/advanced/middleware) for Redux.
 
-[![build status](https://img.shields.io/travis/reduxjs/redux-thunk/master.svg?style=flat-square)](https://travis-ci.org/reduxjs/redux-thunk) 
+[![build status](https://img.shields.io/travis/reduxjs/redux-thunk/master.svg?style=flat-square)](https://travis-ci.org/reduxjs/redux-thunk)
 [![npm version](https://img.shields.io/npm/v/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 [![npm downloads](https://img.shields.io/npm/dm/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 
@@ -13,59 +12,78 @@ npm install redux-thunk
 
 ## Note on 2.x Update
 
-Most tutorials today assume Redux Thunk 1.x so you might run into an issue when running their code with 2.x.  
-**If you use Redux Thunk 2.x in CommonJS environment, [don’t forget to add `.default` to your import](https://github.com/reduxjs/redux-thunk/releases/tag/v2.0.0):**
+Most tutorials today assume Redux Thunk 1.x so you might run into an issue when
+running their code with 2.x.  
+**If you use Redux Thunk 2.x in CommonJS environment,
+[don’t forget to add `.default` to your import](https://github.com/reduxjs/redux-thunk/releases/tag/v2.0.0):**
 
 ```diff
-- var ReduxThunk = require('redux-thunk')
-+ var ReduxThunk = require('redux-thunk').default
+- const ReduxThunk = require('redux-thunk')
++ const ReduxThunk = require('redux-thunk').default
 ```
 
 If you used ES modules, you’re already all good:
 
 ```js
-import ReduxThunk from 'redux-thunk' // no changes here 😀
+import ReduxThunk from 'redux-thunk'; // no changes here 😀
 ```
 
-Additionally, since 2.x, we also support a [UMD build](https://unpkg.com/redux-thunk/dist/redux-thunk.min.js):
+Additionally, since 2.x, we also support a
+[UMD build](https://unpkg.com/redux-thunk/dist/redux-thunk.min.js):
 
 ```js
-var ReduxThunk = window.ReduxThunk.default
+const ReduxThunk = window.ReduxThunk.default;
 ```
 
 As you can see, it also requires `.default` at the end.
 
 ## Why Do I Need This?
 
-With a plain basic Redux store, you can only do simple synchronous updates by dispatching an action.  Middleware extend the store's abilities, and let you write async logic that interacts with the store.
+With a plain basic Redux store, you can only do simple synchronous updates by
+dispatching an action. Middleware extend the store's abilities, and let you
+write async logic that interacts with the store.
 
-Thunks are the recommended middleware for basic Redux side effects logic, including complex synchronous logic that needs access to the store, and simple async logic like AJAX requests.
+Thunks are the recommended middleware for basic Redux side effects logic,
+including complex synchronous logic that needs access to the store, and simple
+async logic like AJAX requests.
 
 For more details on why thunks are useful, see:
 
 - **Stack Overflow: Dispatching Redux Actions with a Timeout**  
   http://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559  
-  Dan Abramov explains the basics of managing async behavior in Redux, walking through a progressive series of approaches (inline async calls, async action creators, thunk middleware).
+  Dan Abramov explains the basics of managing async behavior in Redux, walking
+  through a progressive series of approaches (inline async calls, async action
+  creators, thunk middleware).
 
 - **Stack Overflow: Why do we need middleware for async flow in Redux?**  
   http://stackoverflow.com/questions/34570758/why-do-we-need-middleware-for-async-flow-in-redux/34599594#34599594  
-  Dan Abramov gives reasons for using thunks and async middleware, and some useful patterns for using thunks.
+  Dan Abramov gives reasons for using thunks and async middleware, and some
+  useful patterns for using thunks.
 
 - **What the heck is a "thunk"?**  
   https://daveceddia.com/what-is-a-thunk/  
-  A quick explanation for what the word "thunk" means in general, and for Redux specifically.
+  A quick explanation for what the word "thunk" means in general, and for Redux
+  specifically.
 
 - **Thunks in Redux: The Basics**  
   https://medium.com/fullstack-academy/thunks-in-redux-the-basics-85e538a3fe60  
   A detailed look at what thunks are, what they solve, and how to use them.
-  
-You may also want to read the **[Redux FAQ entry on choosing which async middleware to use](https://redux.js.org/faq/actions#what-async-middleware-should-i-use-how-do-you-decide-between-thunks-sagas-observables-or-something-else)**.
-  
-While the thunk middleware is not directly included with the Redux core library, it is used by default in our **[`redux-starter-kit` package](https://github.com/reduxjs/redux-starter-kit)**.
+
+You may also want to read the
+**[Redux FAQ entry on choosing which async middleware to use](https://redux.js.org/faq/actions#what-async-middleware-should-i-use-how-do-you-decide-between-thunks-sagas-observables-or-something-else)**.
+
+While the thunk middleware is not directly included with the Redux core library,
+it is used by default in our
+**[`redux-starter-kit` package](https://github.com/reduxjs/redux-starter-kit)**.
 
 ## Motivation
 
-Redux Thunk [middleware](https://github.com/reactjs/redux/blob/master/docs/advanced/Middleware.md) allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods `dispatch` and `getState` as parameters.
+Redux Thunk
+[middleware](https://github.com/reactjs/redux/blob/master/docs/advanced/Middleware.md)
+allows you to write action creators that return a function instead of an action.
+The thunk can be used to delay the dispatch of an action, or to dispatch only if
+a certain condition is met. The inner function receives the store methods
+`dispatch` and `getState` as parameters.
 
 An action creator that returns a function to perform asynchronous dispatch:
 
@@ -74,12 +92,12 @@ const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
 
 function increment() {
   return {
-    type: INCREMENT_COUNTER
+    type: INCREMENT_COUNTER,
   };
 }
 
 function incrementAsync() {
-  return dispatch => {
+  return (dispatch) => {
     setTimeout(() => {
       // Yay! Can invoke sync or async actions with `dispatch`
       dispatch(increment());
@@ -106,7 +124,8 @@ function incrementIfOdd() {
 
 ## What’s a thunk?!
 
-A [thunk](https://en.wikipedia.org/wiki/Thunk) is a function that wraps an expression to delay its evaluation.
+A [thunk](https://en.wikipedia.org/wiki/Thunk) is a function that wraps an
+expression to delay its evaluation.
 
 ```js
 // calculation of 1 + 2 is immediate
@@ -119,15 +138,17 @@ let x = 1 + 2;
 let foo = () => 1 + 2;
 ```
 
-The term [originated](https://en.wikipedia.org/wiki/Thunk#cite_note-1) as a humorous past-tense version of "think". 
+The term [originated](https://en.wikipedia.org/wiki/Thunk#cite_note-1) as a
+humorous past-tense version of "think".
 
 ## Installation
 
-```
+```bash
 npm install redux-thunk
 ```
 
-Then, to enable Redux Thunk, use [`applyMiddleware()`](https://redux.js.org/api-reference/applymiddleware):
+Then, to enable Redux Thunk, use
+[`applyMiddleware()`](https://redux.js.org/api-reference/applymiddleware):
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
@@ -135,15 +156,15 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 
 // Note: this API requires redux@>=3.1.0
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 ```
 
 ## Composition
 
-Any return value from the inner function will be available as the return value of `dispatch` itself. This is convenient for orchestrating an asynchronous control flow with thunk action creators dispatching each other and returning Promises to wait for each other’s completion:
+Any return value from the inner function will be available as the return value
+of `dispatch` itself. This is convenient for orchestrating an asynchronous
+control flow with thunk action creators dispatching each other and returning
+Promises to wait for each other’s completion:
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
@@ -151,10 +172,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
 // Note: this API requires redux@>=3.1.0
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 function fetchSecretSauce() {
   return fetch('https://www.google.com/search?q=secret+sauce');
@@ -168,7 +186,7 @@ function makeASandwich(forPerson, secretSauce) {
   return {
     type: 'MAKE_SANDWICH',
     forPerson,
-    secretSauce
+    secretSauce,
   };
 }
 
@@ -177,14 +195,14 @@ function apologize(fromPerson, toPerson, error) {
     type: 'APOLOGIZE',
     fromPerson,
     toPerson,
-    error
+    error,
   };
 }
 
 function withdrawMoney(amount) {
   return {
     type: 'WITHDRAW',
-    amount
+    amount,
   };
 }
 
@@ -196,17 +214,17 @@ store.dispatch(withdrawMoney(100));
 
 // Meet thunks.
 // A thunk in this context is a function that can be dispatched to perform async
-// activity and can dispatch actions and read state. 
+// activity and can dispatch actions and read state.
 // This is an action creator that returns a thunk:
 function makeASandwichWithSecretSauce(forPerson) {
   // We can invert control here by returning a function - the "thunk".
   // When this function is passed to `dispatch`, the thunk middleware will intercept it,
-  // and call it with `dispatch` and `getState` as arguments. 
+  // and call it with `dispatch` and `getState` as arguments.
   // This gives the thunk function the ability to run some logic, and still interact with the store.
-  return function (dispatch) {
+  return function(dispatch) {
     return fetchSecretSauce().then(
-      sauce => dispatch(makeASandwich(forPerson, sauce)),
-      error => dispatch(apologize('The Sandwich Shop', forPerson, error))
+      (sauce) => dispatch(makeASandwich(forPerson, sauce)),
+      (error) => dispatch(apologize('The Sandwich Shop', forPerson, error)),
     );
   };
 }
@@ -214,16 +232,12 @@ function makeASandwichWithSecretSauce(forPerson) {
 // Thunk middleware lets me dispatch thunk async actions
 // as if they were actions!
 
-store.dispatch(
-  makeASandwichWithSecretSauce('Me')
-);
+store.dispatch(makeASandwichWithSecretSauce('Me'));
 
 // It even takes care to return the thunk’s return value
 // from the dispatch, so I can chain Promises as long as I return them.
 
-store.dispatch(
-  makeASandwichWithSecretSauce('My partner')
-).then(() => {
+store.dispatch(makeASandwichWithSecretSauce('My partner')).then(() => {
   console.log('Done!');
 });
 
@@ -232,9 +246,8 @@ store.dispatch(
 // and I can build my control flow with Promises.
 
 function makeSandwichesForEverybody() {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     if (!getState().sandwiches.isShopOpen) {
-
       // You don’t have to return Promises, but it’s a handy convention
       // so the caller can always call .then() on async dispatch result.
 
@@ -244,32 +257,32 @@ function makeSandwichesForEverybody() {
     // We can dispatch both plain object actions and other thunks,
     // which lets us compose the asynchronous actions in a single flow.
 
-    return dispatch(
-      makeASandwichWithSecretSauce('My Grandma')
-    ).then(() =>
-      Promise.all([
-        dispatch(makeASandwichWithSecretSauce('Me')),
-        dispatch(makeASandwichWithSecretSauce('My wife'))
-      ])
-    ).then(() =>
-      dispatch(makeASandwichWithSecretSauce('Our kids'))
-    ).then(() =>
-      dispatch(getState().myMoney > 42 ?
-        withdrawMoney(42) :
-        apologize('Me', 'The Sandwich Shop')
+    return dispatch(makeASandwichWithSecretSauce('My Grandma'))
+      .then(() =>
+        Promise.all([
+          dispatch(makeASandwichWithSecretSauce('Me')),
+          dispatch(makeASandwichWithSecretSauce('My wife')),
+        ]),
       )
-    );
+      .then(() => dispatch(makeASandwichWithSecretSauce('Our kids')))
+      .then(() =>
+        dispatch(
+          getState().myMoney > 42
+            ? withdrawMoney(42)
+            : apologize('Me', 'The Sandwich Shop'),
+        ),
+      );
   };
 }
 
 // This is very useful for server side rendering, because I can wait
 // until data is available, then synchronously render the app.
 
-store.dispatch(
-  makeSandwichesForEverybody()
-).then(() =>
-  response.send(ReactDOMServer.renderToString(<MyApp store={store} />))
-);
+store
+  .dispatch(makeSandwichesForEverybody())
+  .then(() =>
+    response.send(ReactDOMServer.renderToString(<MyApp store={store} />)),
+  );
 
 // I can also dispatch a thunk async action from a component
 // any time its props change to load the missing data.
@@ -279,65 +292,60 @@ import { Component } from 'react';
 
 class SandwichShop extends Component {
   componentDidMount() {
-    this.props.dispatch(
-      makeASandwichWithSecretSauce(this.props.forPerson)
-    );
+    this.props.dispatch(makeASandwichWithSecretSauce(this.props.forPerson));
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.forPerson !== this.props.forPerson) {
-      this.props.dispatch(
-        makeASandwichWithSecretSauce(this.props.forPerson)
-      );
+      this.props.dispatch(makeASandwichWithSecretSauce(this.props.forPerson));
     }
   }
 
   render() {
-    return <p>{this.props.sandwiches.join('mustard')}</p>
+    return <p>{this.props.sandwiches.join('mustard')}</p>;
   }
 }
 
-export default connect(
-  state => ({
-    sandwiches: state.sandwiches
-  })
-)(SandwichShop);
+export default connect((state) => ({
+  sandwiches: state.sandwiches,
+}))(SandwichShop);
 ```
 
 ## Injecting a Custom Argument
 
-Since 2.1.0, Redux Thunk supports injecting a custom argument using the `withExtraArgument` function:
+Since 2.1.0, Redux Thunk supports injecting a custom argument using the
+`withExtraArgument` function:
 
 ```js
 const store = createStore(
   reducer,
-  applyMiddleware(thunk.withExtraArgument(api))
-)
+  applyMiddleware(thunk.withExtraArgument(api)),
+);
 
 // later
 function fetchUser(id) {
   return (dispatch, getState, api) => {
     // you can use api here
-  }
+  };
 }
 ```
 
-To pass multiple things, just wrap them in a single object and use destructuring:
+To pass multiple things, just wrap them in a single object and use
+destructuring:
 
 ```js
 const store = createStore(
   reducer,
-  applyMiddleware(thunk.withExtraArgument({ api, whatever }))
-)
+  applyMiddleware(thunk.withExtraArgument({ api, whatever })),
+);
 
 // later
 function fetchUser(id) {
   return (dispatch, getState, { api, whatever }) => {
     // you can use api and something else here
-  }
+  };
 }
 ```
-
 
 ## License
 

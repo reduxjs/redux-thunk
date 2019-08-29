@@ -1,12 +1,21 @@
 {
-  "extends": "eslint-config-airbnb",
+  "extends": [
+    "eslint-config-airbnb",
+    "prettier",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "env": {
-    "mocha": true,
     "node": true
   },
-  "globals": {
-    "expect": true
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "impliedStrict": true
+    },
+    "ecmaVersion": 6,
+    "sourceType": "module"
   },
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "padded-blocks": 0,
     "no-use-before-define": [2, "nofunc"],

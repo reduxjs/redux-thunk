@@ -5,7 +5,10 @@ import thunkMiddleware from '../src/index';
 describe('thunk middleware', () => {
   const doDispatch = () => {};
   const doGetState = () => {};
-  const nextHandler = thunkMiddleware({ dispatch: doDispatch, getState: doGetState });
+  const nextHandler = thunkMiddleware({
+    dispatch: doDispatch,
+    getState: doGetState,
+  });
 
   it('must return a function to handle next', () => {
     chai.assert.isFunction(nextHandler);
