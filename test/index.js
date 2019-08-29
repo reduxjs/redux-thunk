@@ -1,12 +1,11 @@
 import chai from 'chai';
-import thunkMiddleware from '../src/index';
 import { checkDirectory } from 'typings-tester';
-
+import thunkMiddleware from '../src/index';
 
 describe('thunk middleware', () => {
   const doDispatch = () => {};
   const doGetState = () => {};
-  const nextHandler = thunkMiddleware({dispatch: doDispatch, getState: doGetState});
+  const nextHandler = thunkMiddleware({ dispatch: doDispatch, getState: doGetState });
 
   it('must return a function to handle next', () => {
     chai.assert.isFunction(nextHandler);
@@ -22,7 +21,7 @@ describe('thunk middleware', () => {
     });
 
     describe('handle action', () => {
-      it('must run the given action function with dispatch and getState', done => {
+      it('must run the given action function with dispatch and getState', (done) => {
         const actionHandler = nextHandler();
 
         actionHandler((dispatch, getState) => {
@@ -32,10 +31,10 @@ describe('thunk middleware', () => {
         });
       });
 
-      it('must pass action to next if not a function', done => {
+      it('must pass action to next if not a function', (done) => {
         const actionObj = {};
 
-        const actionHandler = nextHandler(action => {
+        const actionHandler = nextHandler((action) => {
           chai.assert.strictEqual(action, actionObj);
           done();
         });
@@ -63,6 +62,7 @@ describe('thunk middleware', () => {
         const actionHandler = nextHandler();
         let mutated = 0;
 
+        // eslint-disable-next-line no-plusplus
         actionHandler(() => mutated++);
         chai.assert.strictEqual(mutated, 1);
       });
@@ -70,7 +70,7 @@ describe('thunk middleware', () => {
   });
 
   describe('handle errors', () => {
-    it('must throw if argument is non-object', done => {
+    it('must throw if argument is non-object', (done) => {
       try {
         thunkMiddleware();
       } catch (err) {
@@ -80,7 +80,7 @@ describe('thunk middleware', () => {
   });
 
   describe('withExtraArgument', () => {
-    it('must pass the third argument', done => {
+    it('must pass the third argument', (done) => {
       const extraArg = { lol: true };
       thunkMiddleware.withExtraArgument(extraArg)({
         dispatch: doDispatch,
