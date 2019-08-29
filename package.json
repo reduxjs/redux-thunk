@@ -28,32 +28,35 @@
     "clean": "rimraf lib dist es",
     "prepare": "npm run clean && npm run lint && npm run test && npm run build",
     "lint": "eslint src test",
-    "test": "cross-env BABEL_ENV=commonjs mocha --compilers js:babel-core/register --reporter spec test/*.js",
+    "test": "cross-env BABEL_ENV=commonjs mocha --require @babel/register --reporter spec test/*.js",
     "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min && npm run build:es",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
-    "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack",
-    "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack"
+    "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development npx webpack",
+    "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production npx webpack"
   },
   "peerDependencies": {
-    "redux": "^4.0.0"
+    "redux": "^4"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.6.5",
-    "babel-eslint": "^5.0.0-beta4",
-    "babel-loader": "^6.2.4",
-    "babel-preset-env": "^1.7.0",
-    "chai": "^3.2.0",
-    "cross-env": "^1.0.7",
-    "eslint": "^1.10.2",
-    "eslint-config-airbnb": "1.0.2",
-    "eslint-plugin-react": "^4.1.0",
-    "mocha": "^2.2.5",
-    "redux": "~4.0.0",
-    "rimraf": "^2.5.2",
-    "typescript": "^3.1.6",
-    "typings-tester": "^0.3.1",
-    "webpack": "^1.12.14"
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "babel-loader": "^8.0.6",
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb": "18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "mocha": "^6.2.0",
+    "redux": "^4",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.6.2",
+    "typings-tester": "^0.3.2",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7"
   }
 }
