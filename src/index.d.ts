@@ -81,11 +81,11 @@ export type ThunkActionDispatch<
 export type ThunkMiddleware<
   TState = {},
   TBasicAction extends Action = AnyAction,
-  TExtraThunkARg = undefined
+  TExtraThunkArg = undefined
 > = Middleware<
-  ThunkDispatch<TState, TExtraThunkARg, TBasicAction>,
+  ThunkDispatch<TState, TExtraThunkArg, TBasicAction>,
   TState,
-  ThunkDispatch<TState, TExtraThunkARg, TBasicAction>
+  ThunkDispatch<TState, TExtraThunkArg, TBasicAction>
 >;
 
 declare const thunk: ThunkMiddleware & {
