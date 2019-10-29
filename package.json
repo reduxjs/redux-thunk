@@ -17,6 +17,7 @@
   "main": "lib/index.js",
   "module": "es/index.js",
   "types": "src/index.d.ts",
+  "sideEffects": false,
   "files": [
     "lib",
     "es",
