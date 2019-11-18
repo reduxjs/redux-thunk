@@ -74,7 +74,7 @@ You may also want to read the
 
 While the thunk middleware is not directly included with the Redux core library,
 it is used by default in our
-**[`redux-starter-kit` package](https://github.com/reduxjs/redux-starter-kit)**.
+**[`@reduxjs/toolkit` package](https://github.com/reduxjs/redux-toolkit)**.
 
 ## Motivation
 
