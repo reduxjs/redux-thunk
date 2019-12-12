@@ -330,10 +330,13 @@ function fetchUser(id) {
 }
 ```
 
-To pass multiple things, just wrap them in a single object and use
-destructuring:
+To pass multiple things, just wrap them in a single object. 
+Using ES2015 shorthand property names can make this more concise.
 
 ```js
+const api = "http://www.example.com/sandwiches/";
+const whatever = 42;
+
 const store = createStore(
   reducer,
   applyMiddleware(thunk.withExtraArgument({ api, whatever })),
