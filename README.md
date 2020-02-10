@@ -147,7 +147,7 @@ npm install redux-thunk
 ```
 
 Then, to enable Redux Thunk, use
-[`applyMiddleware()`](https://redux.js.org/api-reference/applymiddleware):
+[`applyMiddleware()`](https://redux.js.org/api/applymiddleware):
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
