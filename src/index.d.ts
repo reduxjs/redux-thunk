@@ -122,4 +122,14 @@ declare module 'redux' {
         ) => ReturnType<ReturnType<TActionCreators[TActionCreatorName]>>
       : TActionCreators[TActionCreatorName];
   };
+
+  /*
+   * Overload to add thunk support to Redux's dispatch() function.
+   * Useful for react-redux or any other library which could use this type.
+   */
+  export interface Dispatch<A extends Action = AnyAction> {
+    <TReturnType = any, TState = any, TExtraThunkArg = any>(
+      thunkAction: ThunkAction<TReturnType, TState, TExtraThunkArg, A>,
+    ): TReturnType;
+  }
 }

@@ -1,4 +1,9 @@
-import { applyMiddleware, bindActionCreators, createStore } from 'redux';
+import {
+  applyMiddleware,
+  bindActionCreators,
+  createStore,
+  Dispatch,
+} from 'redux';
 
 import thunk, {
   ThunkAction,
@@ -144,3 +149,8 @@ const callDispatchAny = (
   dispatch(asyncThunk()) // result is any
     .then(() => console.log('done'));
 };
+
+const untypedStore = createStore(fakeReducer, applyMiddleware(thunk));
+
+untypedStore.dispatch(anotherThunkAction());
+untypedStore.dispatch(promiseThunkAction()).then(() => Promise.resolve());
