@@ -12,9 +12,9 @@ npm install redux-thunk
 
 ## Note on 2.x Update
 
-Most tutorials today assume Redux Thunk 1.x so you might run into an issue when
-running their code with 2.x.  
-**If you use Redux Thunk 2.x in CommonJS environment,
+Most tutorials today assume that you're using Redux Thunk 1.x. You may run into
+issues when you run their code with 2.x. **If you use Redux Thunk 2.x in
+CommonJS environment,
 [don’t forget to add `.default` to your import](https://github.com/reduxjs/redux-thunk/releases/tag/v2.0.0):**
 
 ```diff
