@@ -3,5 +3,5 @@
     "lib": ["dom", "es2017"],
     "strict": true
   },
-  "files": ["./*.ts", "./*.js"]
+  "file": ["./*.ts", "./*.js"]
 }
