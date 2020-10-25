@@ -151,11 +151,11 @@ Then, to enable Redux Thunk, use
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import ReduxThunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 
 // Note: this API requires redux@>=3.1.0
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 ```
 
 ## Composition
@@ -167,11 +167,11 @@ Promises to wait for each other’s completion:
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import ReduxThunk from 'redux-thunk';
 import rootReducer from './reducers';
 
 // Note: this API requires redux@>=3.1.0
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 function fetchSecretSauce() {
   return fetch('https://www.google.com/search?q=secret+sauce');
