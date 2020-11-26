@@ -8,6 +8,8 @@ Thunk [middleware](https://redux.js.org/advanced/middleware) for Redux.
 
 ```js
 npm install redux-thunk
+
+yarn add redux-thunk
 ```
 
 ## Note on 2.x Update
