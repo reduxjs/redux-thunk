@@ -6,7 +6,7 @@ Thunk [middleware](https://redux.js.org/advanced/middleware) for Redux.
 [![npm version](https://img.shields.io/npm/v/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 [![npm downloads](https://img.shields.io/npm/dm/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 
-```js
+```sh
 npm install redux-thunk
 
 yarn add redux-thunk
