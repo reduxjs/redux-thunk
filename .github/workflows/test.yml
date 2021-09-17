@@ -1,0 +1,27 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Test Suite
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          cache: npm
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build
+        run: npm run build
+
+      - name: Run test suite
+        run: npm test
