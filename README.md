@@ -2,7 +2,7 @@
 
 Thunk [middleware](https://redux.js.org/advanced/middleware) for Redux.
 
-[![build status](https://img.shields.io/travis/reduxjs/redux-thunk/master.svg?style=flat-square)](https://travis-ci.org/reduxjs/redux-thunk)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/reduxjs/redux-thunk/Tests)
 [![npm version](https://img.shields.io/npm/v/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 [![npm downloads](https://img.shields.io/npm/dm/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 
