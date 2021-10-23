@@ -35,10 +35,10 @@ const store = createStore(
 
 store.dispatch((dispatch) => {
   dispatch({ type: 'FOO' });
-  // typings:expect-error
+  // @ts-expect-error
   dispatch({ type: 'BAR' });
   dispatch({ type: 'BAR', result: 5 });
-  // typings:expect-error
+  // @ts-expect-error
   store.dispatch({ type: 'BAZ' });
 });
 
@@ -47,10 +47,10 @@ function testGetState(): ThunkResult<void> {
     const state = getState();
     const { foo } = state;
     dispatch({ type: 'FOO' });
-    // typings:expect-error
+    // @ts-expect-error
     dispatch({ type: 'BAR' });
     dispatch({ type: 'BAR', result: 5 });
-    // typings:expect-error
+    // @ts-expect-error
     dispatch({ type: 'BAZ' });
     // Can dispatch another thunk action
     dispatch(anotherThunkAction());
@@ -91,20 +91,20 @@ const actions: ActionDispatchs = bindActionCreators(
 );
 
 actions.anotherThunkAction() === 'hello';
-// typings:expect-error
+// @ts-expect-error
 actions.anotherThunkAction() === false;
 actions.promiseThunkAction().then((res) => console.log(res));
-// typings:expect-error
+// @ts-expect-error
 actions.promiseThunkAction().prop;
 actions.standardAction().type;
-// typings:expect-error
+// @ts-expect-error
 actions.standardAction().other;
 
 store.dispatch({ type: 'FOO' });
-// typings:expect-error
+// @ts-expect-error
 store.dispatch({ type: 'BAR' });
 store.dispatch({ type: 'BAR', result: 5 });
-// typings:expect-error
+// @ts-expect-error
 store.dispatch({ type: 'BAZ' });
 store.dispatch(testGetState());
 
@@ -120,10 +120,10 @@ const storeThunkArg = createStore(
 storeThunkArg.dispatch((dispatch, getState, extraArg) => {
   const bar: string = extraArg;
   store.dispatch({ type: 'FOO' });
-  // typings:expect-error
+  // @ts-expect-error
   store.dispatch({ type: 'BAR' });
   store.dispatch({ type: 'BAR', result: 5 });
-  // typings:expect-error
+  // @ts-expect-error
   store.dispatch({ type: 'BAZ' });
   console.log(extraArg);
 });
