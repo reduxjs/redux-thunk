@@ -1,7 +1,18 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "es2017"],
-    "strict": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDeclarationOnly": false,
+    "strict": true,
+    "noEmit": true,
+    "target": "esnext",
+    "jsx": "react",
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "noImplicitReturns": false,
+    "noUnusedLocals": false
   },
-  "files": ["./*.ts", "./*.js"]
+  "include": ["**/*.ts"]
 }
