@@ -28,7 +28,9 @@ export interface ThunkDispatch<
   <A extends TBasicAction>(action: A): A;
   // This overload is the union of the two above (see TS issue #14107).
   <TReturnType, TAction extends TBasicAction>(
-    action: TAction | ThunkAction<TReturnType, TState, TExtraThunkArg, TBasicAction>,
+    action:
+      | TAction
+      | ThunkAction<TReturnType, TState, TExtraThunkArg, TBasicAction>,
   ): TAction | TReturnType;
 }
 
@@ -97,37 +99,3 @@ declare const thunk: ThunkMiddleware & {
 };
 
 export default thunk;
-
-/**
- * Redux behaviour changed by middleware, so overloads here
- */
-declare module 'redux' {
-  /**
-   * Overload for bindActionCreators redux function, returns expects responses
-   * from thunk actions
-   */
-  function bindActionCreators<
-    TActionCreators extends ActionCreatorsMapObject<any>
-  >(
-    actionCreators: TActionCreators,
-    dispatch: Dispatch,
-  ): {
-    [TActionCreatorName in keyof TActionCreators]: ReturnType<
-      TActionCreators[TActionCreatorName]
-    > extends ThunkAction<any, any, any, any>
-      ? (
-          ...args: Parameters<TActionCreators[TActionCreatorName]>
-        ) => ReturnType<ReturnType<TActionCreators[TActionCreatorName]>>
-      : TActionCreators[TActionCreatorName];
-  };
-
-  /*
-   * Overload to add thunk support to Redux's dispatch() function.
-   * Useful for react-redux or any other library which could use this type.
-   */
-  export interface Dispatch<A extends Action = AnyAction> {
-    <TReturnType = any, TState = any, TExtraThunkArg = any>(
-      thunkAction: ThunkAction<TReturnType, TState, TExtraThunkArg, A>,
-    ): TReturnType;
-  }
-}

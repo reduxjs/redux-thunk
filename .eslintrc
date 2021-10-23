@@ -19,6 +19,8 @@
   "rules": {
     "padded-blocks": 0,
     "no-use-before-define": [2, "nofunc"],
-    "no-unused-expressions": 0
+    "no-unused-expressions": 0,
+    "import/no-unresolved": 0,
+    "import/named": 0
   }
 }
