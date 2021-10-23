@@ -22,14 +22,17 @@
     "lib",
     "es",
     "src",
-    "dist"
+    "dist",
+    "extend-redux.d.ts"
   ],
   "scripts": {
     "clean": "rimraf lib dist es",
     "prepublishOnly": "npm run clean && npm run lint && npm run test && npm run build",
     "lint": "eslint src test",
     "test": "cross-env BABEL_ENV=commonjs mocha --require @babel/register --reporter spec test/*.js",
-    "test:typescript": "tsc --noEmit -p test/tsconfig.json",
+    "test:typescript": "npm run test:typescript:main && npm run test:typescript:extended",
+    "test:typescript:main": "tsc --noEmit -p test/tsconfig.json",
+    "test:typescript:extended": "tsc --noEmit -p test/typescript_extended/tsconfig.json",
     "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min && npm run build:es",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",

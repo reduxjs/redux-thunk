@@ -12,23 +12,26 @@ import thunk, {
   ThunkMiddleware,
 } from '../src/index';
 
-type State = {
+export type State = {
   foo: string;
 };
 
-type Actions = { type: 'FOO' } | { type: 'BAR'; result: number };
+export type Actions = { type: 'FOO' } | { type: 'BAR'; result: number };
 
-type ThunkResult<R> = ThunkAction<R, State, undefined, Actions>;
+export type ThunkResult<R> = ThunkAction<R, State, undefined, Actions>;
 
-const initialState: State = {
+export const initialState: State = {
   foo: 'foo',
 };
 
-function fakeReducer(state: State = initialState, action: Actions): State {
+export function fakeReducer(
+  state: State = initialState,
+  action: Actions,
+): State {
   return state;
 }
 
-const store = createStore(
+export const store = createStore(
   fakeReducer,
   applyMiddleware(thunk as ThunkMiddleware<State, Actions>),
 );
@@ -57,48 +60,12 @@ function testGetState(): ThunkResult<void> {
   };
 }
 
-function anotherThunkAction(): ThunkResult<string> {
+export function anotherThunkAction(): ThunkResult<string> {
   return (dispatch, getState) => {
     dispatch({ type: 'FOO' });
     return 'hello';
   };
 }
-
-function promiseThunkAction(): ThunkResult<Promise<boolean>> {
-  return async (dispatch, getState) => {
-    dispatch({ type: 'FOO' });
-    return false;
-  };
-}
-
-const standardAction = () => ({ type: 'FOO' });
-
-interface ActionDispatchs {
-  anotherThunkAction: ThunkActionDispatch<typeof anotherThunkAction>;
-  promiseThunkAction: ThunkActionDispatch<typeof promiseThunkAction>;
-  standardAction: typeof standardAction;
-}
-
-// test that bindActionCreators correctly returns actions responses of ThunkActions
-// also ensure standard action creators still work as expected
-const actions: ActionDispatchs = bindActionCreators(
-  {
-    anotherThunkAction,
-    promiseThunkAction,
-    standardAction,
-  },
-  store.dispatch,
-);
-
-actions.anotherThunkAction() === 'hello';
-// @ts-expect-error
-actions.anotherThunkAction() === false;
-actions.promiseThunkAction().then((res) => console.log(res));
-// @ts-expect-error
-actions.promiseThunkAction().prop;
-actions.standardAction().type;
-// @ts-expect-error
-actions.standardAction().other;
 
 store.dispatch({ type: 'FOO' });
 // @ts-expect-error
@@ -150,7 +117,45 @@ const callDispatchAny = (
     .then(() => console.log('done'));
 };
 
+function promiseThunkAction(): ThunkResult<Promise<boolean>> {
+  return async (dispatch, getState) => {
+    dispatch({ type: 'FOO' });
+    return false;
+  };
+}
+
+const standardAction = () => ({ type: 'FOO' });
+
+interface ActionDispatchs {
+  anotherThunkAction: ThunkActionDispatch<typeof anotherThunkAction>;
+  promiseThunkAction: ThunkActionDispatch<typeof promiseThunkAction>;
+  standardAction: typeof standardAction;
+}
+
+// Without a global module overload, this should fail
+// @ts-expect-error
+const actions: ActionDispatchs = bindActionCreators(
+  {
+    anotherThunkAction,
+    promiseThunkAction,
+    standardAction,
+  },
+  store.dispatch,
+);
+
+actions.anotherThunkAction() === 'hello';
+// @ts-expect-error
+actions.anotherThunkAction() === false;
+actions.promiseThunkAction().then((res) => console.log(res));
+// @ts-expect-error
+actions.promiseThunkAction().prop;
+actions.standardAction().type;
+// @ts-expect-error
+actions.standardAction().other;
+
 const untypedStore = createStore(fakeReducer, applyMiddleware(thunk));
 
+// @ts-expect-error
 untypedStore.dispatch(anotherThunkAction());
+// @ts-expect-error
 untypedStore.dispatch(promiseThunkAction()).then(() => Promise.resolve());
