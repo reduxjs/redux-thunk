@@ -71,6 +71,7 @@ const storeThunkArg = createStore(
     thunk.withExtraArgument('bar') as ThunkMiddleware<State, Actions, string>
   )
 )
+storeThunkArg.dispatch({ type: 'FOO' })
 
 storeThunkArg.dispatch((dispatch, getState, extraArg) => {
   const bar: string = extraArg

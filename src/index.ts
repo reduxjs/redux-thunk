@@ -9,16 +9,17 @@ export type {
   ThunkMiddleware
 } from './types'
 
-// A function that accepts a potential "extra argument" value to be injected later,
-// and returns an instance of the thunk middleware that uses that value
+/** A function that accepts a potential "extra argument" value to be injected later,
+ * and returns an instance of the thunk middleware that uses that value
+ */
 function createThunkMiddleware<
-  TState = any,
-  TBasicAction extends Action = AnyAction,
-  TExtraThunkArg = undefined
->(extraArgument?: TExtraThunkArg) {
+  State = any,
+  BasicAction extends Action = AnyAction,
+  ExtraThunkArg = undefined
+>(extraArgument?: ExtraThunkArg) {
   // Standard Redux middleware definition pattern:
   // See: https://redux.js.org/tutorials/fundamentals/part-4-store#writing-custom-middleware
-  const middleware: ThunkMiddleware<TState, TBasicAction, TExtraThunkArg> =
+  const middleware: ThunkMiddleware<State, BasicAction, ExtraThunkArg> =
     ({ dispatch, getState }) =>
     next =>
     action => {
@@ -35,7 +36,7 @@ function createThunkMiddleware<
   return middleware
 }
 
-// The standard thunk middleware has no extra argument included
+/** The standard thunk middleware, with no extra argument included  */
 const thunk = createThunkMiddleware()
 // Attach the factory function so users can create a customized version
 // with whatever "extra arg" they want to inject into their thunks
@@ -47,10 +48,10 @@ thunk.withExtraArgument = createThunkMiddleware
 export default thunk as typeof thunk &
   ThunkMiddleware & {
     withExtraArgument<
-      TExtraThunkArg,
-      TState = any,
-      TBasicAction extends Action<any> = AnyAction
+      ExtraThunkArg,
+      State = any,
+      BasicAction extends Action<any> = AnyAction
     >(
-      extraArgument: TExtraThunkArg
-    ): ThunkMiddleware<TState, TBasicAction, TExtraThunkArg>
+      extraArgument: ExtraThunkArg
+    ): ThunkMiddleware<State, BasicAction, ExtraThunkArg>
   }
