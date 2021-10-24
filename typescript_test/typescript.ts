@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   applyMiddleware,
   bindActionCreators,
@@ -44,7 +45,7 @@ store.dispatch((dispatch) => {
   // @ts-expect-error
   store.dispatch({ type: 'BAZ' });
 });
-
+ 
 function testGetState(): ThunkResult<void> {
   return (dispatch, getState) => {
     const state = getState();
