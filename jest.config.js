@@ -5,10 +5,10 @@ module.exports = {
   testEnvironment: 'node',
   coverageDirectory: './coverage/',
   collectCoverage: true,
-  testRegex: '(/test/.*(js|ts))$',
+  testRegex: 'test/test.ts',
   globals: {
     'ts-jest': {
-      tsconfig: './test/tsconfig.json'
-    }
-  }
-}
+      tsconfig: './test/tsconfig.json',
+    },
+  },
+};
