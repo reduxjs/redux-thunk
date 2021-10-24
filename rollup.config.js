@@ -9,7 +9,7 @@ const env = process.env.NODE_ENV;
 const extensions = ['.js', '.ts', '.tsx', '.json'];
 
 const config = {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   output: {
     format: 'umd',
     name: 'ReduxThunk',

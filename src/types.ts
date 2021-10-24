@@ -1,8 +1,6 @@
 import {
   Action,
-  ActionCreatorsMapObject,
   AnyAction,
-  Dispatch,
   Middleware,
 } from 'redux';
 
@@ -87,15 +85,3 @@ export type ThunkMiddleware<
   TState,
   ThunkDispatch<TState, TExtraThunkArg, TBasicAction>
 >;
-
-declare const thunk: ThunkMiddleware & {
-  withExtraArgument<
-    TExtraThunkArg,
-    TState = {},
-    TBasicAction extends Action<any> = AnyAction
-  >(
-    extraArgument: TExtraThunkArg,
-  ): ThunkMiddleware<TState, TBasicAction, TExtraThunkArg>;
-};
-
-export default thunk;
