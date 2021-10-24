@@ -37,7 +37,7 @@ export interface ThunkDispatch<
  *
  * @template TReturnType The return type of the thunk's inner function
  * @template TState The redux state
- * @template TExtraThunkARg Optional extra argument passed to the inner function
+ * @template TExtraThunkArg Optional extra argument passed to the inner function
  * (if specified when setting up the Thunk middleware)
  * @template TBasicAction The (non-thunk) actions that can be dispatched.
  */
