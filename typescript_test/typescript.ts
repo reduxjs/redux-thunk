@@ -39,7 +39,7 @@ export const store = createStore(
 store.dispatch((dispatch) => {
   dispatch({ type: 'FOO' });
   // @ts-expect-error
-  dispatch({ type: 'BAR' });
+  dispatch({ type: 'BAR' }, 42);
   dispatch({ type: 'BAR', result: 5 });
   // @ts-expect-error
   store.dispatch({ type: 'BAZ' });
