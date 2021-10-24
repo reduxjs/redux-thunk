@@ -14,8 +14,8 @@
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "rootDirs": ["./src", "./test"],
-    "rootDir": "./src"
+    "rootDir": "./src",
   },
-  "include": ["src/**/*", "test/**/*"],
+  "include": ["src/**/*", "typescript-test/**/*"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,6 +1,5 @@
 {
   "extends": [
-    "eslint-config-airbnb",
     "prettier",
     "plugin:@typescript-eslint/recommended"
   ],
@@ -21,6 +20,12 @@
     "no-use-before-define": [2, "nofunc"],
     "no-unused-expressions": 0,
     "import/no-unresolved": 0,
-    "import/named": 0
+    "import/named": 0,
+    "@typescript-eslint/ban-ts-ignore": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/member-delimiter-style": 0,
+    "@typescript-eslint/no-use-before-define": 1,
+    "@typescript-eslint/camelcase": 0
   }
 }

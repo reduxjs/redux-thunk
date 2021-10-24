@@ -1,10 +1,4 @@
-import {
-  Action,
-  ActionCreatorsMapObject,
-  AnyAction,
-  Dispatch,
-  Middleware,
-} from 'redux';
+import { Action, AnyAction, Middleware } from 'redux'
 
 /**
  * The dispatch method as modified by React-Thunk; overloaded so that you can
@@ -23,15 +17,15 @@ export interface ThunkDispatch<
   TBasicAction extends Action
 > {
   <TReturnType>(
-    thunkAction: ThunkAction<TReturnType, TState, TExtraThunkArg, TBasicAction>,
-  ): TReturnType;
-  <A extends TBasicAction>(action: A): A;
+    thunkAction: ThunkAction<TReturnType, TState, TExtraThunkArg, TBasicAction>
+  ): TReturnType
+  <A extends TBasicAction>(action: A): A
   // This overload is the union of the two above (see TS issue #14107).
   <TReturnType, TAction extends TBasicAction>(
     action:
       | TAction
-      | ThunkAction<TReturnType, TState, TExtraThunkArg, TBasicAction>,
-  ): TAction | TReturnType;
+      | ThunkAction<TReturnType, TState, TExtraThunkArg, TBasicAction>
+  ): TAction | TReturnType
 }
 
 /**
@@ -55,8 +49,8 @@ export type ThunkAction<
 > = (
   dispatch: ThunkDispatch<TState, TExtraThunkArg, TBasicAction>,
   getState: () => TState,
-  extraArgument: TExtraThunkArg,
-) => TReturnType;
+  extraArgument: TExtraThunkArg
+) => TReturnType
 
 /**
  * A generic type that takes a thunk action creator and returns a function
@@ -70,7 +64,7 @@ export type ThunkActionDispatch<
   TActionCreator extends (...args: any[]) => ThunkAction<any, any, any, any>
 > = (
   ...args: Parameters<TActionCreator>
-) => ReturnType<ReturnType<TActionCreator>>;
+) => ReturnType<ReturnType<TActionCreator>>
 
 /**
  * @template TState The redux state
@@ -86,16 +80,4 @@ export type ThunkMiddleware<
   ThunkDispatch<TState, TExtraThunkArg, TBasicAction>,
   TState,
   ThunkDispatch<TState, TExtraThunkArg, TBasicAction>
->;
-
-declare const thunk: ThunkMiddleware & {
-  withExtraArgument<
-    TExtraThunkArg,
-    TState = {},
-    TBasicAction extends Action<any> = AnyAction
-  >(
-    extraArgument: TExtraThunkArg,
-  ): ThunkMiddleware<TState, TBasicAction, TExtraThunkArg>;
-};
-
-export default thunk;
+>
