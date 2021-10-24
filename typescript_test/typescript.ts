@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { applyMiddleware, bindActionCreators, createStore } from 'redux'
+import {
+  applyMiddleware,
+  bindActionCreators,
+  createStore,
+  Action,
+  AnyAction
+} from 'redux'
 
 import thunk, {
   ThunkAction,
@@ -146,3 +152,15 @@ const untypedStore = createStore(fakeReducer, applyMiddleware(thunk))
 untypedStore.dispatch(anotherThunkAction())
 // @ts-expect-error
 untypedStore.dispatch(promiseThunkAction()).then(() => Promise.resolve())
+
+// #248: Need a union overload to handle generic dispatched types
+function testIssue248() {
+  const dispatch: ThunkDispatch<{}, unknown, AnyAction> = undefined as any
+
+  function dispatchWrap(
+    action: Action | ThunkAction<any, {}, unknown, AnyAction>
+  ) {
+    // Should not have an error here thanks to the extra union overload
+    dispatch(action)
+  }
+}
