@@ -1,8 +1,6 @@
 {
   "extends": [
-    "eslint-config-airbnb",
     "prettier",
-    "plugin:@typescript-eslint/recommended"
   ],
   "env": {
     "node": true
