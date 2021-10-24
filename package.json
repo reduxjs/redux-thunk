@@ -39,23 +39,6 @@
     "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development npx webpack",
     "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production npx webpack"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts}": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ],
-    "*.{json,md}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
   "prettier": {
     "arrowParens": "always",
     "proseWrap": "always",
