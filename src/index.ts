@@ -28,6 +28,8 @@ function createThunkMiddleware<
 }
 
 const thunk = createThunkMiddleware()
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 thunk.withExtraArgument = createThunkMiddleware
 
 export default thunk as typeof thunk &

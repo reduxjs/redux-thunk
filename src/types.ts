@@ -80,4 +80,4 @@ export type ThunkMiddleware<
   ThunkDispatch<TState, TExtraThunkArg, TBasicAction>,
   TState,
   ThunkDispatch<TState, TExtraThunkArg, TBasicAction>
-> & { withExtraArgument?: (arg: TExtraThunkArg) => void }
+>
