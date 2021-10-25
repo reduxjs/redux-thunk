@@ -1,4 +1,4 @@
-import { ThunkAction } from './src/index';
+import { ThunkAction } from './src/index'
 
 /**
  * Globally alter the Redux `bindActionCreators` and `Dispatch` types to assume
@@ -16,27 +16,27 @@ declare module 'redux' {
    * from thunk actions
    */
   function bindActionCreators<
-    TActionCreators extends ActionCreatorsMapObject<any>
+    ActionCreators extends ActionCreatorsMapObject<any>
   >(
-    actionCreators: TActionCreators,
-    dispatch: Dispatch,
+    actionCreators: ActionCreators,
+    dispatch: Dispatch
   ): {
-    [TActionCreatorName in keyof TActionCreators]: ReturnType<
-      TActionCreators[TActionCreatorName]
+    [ActionCreatorName in keyof ActionCreators]: ReturnType<
+      ActionCreators[ActionCreatorName]
     > extends ThunkAction<any, any, any, any>
       ? (
-          ...args: Parameters<TActionCreators[TActionCreatorName]>
-        ) => ReturnType<ReturnType<TActionCreators[TActionCreatorName]>>
-      : TActionCreators[TActionCreatorName];
-  };
+          ...args: Parameters<ActionCreators[ActionCreatorName]>
+        ) => ReturnType<ReturnType<ActionCreators[ActionCreatorName]>>
+      : ActionCreators[ActionCreatorName]
+  }
 
   /*
    * Overload to add thunk support to Redux's dispatch() function.
    * Useful for react-redux or any other library which could use this type.
    */
   export interface Dispatch<A extends Action = AnyAction> {
-    <TReturnType = any, TState = any, TExtraThunkArg = any>(
-      thunkAction: ThunkAction<TReturnType, TState, TExtraThunkArg, A>,
-    ): TReturnType;
+    <ReturnType = any, State = any, ExtraThunkArg = any>(
+      thunkAction: ThunkAction<ReturnType, State, ExtraThunkArg, A>
+    ): ReturnType
   }
 }
