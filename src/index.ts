@@ -36,22 +36,18 @@ function createThunkMiddleware<
   return middleware
 }
 
-/** The standard thunk middleware, with no extra argument included  */
-const thunk = createThunkMiddleware()
+const thunk = createThunkMiddleware() as ThunkMiddleware & {
+  withExtraArgument<
+    ExtraThunkArg,
+    State = any,
+    BasicAction extends Action<any> = AnyAction
+  >(
+    extraArgument: ExtraThunkArg
+  ): ThunkMiddleware<State, BasicAction, ExtraThunkArg>
+}
+
 // Attach the factory function so users can create a customized version
 // with whatever "extra arg" they want to inject into their thunks
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 thunk.withExtraArgument = createThunkMiddleware
 
-// Convince TS that the default export has the right type for `withExtraArgument`
-export default thunk as typeof thunk &
-  ThunkMiddleware & {
-    withExtraArgument<
-      ExtraThunkArg,
-      State = any,
-      BasicAction extends Action<any> = AnyAction
-    >(
-      extraArgument: ExtraThunkArg
-    ): ThunkMiddleware<State, BasicAction, ExtraThunkArg>
-  }
+export default thunk
