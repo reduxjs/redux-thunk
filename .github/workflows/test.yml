@@ -1,24 +1,25 @@
-name: CI
-on: [pull_request]
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
 jobs:
   build:
-    name: Lint and Test on Node ${{ matrix.node }}
-
+    name: Test Suite
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['14.x']
 
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Use node ${{ matrix.node }}
-        uses: actions/setup-node@v1
+      - name: Set up Node
+        uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node }}
-
-      - uses: c-hive/gha-npm-cache@v1
+          node-version: 14.x
+          cache: 'npm'
 
       - name: Install deps
         run: npm ci --ignore-scripts
@@ -34,24 +35,23 @@ jobs:
 
   test-types:
     name: Test Types with TypeScript ${{ matrix.ts }}
-
     needs: [build]
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
-        node: ['14.x']
         ts: ['3.9', '4.0', '4.1', '4.2', '4.3', '4.4', 'next']
+
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Use node ${{ matrix.node }}
-        uses: actions/setup-node@v1
+      - name: Set up Node
+        uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node }}
-
-      - uses: c-hive/gha-npm-cache@v1
+          node-version: 14.x
+          cache: 'npm'
 
       - name: Install deps
         run: npm ci --ignore-scripts
