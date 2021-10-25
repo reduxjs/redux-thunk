@@ -28,6 +28,8 @@
   "scripts": {
     "clean": "rimraf lib dist es",
     "prepublishOnly": "npm run clean && npm run lint && npm run test && npm run build",
+    "format": "prettier --write {src,test}/**/*.{js,ts}",
+    "format:check": "prettier --check {src,test}/**/*.{js,ts}",
     "lint": "eslint src/*.ts test/*.ts",
     "test": "jest",
     "test:cov": "jest --coverage",
@@ -40,8 +42,7 @@
     "build:umd:min": "cross-env NODE_ENV=production rollup -c -o dist/redux-thunk.min.js",
     "build:types": "tsc",
     "build": "rimraf dist lib es && npm run build:types && npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
-    "api-types": "api-extractor run --local",
-    "format": "prettier --write \"{src,test}/**/*.{js,ts}\" \"docs/**/*.md\""
+    "api-types": "api-extractor run --local"
   },
   "peerDependencies": {
     "redux": "^4"
