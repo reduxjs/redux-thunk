@@ -40,7 +40,7 @@ const thunk = createThunkMiddleware() as ThunkMiddleware & {
   withExtraArgument<
     ExtraThunkArg,
     State = any,
-    BasicAction extends Action<any> = AnyAction
+    BasicAction extends Action = AnyAction
   >(
     extraArgument: ExtraThunkArg
   ): ThunkMiddleware<State, BasicAction, ExtraThunkArg>
