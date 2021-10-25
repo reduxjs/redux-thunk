@@ -10,7 +10,7 @@ export type {
 } from './types'
 
 function createThunkMiddleware<
-  TState = {},
+  TState = any,
   TBasicAction extends Action = AnyAction,
   TExtraThunkArg = undefined
 >(extraArgument?: TExtraThunkArg) {
@@ -28,14 +28,13 @@ function createThunkMiddleware<
 }
 
 const thunk = createThunkMiddleware()
-// @ts-ignore
 thunk.withExtraArgument = createThunkMiddleware
 
 export default thunk as typeof thunk &
   ThunkMiddleware & {
     withExtraArgument<
       TExtraThunkArg,
-      TState = {},
+      TState = any,
       TBasicAction extends Action<any> = AnyAction
     >(
       extraArgument: TExtraThunkArg

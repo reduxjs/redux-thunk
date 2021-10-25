@@ -73,11 +73,11 @@ export type ThunkActionDispatch<
  * inner function. (Only used if you call `thunk.withExtraArgument()`)
  */
 export type ThunkMiddleware<
-  TState = {},
+  TState = any,
   TBasicAction extends Action = AnyAction,
   TExtraThunkArg = undefined
 > = Middleware<
   ThunkDispatch<TState, TExtraThunkArg, TBasicAction>,
   TState,
   ThunkDispatch<TState, TExtraThunkArg, TBasicAction>
->
+> & { withExtraArgument?: (arg: TExtraThunkArg) => void }

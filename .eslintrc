@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "prettier",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  "extends": ["prettier", "plugin:@typescript-eslint/recommended"],
   "env": {
     "node": true
   },
@@ -16,16 +13,16 @@
   },
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
-    "padded-blocks": 0,
-    "no-use-before-define": [2, "nofunc"],
-    "no-unused-expressions": 0,
-    "import/no-unresolved": 0,
-    "import/named": 0,
-    "@typescript-eslint/ban-ts-ignore": 0,
-    "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/member-delimiter-style": 0,
-    "@typescript-eslint/no-use-before-define": 1,
-    "@typescript-eslint/camelcase": 0
+    "padded-blocks": "off",
+    "no-use-before-define": "off",
+    "no-unused-expressions": "off",
+    "import/no-unresolved": "off",
+    "import/named": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/member-delimiter-style": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/camelcase": "off"
   }
 }
