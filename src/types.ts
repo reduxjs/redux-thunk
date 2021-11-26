@@ -11,22 +11,26 @@ import { Action, AnyAction, Middleware, Dispatch } from 'redux'
  * thunks (if specified when setting up the Thunk middleware)
  * @template BasicAction The (non-thunk) actions that can be dispatched.
  */
-export interface ThunkDispatch<State, ExtraThunkArg, BasicAction extends Action>
-  extends Dispatch<BasicAction> {
-  // When the thunk middleware is added, `store.dispatch` now has three overloads:
+export interface ThunkDispatch<
+  State,
+  ExtraThunkArg,
+  BasicAction extends Action
+> {
+  // When the thunk middleware is added, `store.dispatch` now has three overloads (NOTE: the order here matters for correct behavior and is very fragile - do not reorder these!):
 
-  // 1) The base overload, which accepts a standard action object, and returns that action object
-
-  // 2) The specific thunk function overload
+  // 1) The specific thunk function overload
   /** Accepts a thunk function, runs it, and returns whatever the thunk itself returns */
   <ReturnType>(
     thunkAction: ThunkAction<ReturnType, State, ExtraThunkArg, BasicAction>
   ): ReturnType
 
-  // 3)
-  /** A union of the other two overloads. This overload exists to work around a problem
-   *  with TS inference ( see https://github.com/microsoft/TypeScript/issues/14107 )
-   */
+  // 2) The base overload.
+  /** Accepts a standard action object, and returns that action object */
+  <Action extends BasicAction>(action: Action): Action
+
+  // 3) A union of the other two overloads. This overload exists to work around a problem
+  //   with TS inference ( see https://github.com/microsoft/TypeScript/issues/14107 )
+  /** A union of the other two overloads for TS inference purposes */
   <ReturnType, Action extends BasicAction>(
     action: Action | ThunkAction<ReturnType, State, ExtraThunkArg, BasicAction>
   ): Action | ReturnType

@@ -60,7 +60,7 @@ If you use Redux Thunk 2.x in a CommonJS environment,
 ```
 
 Additionally, since 2.x, we also support a
-[UMD build](https://unpkg.com/redux-thunk/dist/redux-thunk.min.js):
+[UMD build](https://unpkg.com/redux-thunk/dist/redux-thunk.min.js) for use as a global script tag:
 
 ```js
 const ReduxThunk = window.ReduxThunk
@@ -76,7 +76,6 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers/index'
 
-// Note: this API requires redux@>=3.1.0
 const store = createStore(rootReducer, applyMiddleware(thunk))
 ```
 
