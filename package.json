@@ -1,6 +1,6 @@
 {
   "name": "redux-thunk",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "license": "MIT",
   "description": "Thunk middleware for Redux.",
   "repository": "github:reduxjs/redux-thunk",
