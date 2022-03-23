@@ -156,7 +156,7 @@ For more details on why thunks are useful, see:
 
 - **Redux docs: Writing Logic with Thunks**  
   https://redux.js.org/usage/writing-logic-thunks  
-  The official usage guide page on thunks. Covers why they exist, how the thunk middleware works, and uesful patterns for using thunks.
+  The official usage guide page on thunks. Covers why they exist, how the thunk middleware works, and useful patterns for using thunks.
 
 - **Stack Overflow: Dispatching Redux Actions with a Timeout**  
   http://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559  
