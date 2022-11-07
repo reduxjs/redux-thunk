@@ -1,4 +1,4 @@
-import thunkMiddleware from '../src/index'
+import thunkMiddleware, { ThunkAction } from '../src/index'
 
 describe('thunk middleware', () => {
   const doDispatch = () => {}
@@ -101,6 +101,62 @@ describe('thunk middleware', () => {
         expect(arg).toBe(extraArg)
         done()
       })
+    })
+  })
+
+  describe('allow store jest mocks and spies via monkey patching', () => {
+    // this scenario is to cover architectures where store is a singleton for tests and for the application
+    const store = {
+      dispatch: doDispatch,
+      getState: doGetState
+    }
+
+    it('must allow to spy on dispatch', () => {
+      // GIVEN store is defined in the application
+      const actionHandler = thunkMiddleware(store)(jest.fn())
+      const myThunk: ThunkAction<
+        { type: string },
+        number,
+        undefined,
+        { type: string }
+      > = dispatch => {
+        return dispatch({ type: 'my_action' })
+      }
+
+      // WHEN a Developer try to spy on store.dispatch
+      const dispatchSpy = jest.spyOn(store, 'dispatch')
+
+      // AND dispatch a thunk which dispatch an action
+      actionHandler(myThunk)
+
+      expect(dispatchSpy).toHaveBeenCalledWith({ type: 'my_action' })
+    })
+
+    it('must allow to mock getState', () => {
+      // GIVEN store is defined in the application
+      const actionHandler = thunkMiddleware(store)(jest.fn())
+      const myThunk: ThunkAction<
+        { type: string; currentState: number },
+        number,
+        undefined,
+        { type: string }
+      > = (dispatch, getState) => {
+        const currentState = getState()
+        return dispatch({ type: 'currentState', currentState })
+      }
+
+      // WHEN a Developer try to spy on store.dispatch
+      const dispatchSpy = jest.spyOn(store, 'dispatch')
+      const getStateMock = jest.spyOn(store, 'getState').mockReturnValue(99)
+
+      // AND dispatch a thunk which dispatch an action
+      actionHandler(myThunk)
+
+      expect(dispatchSpy).toHaveBeenCalledWith({
+        type: 'currentState',
+        currentState: 99
+      })
+      expect(getStateMock).toHaveBeenCalled()
     })
   })
 })
