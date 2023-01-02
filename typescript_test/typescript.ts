@@ -1,13 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-  applyMiddleware,
-  bindActionCreators,
-  createStore,
-  Action,
-  AnyAction
-} from 'redux'
+import { applyMiddleware, bindActionCreators, createStore } from 'redux'
+import type { Action, AnyAction } from 'redux'
 
-import thunk, {
+import thunk from '../src/index'
+import type {
   ThunkAction,
   ThunkActionDispatch,
   ThunkDispatch,

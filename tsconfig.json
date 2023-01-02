@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+    "importsNotUsedAsValues": "error",
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",

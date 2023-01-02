@@ -3,6 +3,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "strict": true,
+    "importsNotUsedAsValues": "error",
     "target": "ES2015"
   },
   "include": ["**/*.ts"]

@@ -1,4 +1,4 @@
-import { Action, AnyAction, Middleware } from 'redux'
+import type { Action, AnyAction, Middleware } from 'redux'
 
 /**
  * The dispatch method as modified by React-Thunk; overloaded so that you can
