@@ -19,6 +19,7 @@
     "import/no-unresolved": "off",
     "import/named": "off",
     "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/consistent-type-imports": ["error"],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/member-delimiter-style": "off",
