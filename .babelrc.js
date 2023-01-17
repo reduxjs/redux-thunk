@@ -1,7 +1,7 @@
 const { NODE_ENV, BABEL_ENV } = process.env
 const cjs = NODE_ENV === 'test' || BABEL_ENV === 'commonjs'
 
-module.exports = {
+export default {
   presets: [
     [
       '@babel/preset-env',

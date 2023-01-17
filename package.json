@@ -14,9 +14,18 @@
     "flux"
   ],
   "author": "Dan Abramov <dan.abramov@me.com>",
+  "type": "module",
   "main": "lib/index.js",
   "module": "es/index.js",
   "types": "es/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./es/index.d.ts",
+      "import": "./es/index.js",
+      "default": "./lib/index.js"
+    }
+  },
   "sideEffects": false,
   "files": [
     "lib",
@@ -30,7 +39,7 @@
     "prepublishOnly": "npm run clean && npm run lint && npm run test && npm run build",
     "format": "prettier --write {src,test,typescript_test}/**/*.{js,ts}",
     "format:check": "prettier --check {src,test,typescript_test}/**/*.{js,ts}",
-    "lint": "eslint '{src,test,typescript_test}/**/*.{js,ts}'",
+    "lint": "eslint {src,test,typescript_test}/**/*.{js,ts}",
     "test": "jest",
     "test:cov": "jest --coverage",
     "test:typescript": "npm run test:typescript:main && npm run test:typescript:extended",
