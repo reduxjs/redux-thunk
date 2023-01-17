@@ -36,7 +36,7 @@ function createThunkMiddleware<
   return middleware
 }
 
-const thunk = createThunkMiddleware() as ThunkMiddleware & {
+export const thunk = createThunkMiddleware() as ThunkMiddleware & {
   withExtraArgument<
     ExtraThunkArg,
     State = any,
@@ -46,8 +46,6 @@ const thunk = createThunkMiddleware() as ThunkMiddleware & {
   ): ThunkMiddleware<State, BasicAction, ExtraThunkArg>
 }
 
-// Attach the factory function so users can create a customized version
+// Export the factory function so users can create a customized version
 // with whatever "extra arg" they want to inject into their thunks
-thunk.withExtraArgument = createThunkMiddleware
-
-export default thunk
+export const withExtraArgument = createThunkMiddleware
