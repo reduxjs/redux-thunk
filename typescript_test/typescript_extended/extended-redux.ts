@@ -9,7 +9,7 @@ import {
   Dispatch
 } from 'redux'
 
-import thunk from '../../src/index'
+import { thunk } from '../../src/index'
 import type {
   ThunkAction,
   ThunkActionDispatch,
