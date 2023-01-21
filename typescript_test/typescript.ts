@@ -2,7 +2,7 @@
 import { applyMiddleware, bindActionCreators, createStore } from 'redux'
 import type { Action, AnyAction } from 'redux'
 
-import thunk from '../src/index'
+import { thunk } from '../src/index'
 import type {
   ThunkAction,
   ThunkActionDispatch,
