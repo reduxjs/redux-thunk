@@ -5,3 +5,16 @@ lib
 dist
 es
 builds/
+
+
+typesversions
+.cache
+.yarnrc
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+*.tgz
