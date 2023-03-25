@@ -36,13 +36,13 @@
   ],
   "scripts": {
     "clean": "rimraf lib dist es",
-    "prepublishOnly": "npm run clean && npm run lint && npm run test && npm run build",
+    "prepublishOnly": "yarn clean && yarn lint && yarn test && yarn build",
     "format": "prettier --write \"{src,test,typescript_test}/**/*.{js,ts}\"",
     "format:check": "prettier --check \"{src,test,typescript_test}/**/*.{js,ts}\"",
     "lint": "eslint \"{src,test,typescript_test}/**/*.{js,ts}\"",
     "test": "jest",
     "test:cov": "jest --coverage",
-    "test:typescript": "npm run test:typescript:main && npm run test:typescript:extended",
+    "test:typescript": "yarn test:typescript:main && yarn test:typescript:extended",
     "test:typescript:main": "tsc --noEmit -p typescript_test/tsconfig.json",
     "test:typescript:extended": "tsc --noEmit -p typescript_test/typescript_extended/tsconfig.json",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src/*.ts --ignore src/types.ts --extensions .ts --out-dir lib ",
@@ -50,8 +50,9 @@
     "build:umd": "cross-env NODE_ENV=development rollup -c -o dist/redux-thunk.js",
     "build:umd:min": "cross-env NODE_ENV=production rollup -c -o dist/redux-thunk.min.js",
     "build:types": "tsc",
-    "build": "rimraf dist lib es && npm run build:types && npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
-    "api-types": "api-extractor run --local"
+    "build": "rimraf dist lib es && yarn build:types && yarn build:commonjs && yarn build:es && yarn build:umd && yarn build:umd:min",
+    "api-types": "api-extractor run --local",
+    "prepack": "yarn build"
   },
   "peerDependencies": {
     "redux": "^4"
