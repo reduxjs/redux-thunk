@@ -1,4 +1,4 @@
-name: Tests
+name: CI
 
 on:
   push:
@@ -27,12 +27,12 @@ jobs:
       - name: Install deps
         run: yarn install
 
-        # Read existing version, reuse that, add a Git short hash
-      # - name: Set build version to Git commit
-      #   run: node scripts/writeGitVersion.js $(git rev-parse --short HEAD)
+      # Read existing version, reuse that, add a Git short hash
+      - name: Set build version to Git commit
+        run: node scripts/writeGitVersion.js $(git rev-parse --short HEAD)
 
-      # - name: Check updated version
-      #   run: jq .version package.json
+      - name: Check updated version
+        run: jq .version package.json
 
       - name: Run linter
         run: yarn lint
@@ -40,16 +40,13 @@ jobs:
       - name: Run tests
         run: yarn test
 
-      - name: Compile
-        run: yarn build
-
       - name: Pack
         run: yarn pack
 
       - uses: actions/upload-artifact@v2
         with:
           name: package
-          path: packages/toolkit/package.tgz
+          path: ./package.tgz
 
   test-types:
     name: Test Types with TypeScript ${{ matrix.ts }}
@@ -82,3 +79,67 @@ jobs:
         run: |
           yarn tsc --version
           yarn test:typescript
+
+  test-published-artifact:
+    name: Test Published Artifact ${{ matrix.example }}
+
+    needs: [build]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['16.x']
+        example:
+          [
+            'cra4',
+            'cra5',
+            'next',
+            'vite',
+            'node-standard',
+            'node-esm',
+            'are-the-types-wrong'
+          ]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use node ${{ matrix.node }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+
+      - name: Clone RTK repo
+        run: git clone https://github.com/reduxjs/redux-toolkit.git ./redux-toolkit
+
+      - name: Check folder contents
+        run: ls -l .
+
+      - name: Install deps
+        working-directory: ./redux-toolkit/examples/publish-ci/${{ matrix.example }}
+        run: yarn install
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: package
+          path: ./redux-toolkit/examples/publish-ci/${{ matrix.example }}
+
+      - name: Check folder contents
+        working-directory: ./redux-toolkit/examples/publish-ci/${{ matrix.example }}
+        run: ls -l .
+
+      - name: Install Redux-Thunk build artifact
+        working-directory: ./redux-toolkit/examples/publish-ci/${{ matrix.example }}
+        run: yarn add ./package.tgz
+
+      - name: Show installed package versions
+        working-directory: ./redux-toolkit/examples/publish-ci/${{ matrix.example }}
+        run: yarn info redux-thunk && yarn why redux-thunk
+
+      - name: Build example
+        working-directory: ./redux-toolkit/examples/publish-ci/${{ matrix.example }}
+        run: yarn build
+
+      - name: Run test step
+        working-directory: ./redux-toolkit/examples/publish-ci/${{ matrix.example }}
+        run: yarn test
