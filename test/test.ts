@@ -1,4 +1,4 @@
-import { thunk as thunkMiddleware, withExtraArgument } from '../src/index'
+import { thunk as thunkMiddleware, withExtraArgument } from 'redux-thunk'
 
 describe('thunk middleware', () => {
   const doDispatch = () => {}
@@ -23,24 +23,22 @@ describe('thunk middleware', () => {
     })
 
     describe('handle action', () => {
-      it('must run the given action function with dispatch and getState', done => {
+      it('must run the given action function with dispatch and getState', () => {
         // @ts-ignore
         const actionHandler = nextHandler()
 
         actionHandler((dispatch: any, getState: any) => {
           expect(dispatch).toBe(doDispatch)
           expect(getState).toBe(doGetState)
-          done()
         })
       })
 
-      it('must pass action to next if not a function', done => {
+      it('must pass action to next if not a function', () => {
         const actionObj = {}
 
         // @ts-ignore
         const actionHandler = nextHandler(action => {
           expect(action).toBe(actionObj)
-          done()
         })
 
         actionHandler(actionObj)
@@ -78,18 +76,16 @@ describe('thunk middleware', () => {
   })
 
   describe('handle errors', () => {
-    it('must throw if argument is non-object', done => {
+    it('must throw if argument is non-object', () => {
       try {
         // @ts-expect-error
         thunkMiddleware()
-      } catch (err) {
-        done()
-      }
+      } catch (err) {}
     })
   })
 
   describe('withExtraArgument', () => {
-    it('must pass the third argument', done => {
+    it('must pass the third argument', () => {
       const extraArg = { lol: true }
       // @ts-ignore
       withExtraArgument(extraArg)({
@@ -99,7 +95,6 @@ describe('thunk middleware', () => {
         expect(dispatch).toBe(doDispatch)
         expect(getState).toBe(doGetState)
         expect(arg).toBe(extraArg)
-        done()
       })
     })
   })
