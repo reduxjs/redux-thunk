@@ -10,10 +10,15 @@
     "jsx": "react",
     "declaration": true,
     "emitDeclarationOnly": true,
-    "outDir": "./es",
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
-    "rootDirs": ["./src", "./test"]
+    "rootDirs": ["./src", "./test"],
+    "types": ["vitest/globals"],    
+    "baseUrl": ".",
+    "paths": {
+      "redux-thunk": ["src/index.ts"], // @remap-prod-remove-line
+      "@internal/*": ["src/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
