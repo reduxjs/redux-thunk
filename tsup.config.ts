@@ -1,4 +1,5 @@
 import { defineConfig, Options } from 'tsup'
+import fs from 'fs'
 
 export default defineConfig(options => {
   const commonOptions: Partial<Options> = {
@@ -14,7 +15,14 @@ export default defineConfig(options => {
       format: ['esm'],
       outExtension: () => ({ js: '.mjs' }),
       dts: true,
-      clean: true
+      clean: true,
+      onSuccess() {
+        // Support Webpack 4 by pointing `"module"` to a file with a `.js` extension
+        fs.copyFileSync(
+          'dist/redux-thunk.mjs',
+          'dist/redux-thunk.legacy-esm.js'
+        )
+      }
     },
     {
       ...commonOptions,
