@@ -14,15 +14,15 @@
     "flux"
   ],
   "author": "Dan Abramov <dan.abramov@me.com>",
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/redux-thunk.cjs",
+  "module": "dist/redux-thunk.mjs",
+  "types": "dist/redux-thunk.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "default": "./dist/cjs/index.cjs"
+      "types": "./dist/redux-thunk.d.ts",
+      "import": "./dist/redux-thunk.mjs",
+      "default": "./dist/cjs/redux-thunk.cjs"
     },
     "./extend-redux": {
       "types": "./extend-redux.d.ts"
