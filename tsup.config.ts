@@ -2,7 +2,9 @@ import { defineConfig, Options } from 'tsup'
 
 export default defineConfig(options => {
   const commonOptions: Partial<Options> = {
-    entry: ['src/index.ts'],
+    entry: {
+      'redux-thunk': 'src/index.ts'
+    },
     ...options
   }
 
