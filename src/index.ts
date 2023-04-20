@@ -38,6 +38,6 @@ function createThunkMiddleware<
 
 export const thunk = createThunkMiddleware()
 
-// Attach the factory function so users can create a customized version
+// Export the factory function so users can create a customized version
 // with whatever "extra arg" they want to inject into their thunks
 export const withExtraArgument = createThunkMiddleware
