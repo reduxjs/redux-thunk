@@ -133,13 +133,10 @@ function fetchUser(id) {
 }
 ```
 
-If you're setting up the store by hand, the default `thunk` export has an attached `thunk.withExtraArgument()` function that should be used to generate the correct thunk middleware:
+If you're setting up the store by hand, the named export `withExtraArgument()` function should be used to generate the correct thunk middleware:
 
 ```js
-const store = createStore(
-  reducer,
-  applyMiddleware(thunk.withExtraArgument(api))
-)
+const store = createStore(reducer, applyMiddleware(withExtraArgument(api)))
 ```
 
 ## Why Do I Need This?

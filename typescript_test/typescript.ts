@@ -2,7 +2,7 @@
 import { applyMiddleware, bindActionCreators, createStore } from 'redux'
 import type { Action, AnyAction } from 'redux'
 
-import { thunk } from '../src/index'
+import { thunk, withExtraArgument } from '../src/index'
 import type {
   ThunkAction,
   ThunkActionDispatch,
@@ -70,7 +70,7 @@ store.dispatch(testGetState())
 const storeThunkArg = createStore(
   fakeReducer,
   applyMiddleware(
-    thunk.withExtraArgument('bar') as ThunkMiddleware<State, Actions, string>
+    withExtraArgument('bar') as ThunkMiddleware<State, Actions, string>
   )
 )
 storeThunkArg.dispatch({ type: 'FOO' })

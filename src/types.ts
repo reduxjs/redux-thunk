@@ -78,7 +78,7 @@ export type ThunkActionDispatch<
  * @template State The redux state
  * @template BasicAction The (non-thunk) actions that can be dispatched
  * @template ExtraThunkArg An optional extra argument to pass to a thunk's
- * inner function. (Only used if you call `thunk.withExtraArgument()`)
+ * inner function. (Only used if you call `withExtraArgument()`)
  */
 export type ThunkMiddleware<
   State = any,
