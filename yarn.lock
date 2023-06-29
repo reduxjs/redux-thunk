@@ -2547,7 +2547,7 @@ __metadata:
     typescript: ^4.4
     vitest: ^0.29.8
   peerDependencies:
-    redux: ^4
+    redux: ^4 || ^5.0.0-beta.0
   languageName: unknown
   linkType: soft
 
