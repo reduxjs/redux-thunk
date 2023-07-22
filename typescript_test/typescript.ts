@@ -144,9 +144,7 @@ actions.standardAction().other
 
 const untypedStore = createStore(fakeReducer, applyMiddleware(thunk))
 
-// @ts-expect-error
 untypedStore.dispatch(anotherThunkAction())
-// @ts-expect-error
 untypedStore.dispatch(promiseThunkAction()).then(() => Promise.resolve())
 
 // #248: Need a union overload to handle generic dispatched types

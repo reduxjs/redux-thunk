@@ -1,4 +1,4 @@
-import { ThunkAction } from './src/index'
+import type { ThunkAction } from './src/index'
 
 /**
  * Globally alter the Redux `bindActionCreators` and `Dispatch` types to assume
