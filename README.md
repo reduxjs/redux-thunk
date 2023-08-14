@@ -35,9 +35,10 @@ const store = configureStore({
 If you're using the basic Redux `createStore` API and need to set this up manually, first add the `redux-thunk` package:
 
 ```sh
-npm install redux-thunk
-
-yarn add redux-thunk
+npm install redux-thunk      # with npm
+yarn add redux-thunk         # with Yarn
+pnpm add redux-thunk         # with pnpm
+bun add redux-thunk          # with Bun
 ```
 
 The thunk middleware is the default export.
