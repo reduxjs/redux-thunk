@@ -8,20 +8,16 @@ on:
 
 jobs:
   build:
-    name: Lint, Test, Build & Pack on Node ${{ matrix.node }}
+    name: Lint, Test, Build & Pack on Node
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['16.x']
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Use Node ${{ matrix.node }}
+      - name: Use Node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node }}
           cache: 'yarn'
 
       - name: Install deps
@@ -56,17 +52,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ['16.x']
         ts: ['4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.8', '4.9', '5.0']
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Use node ${{ matrix.node }}
+      - name: Use node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node }}
           cache: 'yarn'
 
       - name: Install deps
@@ -88,7 +82,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ['16.x']
         example:
           [
             'cra4',
@@ -103,10 +96,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Use node ${{ matrix.node }}
+      - name: Use node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node }}
           cache: 'yarn'
 
       - name: Clone RTK repo
