@@ -4,7 +4,7 @@ Thunk [middleware](https://redux.js.org/tutorials/fundamentals/part-4-store#midd
 
 For complete usage instructions and useful patterns, see the [Redux docs **Writing Logic with Thunks** page](https://redux.js.org/usage/writing-logic-thunks).
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/reduxjs/redux-thunk/Tests)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/reduxjs/redux-thunk/test.yml?branch=master)
 [![npm version](https://img.shields.io/npm/v/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 [![npm downloads](https://img.shields.io/npm/dm/redux-thunk.svg?style=flat-square)](https://www.npmjs.com/package/redux-thunk)
 
