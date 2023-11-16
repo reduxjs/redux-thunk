@@ -60,7 +60,7 @@
     "prettier": "^2.4.1",
     "redux": "^4",
     "rimraf": "^3.0.2",
-    "tsup": "^7.2.0",
+    "tsup": "7.0.0",
     "typescript": "^5.0",
     "vitest": "^0.32.0"
   }

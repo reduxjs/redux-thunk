@@ -2531,7 +2531,7 @@ __metadata:
     prettier: ^2.4.1
     redux: ^4
     rimraf: ^3.0.2
-    tsup: ^7.2.0
+    tsup: 7.0.0
     typescript: ^5.0
     vitest: ^0.32.0
   peerDependencies:
@@ -3000,9 +3000,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsup@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "tsup@npm:7.2.0"
+"tsup@npm:7.0.0":
+  version: 7.0.0
+  resolution: "tsup@npm:7.0.0"
   dependencies:
     bundle-require: ^4.0.0
     cac: ^6.7.12
@@ -3032,7 +3032,7 @@ __metadata:
   bin:
     tsup: dist/cli-default.js
     tsup-node: dist/cli-node.js
-  checksum: 94feae12b0a0dd0eaa3ed1c412d2bc51d7491ff91abc61e4198495dcb612a848a9fd346fbb668a63b98534fc6c2569ab3aba7ea95ad8db5eaf29c4a4885c2313
+  checksum: 25dda9ca37ab1763986dc34a8eabf2c3d3184834b33b2026907b7bbcf1cea3a4841e645cc3cdd1011eb8aaf9ce9959ddfb9cfeeee8efee0e485f3bae232aacf5
   languageName: node
   linkType: hard
 
