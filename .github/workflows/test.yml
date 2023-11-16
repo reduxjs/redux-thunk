@@ -57,7 +57,7 @@ jobs:
       fail-fast: false
       matrix:
         node: ['16.x']
-        ts: ['4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.8', '4.9', '5.0']
+        ts: ['4.7', '4.8', '4.9', '5.0', '5.1', '5.2']
 
     steps:
       - name: Checkout repo
@@ -89,16 +89,7 @@ jobs:
       fail-fast: false
       matrix:
         node: ['16.x']
-        example:
-          [
-            'cra4',
-            'cra5',
-            'next',
-            'vite',
-            'node-standard',
-            'node-esm',
-            'are-the-types-wrong'
-          ]
+        example: ['cra4', 'cra5', 'next', 'vite', 'node-standard', 'node-esm']
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -143,10 +134,25 @@ jobs:
       - name: Run test step
         working-directory: ./redux-toolkit/examples/publish-ci/${{ matrix.example }}
         run: yarn test
-        if: matrix.example != 'are-the-types-wrong'
 
-      - name: Run test step (attw)
-        working-directory: ./redux-toolkit/examples/publish-ci/${{ matrix.example }}
-        # Ignore "FalseCJS" errors in the `attw` job
-        run: yarn test -n FalseCJS
-        if: matrix.example == 'are-the-types-wrong'
+  are-the-types-wrong:
+    name: Check package config with are-the-types-wrong
+
+    needs: [build]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['16.x']
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: package
+          path: .
+
+      # Note: We currently expect "FalseCJS" failures for Node16 + `moduleResolution: "node16"
+      - name: Run are-the-types-wrong
+        run: npx @arethetypeswrong/cli ./package.tgz --format table --ignore-rules false-cjs
