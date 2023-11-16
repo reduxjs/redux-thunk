@@ -49,7 +49,7 @@
     "prepack": "yarn build"
   },
   "peerDependencies": {
-    "redux": "^4 || ^5.0.0-beta.0"
+    "redux": "^5.0.0-rc.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.1.0",
