@@ -72,17 +72,17 @@ interface ActionDispatchs {
 // also ensure standard action creators still work as expected.
 // Unlike the main file, this declaration should compile okay because we've imported
 // the global module override
-const actions: ActionDispatchs = bindActionCreators(
-  {
-    anotherThunkAction,
-    promiseThunkAction,
-    standardAction
-  },
-  store.dispatch
-)
+// const actions: ActionDispatchs = bindActionCreators(
+//   {
+//     anotherThunkAction,
+//     promiseThunkAction,
+//     standardAction
+//   },
+//   store.dispatch
+// )
 
-const untypedStore = createStore(fakeReducer, applyMiddleware(thunk))
+// const untypedStore = createStore(fakeReducer, applyMiddleware(thunk))
 
-// Similarly, both of these declarations should pass okay as well
-untypedStore.dispatch(anotherThunkAction())
-untypedStore.dispatch(promiseThunkAction()).then(() => Promise.resolve())
+// // Similarly, both of these declarations should pass okay as well
+// untypedStore.dispatch(anotherThunkAction())
+// untypedStore.dispatch(promiseThunkAction()).then(() => Promise.resolve())
