@@ -23,9 +23,6 @@
       "types": "./dist/redux-thunk.d.ts",
       "import": "./dist/redux-thunk.mjs",
       "default": "./dist/cjs/redux-thunk.cjs"
-    },
-    "./extend-redux": {
-      "types": "./extend-redux.d.ts"
     }
   },
   "sideEffects": false,
@@ -42,9 +39,7 @@
     "lint": "eslint \"{src,test,typescript_test}/**/*.{js,ts}\"",
     "test": "vitest run",
     "test:cov": "vitest run --coverage",
-    "test:typescript": "yarn test:typescript:main && yarn test:typescript:extended",
-    "test:typescript:main": "tsc --noEmit -p typescript_test/tsconfig.json",
-    "test:typescript:extended": "tsc --noEmit -p typescript_test/typescript_extended/tsconfig.json",
+    "test:typescript": "tsc --noEmit -p typescript_test/tsconfig.json",
     "build": "tsup",
     "prepack": "yarn build"
   },
