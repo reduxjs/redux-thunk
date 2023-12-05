@@ -57,13 +57,6 @@ If you use Redux Thunk in a CommonJS environment:
 const { thunk } = require('redux-thunk')
 ```
 
-Additionally, since 2.x, we also support a
-[UMD build](https://unpkg.com/redux-thunk/dist/redux-thunk.min.js) for use as a global script tag:
-
-```js
-const ReduxThunk = window.ReduxThunk.thunk
-```
-
 </details>
 
 Then, to enable Redux Thunk, use
@@ -253,7 +246,7 @@ Promises to wait for each other’s completion:
 
 ```js
 import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
+import { thunk } from 'redux-thunk'
 import rootReducer from './reducers'
 
 // Note: this API requires redux@>=3.1.0
