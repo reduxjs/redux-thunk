@@ -40,7 +40,7 @@ npm install redux-thunk
 yarn add redux-thunk
 ```
 
-The thunk middleware is the default export.
+The thunk middleware is a named export.
 
 <details>
 <summary><b>More Details: Importing the thunk middleware</b></summary>
@@ -48,22 +48,13 @@ The thunk middleware is the default export.
 If you're using ES modules:
 
 ```js
-import thunk from 'redux-thunk' // no changes here 😀
+import { thunk } from 'redux-thunk'
 ```
 
-If you use Redux Thunk 2.x in a CommonJS environment,
-[don’t forget to add `.default` to your import](https://github.com/reduxjs/redux-thunk/releases/tag/v2.0.0):
-
-```diff
-- const thunk = require('redux-thunk')
-+ const thunk = require('redux-thunk').default
-```
-
-Additionally, since 2.x, we also support a
-[UMD build](https://unpkg.com/redux-thunk/dist/redux-thunk.min.js) for use as a global script tag:
+If you use Redux Thunk in a CommonJS environment:
 
 ```js
-const ReduxThunk = window.ReduxThunk
+const { thunk } = require('redux-thunk')
 ```
 
 </details>
@@ -73,7 +64,7 @@ Then, to enable Redux Thunk, use
 
 ```js
 import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
+import { thunk } from 'redux-thunk'
 import rootReducer from './reducers/index'
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
@@ -255,7 +246,7 @@ Promises to wait for each other’s completion:
 
 ```js
 import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
+import { thunk } from 'redux-thunk'
 import rootReducer from './reducers'
 
 // Note: this API requires redux@>=3.1.0
