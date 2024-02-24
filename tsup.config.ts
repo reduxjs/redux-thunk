@@ -1,11 +1,13 @@
-import { defineConfig, Options } from 'tsup'
-import fs from 'fs'
+import type { Options } from 'tsup'
+import { defineConfig } from 'tsup'
+import fs from 'fs/promises'
 
 export default defineConfig(options => {
   const commonOptions: Partial<Options> = {
     entry: {
       'redux-thunk': 'src/index.ts'
     },
+    tsconfig: 'tsconfig.build.json',
     ...options
   }
 
@@ -16,9 +18,9 @@ export default defineConfig(options => {
       outExtension: () => ({ js: '.mjs' }),
       dts: true,
       clean: true,
-      onSuccess() {
+      async onSuccess() {
         // Support Webpack 4 by pointing `"module"` to a file with a `.js` extension
-        fs.copyFileSync(
+        await fs.copyFile(
           'dist/redux-thunk.mjs',
           'dist/redux-thunk.legacy-esm.js'
         )
