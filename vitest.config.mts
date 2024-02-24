@@ -5,10 +5,10 @@ export default defineConfig({
     globals: true,
     include: ['./test/test.ts'],
     alias: {
-      'redux-thunk': './src/index.ts', // @remap-prod-remove-line
+      'redux-thunk': new URL('src/index.ts', import.meta.url).pathname, // @remap-prod-remove-line
 
       // this mapping is disabled as we want `dist` imports in the tests only to be used for "type-only" imports which don't play a role for jest
-      '@internal/': './src/'
+      '@internal': new URL('src', import.meta.url).pathname
     }
   }
 })
