@@ -1,6 +1,6 @@
+import fs from 'node:fs/promises'
 import type { Options } from 'tsup'
 import { defineConfig } from 'tsup'
-import fs from 'fs/promises'
 
 export default defineConfig(options => {
   const commonOptions: Partial<Options> = {
