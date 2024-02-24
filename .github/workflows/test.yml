@@ -78,7 +78,7 @@ jobs:
       - name: Test types
         run: |
           yarn tsc --version
-          yarn test:typescript
+          yarn type-tests
 
   test-published-artifact:
     name: Test Published Artifact ${{ matrix.example }}
