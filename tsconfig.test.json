@@ -3,7 +3,6 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "noEmit": true,
-    "rootDir": "./src",
     "jsx": "react-jsx",
     "noImplicitReturns": false
   },
