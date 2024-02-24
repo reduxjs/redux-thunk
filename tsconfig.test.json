@@ -1,8 +1,11 @@
 {
+  // For runtime and type tests during CI.
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "strict": true,
-    "target": "ES2015"
+    "noEmit": true,
+    "rootDir": "./src",
+    "jsx": "react-jsx",
+    "noImplicitReturns": false
   },
-  "include": ["typescript.ts"]
+  "include": ["typescript_test"]
 }
