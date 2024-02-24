@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { applyMiddleware, bindActionCreators, createStore } from 'redux'
 import type { Action, AnyAction } from 'redux'
-
-import { thunk, withExtraArgument } from '../src/index'
+import { applyMiddleware, bindActionCreators, createStore } from 'redux'
 import type {
   ThunkAction,
   ThunkActionDispatch,
   ThunkDispatch,
   ThunkMiddleware
-} from '../src/index'
+} from 'redux-thunk'
+import { thunk, withExtraArgument } from 'redux-thunk'
 
 export type State = {
   foo: string
@@ -39,20 +38,49 @@ store.dispatch(dispatch => {
   store.dispatch({ type: 'BAZ' })
 })
 
-function testGetState(): ThunkResult<void> {
-  return (dispatch, getState) => {
-    const state = getState()
-    const { foo } = state
-    dispatch({ type: 'FOO' })
-    // @ts-expect-error
-    dispatch({ type: 'BAR' })
-    dispatch({ type: 'BAR', result: 5 })
-    // @ts-expect-error
-    dispatch({ type: 'BAZ' })
-    // Can dispatch another thunk action
-    dispatch(anotherThunkAction())
-  }
-}
+describe('type tests', () => {
+  test('getState', () => {
+    const thunk: () => ThunkResult<void> = () => (dispatch, getState) => {
+      const state = getState()
+
+      expectTypeOf(state).toHaveProperty('foo')
+
+      expectTypeOf(dispatch).toBeCallableWith({ type: 'FOO' })
+
+      expectTypeOf(dispatch).parameter(0).not.toMatchTypeOf({ type: 'BAR' })
+
+      expectTypeOf(dispatch).toBeCallableWith({ type: 'BAR', result: 5 })
+
+      expectTypeOf(dispatch).parameter(0).not.toMatchTypeOf({ type: 'BAZ' })
+
+      // Can dispatch another thunk action
+      expectTypeOf(dispatch).toBeCallableWith(anotherThunkAction())
+    }
+
+    expectTypeOf(store.dispatch).toBeCallableWith(thunk())
+
+    expectTypeOf(store.dispatch).toBeCallableWith({ type: 'FOO' })
+
+    expectTypeOf(store.dispatch).parameter(0).not.toMatchTypeOf({ type: 'BAR' })
+
+    expectTypeOf(store.dispatch).toBeCallableWith({ type: 'BAR', result: 5 })
+
+    expectTypeOf(store.dispatch).parameter(0).not.toMatchTypeOf({ type: 'BAZ' })
+  })
+
+  test('issue #248: Need a union overload to handle generic dispatched types', () => {
+    // https://github.com/reduxjs/redux-thunk/issues/248
+
+    const dispatch: ThunkDispatch<any, unknown, AnyAction> = undefined as any
+
+    function dispatchWrap(
+      action: Action | ThunkAction<any, any, unknown, AnyAction>
+    ) {
+      // Should not have an error here thanks to the extra union overload
+      expectTypeOf(dispatch).toBeCallableWith(action)
+    }
+  })
+})
 
 export function anotherThunkAction(): ThunkResult<string> {
   return (dispatch, getState) => {
@@ -60,12 +88,6 @@ export function anotherThunkAction(): ThunkResult<string> {
     return 'hello'
   }
 }
-
-store.dispatch({ type: 'FOO' })
-store.dispatch({ type: 'BAR' })
-store.dispatch({ type: 'BAR', result: 5 })
-store.dispatch({ type: 'BAZ' })
-store.dispatch(testGetState())
 
 const storeThunkArg = createStore(
   fakeReducer,
@@ -115,7 +137,7 @@ function promiseThunkAction(): ThunkResult<Promise<boolean>> {
 
 const standardAction = () => ({ type: 'FOO' })
 
-interface ActionDispatchs {
+interface ActionDispatches {
   anotherThunkAction: ThunkActionDispatch<typeof anotherThunkAction>
   promiseThunkAction: ThunkActionDispatch<typeof promiseThunkAction>
   standardAction: typeof standardAction
@@ -123,7 +145,7 @@ interface ActionDispatchs {
 
 // Without a global module overload, this should fail
 // @ts-expect-error
-const actions: ActionDispatchs = bindActionCreators(
+const actions: ActionDispatches = bindActionCreators(
   {
     anotherThunkAction,
     promiseThunkAction,
@@ -146,15 +168,3 @@ const untypedStore = createStore(fakeReducer, applyMiddleware(thunk))
 
 untypedStore.dispatch(anotherThunkAction())
 untypedStore.dispatch(promiseThunkAction()).then(() => Promise.resolve())
-
-// #248: Need a union overload to handle generic dispatched types
-function testIssue248() {
-  const dispatch: ThunkDispatch<any, unknown, AnyAction> = undefined as any
-
-  function dispatchWrap(
-    action: Action | ThunkAction<any, any, unknown, AnyAction>
-  ) {
-    // Should not have an error here thanks to the extra union overload
-    dispatch(action)
-  }
-}
