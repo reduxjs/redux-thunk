@@ -40,7 +40,7 @@
     "test": "vitest --run --typecheck",
     "test:watch": "vitest --watch",
     "test:cov": "vitest --run --coverage",
-    "test:typescript": "tsc --noEmit -p typescript_test/tsconfig.json",
+    "type-tests": "tsc --noEmit -p tsconfig.test.json",
     "build": "yarn clean && tsup",
     "prepack": "yarn build"
   },
