@@ -58,5 +58,6 @@
     "tsup": "7.0.0",
     "typescript": "^5.0",
     "vitest": "^0.32.0"
-  }
+  },
+  "packageManager": "yarn@4.1.0"
 }
