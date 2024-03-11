@@ -13,7 +13,7 @@
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "rootDirs": ["./src", "./test"],
-    "types": ["vitest/globals"],    
+    "types": ["vitest/globals"],
     "baseUrl": ".",
     "paths": {
       "redux-thunk": ["src/index.ts"], // @remap-prod-remove-line
