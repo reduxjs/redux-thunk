@@ -113,6 +113,12 @@ jobs:
       - name: Clone RTK repo
         run: git clone https://github.com/reduxjs/redux-toolkit.git ./redux-toolkit
 
+      - name: Cache example deps
+        uses: actions/cache@v4
+        with:
+          path: ./redux-toolkit/examples/publish-ci/${{ matrix.example }}/node_modules
+          key: test-published-artifact-${{ matrix.example }}-node_modules
+
       - name: Check folder contents
         run: ls -l .
 
@@ -138,13 +144,6 @@ jobs:
       - name: Show installed package versions
         working-directory: ./redux-toolkit/examples/publish-ci/${{ matrix.example }}
         run: yarn info redux-thunk && yarn why redux-thunk
-
-      - name: Set up JDK 17 for React Native build
-        if: matrix.example == 'react-native'
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17.x'
-          distribution: 'temurin'
 
       - name: Build example
         working-directory: ./redux-toolkit/examples/publish-ci/${{ matrix.example }}
