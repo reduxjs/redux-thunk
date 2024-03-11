@@ -5,8 +5,18 @@
   "extends": "./tsconfig.test.json",
   "compilerOptions": {
     "allowJs": true,
-    "checkJs": true,
-    "rootDir": "."
+    "jsx": "react",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "rootDirs": ["./src", "./test"],
+    "types": ["vitest/globals"],
+    "baseUrl": ".",
+    "paths": {
+      "redux-thunk": ["src/index.ts"], // @remap-prod-remove-line
+      "@internal/*": ["src/*"]
+    }
   },
   "include": ["."]
 }
