@@ -7,13 +7,13 @@ export default {
       '@babel/preset-env',
       {
         targets: {
-          ie: 11
+          ie: 11,
         },
         loose: true,
-        modules: cjs ? 'cjs' : false
-      }
+        modules: cjs ? 'cjs' : false,
+      },
     ],
-    '@babel/preset-typescript'
+    '@babel/preset-typescript',
   ],
-  plugins: [cjs && ['@babel/transform-modules-commonjs']].filter(Boolean)
+  plugins: [cjs && ['@babel/transform-modules-commonjs']].filter(Boolean),
 }

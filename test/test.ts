@@ -5,7 +5,7 @@ describe('thunk middleware', () => {
   const doGetState = () => 42
   const nextHandler = thunkMiddleware({
     dispatch: doDispatch,
-    getState: doGetState
+    getState: doGetState,
   })
 
   it('must return a function to handle next', () => {
@@ -90,7 +90,7 @@ describe('thunk middleware', () => {
       // @ts-ignore
       withExtraArgument(extraArg)({
         dispatch: doDispatch,
-        getState: doGetState
+        getState: doGetState,
       })()((dispatch: any, getState: any, arg: any) => {
         expect(dispatch).toBe(doDispatch)
         expect(getState).toBe(doGetState)
