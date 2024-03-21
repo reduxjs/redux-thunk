@@ -56,7 +56,8 @@
     "redux": "^5",
     "rimraf": "^3.0.2",
     "tsup": "7.0.0",
-    "typescript": "^5.0",
+    "typescript": "^5.4.2",
     "vitest": "^0.32.0"
-  }
+  },
+  "packageManager": "yarn@4.1.0"
 }
