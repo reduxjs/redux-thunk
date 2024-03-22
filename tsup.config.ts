@@ -4,9 +4,9 @@ import { defineConfig } from 'tsup'
 export default defineConfig(options => {
   const commonOptions: Partial<Options> = {
     entry: {
-      'redux-thunk': 'src/index.ts'
+      'redux-thunk': 'src/index.ts',
     },
-    ...options
+    ...options,
   }
 
   return [
@@ -15,7 +15,7 @@ export default defineConfig(options => {
       format: ['esm'],
       outExtension: () => ({ js: '.mjs' }),
       dts: true,
-      clean: true
+      clean: true,
     },
     // Support Webpack 4 by pointing `"module"` to a file with a `.js` extension
     {
@@ -24,13 +24,13 @@ export default defineConfig(options => {
       target: 'es2017',
       dts: false,
       outExtension: () => ({ js: '.js' }),
-      entry: { 'redux-thunk.legacy-esm': 'src/index.ts' }
+      entry: { 'redux-thunk.legacy-esm': 'src/index.ts' },
     },
     {
       ...commonOptions,
       format: 'cjs',
       outDir: './dist/cjs/',
-      outExtension: () => ({ js: '.cjs' })
-    }
+      outExtension: () => ({ js: '.cjs' }),
+    },
   ]
 })

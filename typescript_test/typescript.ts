@@ -7,7 +7,7 @@ import type {
   ThunkAction,
   ThunkActionDispatch,
   ThunkDispatch,
-  ThunkMiddleware
+  ThunkMiddleware,
 } from '../src/index'
 
 export type State = {
@@ -19,7 +19,7 @@ export type Actions = { type: 'FOO' } | { type: 'BAR'; result: number }
 export type ThunkResult<R> = ThunkAction<R, State, undefined, Actions>
 
 export const initialState: State = {
-  foo: 'foo'
+  foo: 'foo',
 }
 
 export function fakeReducer(state: State = initialState): State {
@@ -28,7 +28,7 @@ export function fakeReducer(state: State = initialState): State {
 
 export const store = createStore(
   fakeReducer,
-  applyMiddleware(thunk as ThunkMiddleware<State, Actions>)
+  applyMiddleware(thunk as ThunkMiddleware<State, Actions>),
 )
 
 store.dispatch(dispatch => {
@@ -70,8 +70,8 @@ store.dispatch(testGetState())
 const storeThunkArg = createStore(
   fakeReducer,
   applyMiddleware(
-    withExtraArgument('bar') as ThunkMiddleware<State, Actions, string>
-  )
+    withExtraArgument('bar') as ThunkMiddleware<State, Actions, string>,
+  ),
 )
 storeThunkArg.dispatch({ type: 'FOO' })
 
@@ -85,23 +85,23 @@ storeThunkArg.dispatch((dispatch, getState, extraArg) => {
 })
 
 const callDispatchAsync_anyAction = (
-  dispatch: ThunkDispatch<State, undefined, any>
+  dispatch: ThunkDispatch<State, undefined, any>,
 ) => {
   const asyncThunk = (): ThunkResult<Promise<void>> => () =>
-    ({} as Promise<void>)
+    ({}) as Promise<void>
   dispatch(asyncThunk()).then(() => console.log('done'))
 }
 const callDispatchAsync_specificActions = (
-  dispatch: ThunkDispatch<State, undefined, Actions>
+  dispatch: ThunkDispatch<State, undefined, Actions>,
 ) => {
   const asyncThunk = (): ThunkResult<Promise<void>> => () =>
-    ({} as Promise<void>)
+    ({}) as Promise<void>
   dispatch(asyncThunk()).then(() => console.log('done'))
 }
 const callDispatchAny = (
-  dispatch: ThunkDispatch<State, undefined, Actions>
+  dispatch: ThunkDispatch<State, undefined, Actions>,
 ) => {
-  const asyncThunk = (): any => () => ({} as Promise<void>)
+  const asyncThunk = (): any => () => ({}) as Promise<void>
   dispatch(asyncThunk()) // result is any
     .then(() => console.log('done'))
 }
@@ -127,9 +127,9 @@ const actions: ActionDispatchs = bindActionCreators(
   {
     anotherThunkAction,
     promiseThunkAction,
-    standardAction
+    standardAction,
   },
-  store.dispatch
+  store.dispatch,
 )
 
 actions.anotherThunkAction() === 'hello'
@@ -152,7 +152,7 @@ function testIssue248() {
   const dispatch: ThunkDispatch<any, unknown, AnyAction> = undefined as any
 
   function dispatchWrap(
-    action: Action | ThunkAction<any, any, unknown, AnyAction>
+    action: Action | ThunkAction<any, any, unknown, AnyAction>,
   ) {
     // Should not have an error here thanks to the extra union overload
     dispatch(action)
