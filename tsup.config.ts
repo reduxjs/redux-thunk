@@ -6,6 +6,7 @@ export default defineConfig(options => {
     entry: {
       'redux-thunk': 'src/index.ts'
     },
+    tsconfig: 'tsconfig.build.json',
     ...options
   }
 

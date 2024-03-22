@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "strict": true,
-    "target": "ES2015"
-  },
-  "include": ["typescript.ts"]
-}
