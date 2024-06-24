@@ -6,7 +6,6 @@ dist
 es
 builds/
 
-
 typesversions
 .cache
 .yarnrc
@@ -20,3 +19,5 @@ typesversions
 *.tgz
 
 tsconfig.vitest-temp.json
+
+.vscode
