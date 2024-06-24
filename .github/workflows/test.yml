@@ -1,10 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
@@ -66,7 +62,8 @@ jobs:
       - name: Install deps
         run: yarn install
 
-      - uses: actions/download-artifact@v4
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
         with:
           name: package
           path: .
@@ -76,9 +73,12 @@ jobs:
       - name: Install build artifact
         run: yarn add ./package.tgz
 
-      - run: sed -i -e /@remap-prod-remove-line/d ./tsconfig.base.json ./vitest.config.mts
+      - name: Erase path aliases
+        run: sed -i -e /@remap-prod-remove-line/d ./tsconfig.base.json
 
       - name: Run tests, against dist
+        env:
+          TEST_DIST: true
         run: yarn test
 
   test-types:
@@ -102,13 +102,27 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'yarn'
 
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: package
+          path: .
+
       - name: Install deps
         run: yarn install
 
       - name: Install TypeScript ${{ matrix.ts }}
         run: yarn add typescript@${{ matrix.ts }}
 
+      - name: Install build artifact
+        run: yarn add ./package.tgz
+
+      - name: Erase path aliases
+        run: sed -i -e /@remap-prod-remove-line/d ./tsconfig.base.json
+
       - name: Test types
+        env:
+          TEST_DIST: true
         run: |
           yarn tsc --version
           yarn type-tests
