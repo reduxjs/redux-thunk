@@ -60,7 +60,7 @@ export type ThunkDispatch<
  * (if specified when setting up the Thunk middleware)
  */
 export type ThunkAction<
-  Dispatch extends ThunkDispatch<State, ExtraThunkArg, any>,
+  Dispatch extends ThunkOverload<State, ExtraThunkArg>,
   State,
   ExtraThunkArg,
   ReturnType
