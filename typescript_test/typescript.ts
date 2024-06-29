@@ -162,19 +162,19 @@ untypedStore.dispatch(promiseThunkAction()).then(() => Promise.resolve())
 
 // #248: Need a union overload to handle generic dispatched types
 function testIssue248() {
-  const dispatch: ThunkDispatch<any, unknown, Actions> = store.dispatch
-
   function dispatchWrap(
     action: Actions | ThunkAction<any, any, unknown, Actions>
   ) {
-    // Should not have an error here thanks to the extra union overload
-    dispatch(action)
-
     // this errors, because the union overload is not present
     // @ts-expect-error
     store.dispatch(action)
 
     // workarounds:
+
+    // assign to ThunkDispatch type
+    // Should not have an error here thanks to the extra union overload
+    const dispatch: ThunkDispatch<any, unknown, Actions> = store.dispatch
+    dispatch(action)
 
     // old reliable
     store.dispatch(action as any)
@@ -183,7 +183,5 @@ function testIssue248() {
     typeof action === 'function'
       ? store.dispatch(action)
       : store.dispatch(action)
-
-    // or just assign to ThunkDispatch as above
   }
 }
