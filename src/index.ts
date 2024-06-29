@@ -1,5 +1,4 @@
 import type { Action, AnyAction } from 'redux'
-
 import type { ThunkMiddleware } from './types'
 
 export type {
