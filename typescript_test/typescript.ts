@@ -16,13 +16,21 @@ export type State = {
 
 export type Actions = { type: 'FOO' } | { type: 'BAR'; result: number }
 
-export type ThunkResult<R> = ThunkAction<R, State, undefined, Actions>
+export type ThunkResult<R> = ThunkAction<
+  ThunkDispatch<State, undefined, Actions>,
+  State,
+  undefined,
+  R
+>
 
 export const initialState: State = {
   foo: 'foo'
 }
 
-export function fakeReducer(state: State = initialState): State {
+export function fakeReducer(
+  state: State = initialState,
+  action: Actions
+): State {
   return state
 }
 
@@ -36,6 +44,7 @@ store.dispatch(dispatch => {
   // @ts-expect-error
   dispatch({ type: 'BAR' }, 42)
   dispatch({ type: 'BAR', result: 5 })
+  // @ts-expect-error
   store.dispatch({ type: 'BAZ' })
 })
 
@@ -62,8 +71,10 @@ export function anotherThunkAction(): ThunkResult<string> {
 }
 
 store.dispatch({ type: 'FOO' })
+// @ts-expect-error
 store.dispatch({ type: 'BAR' })
 store.dispatch({ type: 'BAR', result: 5 })
+// @ts-expect-error
 store.dispatch({ type: 'BAZ' })
 store.dispatch(testGetState())
 
@@ -78,8 +89,10 @@ storeThunkArg.dispatch({ type: 'FOO' })
 storeThunkArg.dispatch((dispatch, getState, extraArg) => {
   const bar: string = extraArg
   store.dispatch({ type: 'FOO' })
+  // @ts-expect-error
   store.dispatch({ type: 'BAR' })
   store.dispatch({ type: 'BAR', result: 5 })
+  // @ts-expect-error
   store.dispatch({ type: 'BAZ' })
   console.log(extraArg)
 })
@@ -149,12 +162,26 @@ untypedStore.dispatch(promiseThunkAction()).then(() => Promise.resolve())
 
 // #248: Need a union overload to handle generic dispatched types
 function testIssue248() {
-  const dispatch: ThunkDispatch<any, unknown, AnyAction> = undefined as any
-
   function dispatchWrap(
-    action: Action | ThunkAction<any, any, unknown, AnyAction>
+    action: Actions | ThunkAction<any, any, unknown, Actions>
   ) {
+    // this errors, because the union overload is not present
+    // @ts-expect-error
+    store.dispatch(action)
+
+    // workarounds:
+
+    // assign to ThunkDispatch type
     // Should not have an error here thanks to the extra union overload
+    const dispatch: ThunkDispatch<any, unknown, Actions> = store.dispatch
     dispatch(action)
+
+    // old reliable
+    store.dispatch(action as any)
+
+    // non-ideal, but works
+    typeof action === 'function'
+      ? store.dispatch(action)
+      : store.dispatch(action)
   }
 }

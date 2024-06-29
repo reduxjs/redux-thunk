@@ -4,6 +4,7 @@ describe('thunk middleware', () => {
   const doDispatch = () => {}
   const doGetState = () => 42
   const nextHandler = thunkMiddleware({
+    // @ts-ignore
     dispatch: doDispatch,
     getState: doGetState
   })
@@ -89,6 +90,7 @@ describe('thunk middleware', () => {
       const extraArg = { lol: true }
       // @ts-ignore
       withExtraArgument(extraArg)({
+        // @ts-ignore
         dispatch: doDispatch,
         getState: doGetState
       })()((dispatch: any, getState: any, arg: any) => {

@@ -1,12 +1,12 @@
 import type { Action, AnyAction } from 'redux'
-
 import type { ThunkMiddleware } from './types'
 
 export type {
   ThunkAction,
   ThunkDispatch,
   ThunkActionDispatch,
-  ThunkMiddleware
+  ThunkMiddleware,
+  ThunkOverload
 } from './types'
 
 /** A function that accepts a potential "extra argument" value to be injected later,
