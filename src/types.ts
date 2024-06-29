@@ -97,5 +97,5 @@ export type ThunkMiddleware<
 > = Middleware<
   ThunkOverload<State, ExtraThunkArg>,
   State,
-  ThunkDispatch<State, ExtraThunkArg, BasicAction>
+  Dispatch<BasicAction>
 >

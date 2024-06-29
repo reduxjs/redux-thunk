@@ -5,7 +5,8 @@ export type {
   ThunkAction,
   ThunkDispatch,
   ThunkActionDispatch,
-  ThunkMiddleware
+  ThunkMiddleware,
+  ThunkOverload
 } from './types'
 
 /** A function that accepts a potential "extra argument" value to be injected later,
