@@ -9,36 +9,51 @@ import type {
 } from 'redux-thunk'
 import { thunk, withExtraArgument } from 'redux-thunk'
 
-export type State = {
-  foo: string
-}
-
-export type Actions = { type: 'FOO' } | { type: 'BAR'; result: number }
-
-export type ThunkResult<R> = ThunkAction<R, State, undefined, Actions>
-
-export const initialState: State = {
-  foo: 'foo'
-}
-
-export function fakeReducer(state: State = initialState): State {
-  return state
-}
-
-export const store = createStore(
-  fakeReducer,
-  applyMiddleware(thunk as ThunkMiddleware<State, Actions>)
-)
-
-store.dispatch(dispatch => {
-  dispatch({ type: 'FOO' })
-  // @ts-expect-error
-  dispatch({ type: 'BAR' }, 42)
-  dispatch({ type: 'BAR', result: 5 })
-  store.dispatch({ type: 'BAZ' })
-})
-
 describe('type tests', () => {
+  type State = {
+    foo: string
+  }
+
+  type Actions = { type: 'FOO' } | { type: 'BAR'; result: number }
+
+  type ThunkResult<R> = ThunkAction<R, State, undefined, Actions>
+
+  const initialState: State = {
+    foo: 'foo'
+  }
+
+  function fakeReducer(state: State = initialState): State {
+    return state
+  }
+
+  const store = createStore(
+    fakeReducer,
+    applyMiddleware(thunk as ThunkMiddleware<State, Actions>)
+  )
+
+  function anotherThunkAction(): ThunkResult<string> {
+    return (dispatch, getState) => {
+      expectTypeOf(dispatch).toBeCallableWith({ type: 'FOO' })
+
+      return 'hello'
+    }
+  }
+
+  test('store.dispatch', () => {
+    store.dispatch(dispatch => {
+      expectTypeOf(dispatch).toBeCallableWith({ type: 'FOO' })
+
+      expectTypeOf(dispatch).parameter(0).not.toMatchTypeOf({ type: 'BAR' })
+
+      expectTypeOf(dispatch).parameter(1).not.toMatchTypeOf(42)
+
+      expectTypeOf(dispatch).toBeCallableWith({ type: 'BAR', result: 5 })
+
+      // expectTypeOf(store.dispatch).toBeCallableWith({ type: 'BAZ' }) does not work in this case
+      store.dispatch({ type: 'BAZ' })
+    })
+  })
+
   test('getState', () => {
     const thunk: () => ThunkResult<void> = () => (dispatch, getState) => {
       const state = getState()
@@ -80,91 +95,108 @@ describe('type tests', () => {
       expectTypeOf(dispatch).toBeCallableWith(action)
     }
   })
-})
 
-export function anotherThunkAction(): ThunkResult<string> {
-  return (dispatch, getState) => {
-    dispatch({ type: 'FOO' })
-    return 'hello'
+  test('store thunk arg', () => {
+    const storeThunkArg = createStore(
+      fakeReducer,
+      applyMiddleware(
+        withExtraArgument('bar') as ThunkMiddleware<State, Actions, string>
+      )
+    )
+
+    expectTypeOf(storeThunkArg.dispatch).toBeCallableWith({ type: 'FOO' })
+
+    storeThunkArg.dispatch((dispatch, getState, extraArg) => {
+      expectTypeOf(extraArg).toBeString()
+
+      expectTypeOf(store.dispatch).toBeCallableWith({ type: 'FOO' })
+
+      // expectTypeOf(store.dispatch).toBeCallableWith({ type: 'BAR' }) does not work in this case
+      store.dispatch({ type: 'BAR' })
+
+      expectTypeOf(store.dispatch).toBeCallableWith({ type: 'BAR', result: 5 })
+
+      // expectTypeOf(store.dispatch).toBeCallableWith({ type: 'BAZ' }) does not work in this case
+      store.dispatch({ type: 'BAZ' })
+    })
+  })
+
+  test('call dispatch async with any action', () => {})
+  const callDispatchAsync_anyAction = (
+    dispatch: ThunkDispatch<State, undefined, any>
+  ) => {
+    const asyncThunk = (): ThunkResult<Promise<void>> => () =>
+      ({} as Promise<void>)
+
+    expectTypeOf(dispatch).toBeCallableWith(asyncThunk())
   }
-}
 
-const storeThunkArg = createStore(
-  fakeReducer,
-  applyMiddleware(
-    withExtraArgument('bar') as ThunkMiddleware<State, Actions, string>
-  )
-)
-storeThunkArg.dispatch({ type: 'FOO' })
+  test('call dispatch async with specific actions', () => {
+    const callDispatchAsync_specificActions = (
+      dispatch: ThunkDispatch<State, undefined, Actions>
+    ) => {
+      const asyncThunk = (): ThunkResult<Promise<void>> => () =>
+        ({} as Promise<void>)
 
-storeThunkArg.dispatch((dispatch, getState, extraArg) => {
-  const bar: string = extraArg
-  store.dispatch({ type: 'FOO' })
-  store.dispatch({ type: 'BAR' })
-  store.dispatch({ type: 'BAR', result: 5 })
-  store.dispatch({ type: 'BAZ' })
-  console.log(extraArg)
+      expectTypeOf(dispatch).toBeCallableWith(asyncThunk())
+    }
+  })
+
+  test('call dispatch any', () => {
+    const callDispatchAny = (
+      dispatch: ThunkDispatch<State, undefined, Actions>
+    ) => {
+      const asyncThunk = (): any => () => ({} as Promise<void>)
+
+      dispatch(asyncThunk()) // result is any
+        .then(() => console.log('done'))
+    }
+  })
+
+  test('thunk actions', () => {
+    function promiseThunkAction(): ThunkResult<Promise<boolean>> {
+      return async (dispatch, getState) => {
+        expectTypeOf(dispatch).toBeCallableWith({ type: 'FOO' })
+
+        return false
+      }
+    }
+
+    const standardAction = () => ({ type: 'FOO' })
+
+    interface ActionDispatches {
+      anotherThunkAction: ThunkActionDispatch<typeof anotherThunkAction>
+      promiseThunkAction: ThunkActionDispatch<typeof promiseThunkAction>
+      standardAction: typeof standardAction
+    }
+
+    // Without a global module overload, this should fail
+    // @ts-expect-error
+    const actions: ActionDispatches = bindActionCreators(
+      {
+        anotherThunkAction,
+        promiseThunkAction,
+        standardAction
+      },
+      store.dispatch
+    )
+
+    expectTypeOf(actions.anotherThunkAction()).toBeString()
+
+    expectTypeOf(actions.anotherThunkAction()).not.toBeBoolean()
+
+    expectTypeOf(actions.promiseThunkAction()).resolves.toBeBoolean()
+
+    expectTypeOf(actions.promiseThunkAction()).not.toHaveProperty('prop')
+
+    expectTypeOf(actions.standardAction()).toHaveProperty('type').toBeString()
+
+    expectTypeOf(actions.standardAction()).not.toHaveProperty('other')
+
+    const untypedStore = createStore(fakeReducer, applyMiddleware(thunk))
+
+    expectTypeOf(untypedStore.dispatch).toBeCallableWith(anotherThunkAction())
+
+    expectTypeOf(untypedStore.dispatch).toBeCallableWith(promiseThunkAction())
+  })
 })
-
-const callDispatchAsync_anyAction = (
-  dispatch: ThunkDispatch<State, undefined, any>
-) => {
-  const asyncThunk = (): ThunkResult<Promise<void>> => () =>
-    ({} as Promise<void>)
-  dispatch(asyncThunk()).then(() => console.log('done'))
-}
-const callDispatchAsync_specificActions = (
-  dispatch: ThunkDispatch<State, undefined, Actions>
-) => {
-  const asyncThunk = (): ThunkResult<Promise<void>> => () =>
-    ({} as Promise<void>)
-  dispatch(asyncThunk()).then(() => console.log('done'))
-}
-const callDispatchAny = (
-  dispatch: ThunkDispatch<State, undefined, Actions>
-) => {
-  const asyncThunk = (): any => () => ({} as Promise<void>)
-  dispatch(asyncThunk()) // result is any
-    .then(() => console.log('done'))
-}
-
-function promiseThunkAction(): ThunkResult<Promise<boolean>> {
-  return async (dispatch, getState) => {
-    dispatch({ type: 'FOO' })
-    return false
-  }
-}
-
-const standardAction = () => ({ type: 'FOO' })
-
-interface ActionDispatches {
-  anotherThunkAction: ThunkActionDispatch<typeof anotherThunkAction>
-  promiseThunkAction: ThunkActionDispatch<typeof promiseThunkAction>
-  standardAction: typeof standardAction
-}
-
-// Without a global module overload, this should fail
-// @ts-expect-error
-const actions: ActionDispatches = bindActionCreators(
-  {
-    anotherThunkAction,
-    promiseThunkAction,
-    standardAction
-  },
-  store.dispatch
-)
-
-actions.anotherThunkAction() === 'hello'
-// @ts-expect-error
-actions.anotherThunkAction() === false
-actions.promiseThunkAction().then(res => console.log(res))
-// @ts-expect-error
-actions.promiseThunkAction().prop
-actions.standardAction().type
-// @ts-expect-error
-actions.standardAction().other
-
-const untypedStore = createStore(fakeReducer, applyMiddleware(thunk))
-
-untypedStore.dispatch(anotherThunkAction())
-untypedStore.dispatch(promiseThunkAction()).then(() => Promise.resolve())
