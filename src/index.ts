@@ -1,11 +1,10 @@
 import type { Action, AnyAction } from 'redux'
-
 import type { ThunkMiddleware } from './types'
 
 export type {
   ThunkAction,
-  ThunkDispatch,
   ThunkActionDispatch,
+  ThunkDispatch,
   ThunkMiddleware,
 } from './types'
 
