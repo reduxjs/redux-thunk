@@ -37,16 +37,18 @@
     "format": "prettier --write \"{src,test,typescript_test}/**/*.{js,ts}\"",
     "format:check": "prettier --check \"{src,test,typescript_test}/**/*.{js,ts}\"",
     "lint": "eslint \"{src,test,typescript_test}/**/*.{js,ts}\"",
-    "test": "vitest run",
-    "test:cov": "vitest run --coverage",
-    "test:typescript": "tsc --noEmit -p typescript_test/tsconfig.json",
-    "build": "tsup",
+    "test": "vitest --run --typecheck",
+    "test:watch": "vitest --watch",
+    "test:cov": "vitest --run --coverage",
+    "type-tests": "tsc --noEmit -p tsconfig.test.json",
+    "build": "yarn clean && tsup",
     "prepack": "yarn build"
   },
   "peerDependencies": {
     "redux": "^5.0.0"
   },
   "devDependencies": {
+    "@types/node": "^20.11.20",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "cross-env": "^7.0.3",
@@ -56,8 +58,8 @@
     "redux": "^5",
     "rimraf": "^3.0.2",
     "tsup": "7.0.0",
-    "typescript": "^5.4.2",
-    "vitest": "^0.32.0"
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
   },
   "packageManager": "yarn@4.1.0"
 }

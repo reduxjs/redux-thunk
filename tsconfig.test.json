@@ -1,0 +1,10 @@
+{
+  // For runtime and type tests during CI.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "noImplicitReturns": false
+  },
+  "include": ["typescript_test"]
+}
