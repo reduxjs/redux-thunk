@@ -6,11 +6,11 @@ export default defineConfig({
     alias: {
       'redux-thunk': new URL(
         process.env.TEST_DIST ? 'node_modules/redux-thunk' : 'src/index.ts',
-        import.meta.url
+        import.meta.url,
       ).pathname,
 
       // this mapping is disabled as we want `dist` imports in the tests only to be used for "type-only" imports which don't play a role for jest
-      '@internal': new URL('src', import.meta.url).pathname
-    }
-  }
+      '@internal': new URL('src', import.meta.url).pathname,
+    },
+  },
 })

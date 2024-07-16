@@ -23,8 +23,8 @@ import filtersReducer from './features/filters/filtersSlice'
 const store = configureStore({
   reducer: {
     todos: todosReducer,
-    filters: filtersReducer
-  }
+    filters: filtersReducer,
+  },
 })
 
 // The thunk middleware was automatically added
@@ -86,9 +86,9 @@ const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       thunk: {
-        extraArgument: myCustomApiService
-      }
-    })
+        extraArgument: myCustomApiService,
+      },
+    }),
 })
 
 // later
@@ -110,10 +110,10 @@ const store = configureStore({
       thunk: {
         extraArgument: {
           api: myCustomApiService,
-          otherValue: 42
-        }
-      }
-    })
+          otherValue: 42,
+        },
+      },
+    }),
 })
 
 // later
@@ -188,7 +188,7 @@ const INCREMENT_COUNTER = 'INCREMENT_COUNTER'
 
 function increment() {
   return {
-    type: INCREMENT_COUNTER
+    type: INCREMENT_COUNTER,
   }
 }
 
@@ -264,7 +264,7 @@ function makeASandwich(forPerson, secretSauce) {
   return {
     type: 'MAKE_SANDWICH',
     forPerson,
-    secretSauce
+    secretSauce,
   }
 }
 
@@ -273,14 +273,14 @@ function apologize(fromPerson, toPerson, error) {
     type: 'APOLOGIZE',
     fromPerson,
     toPerson,
-    error
+    error,
   }
 }
 
 function withdrawMoney(amount) {
   return {
     type: 'WITHDRAW',
-    amount
+    amount,
   }
 }
 
@@ -302,7 +302,7 @@ function makeASandwichWithSecretSauce(forPerson) {
   return function (dispatch) {
     return fetchSecretSauce().then(
       sauce => dispatch(makeASandwich(forPerson, sauce)),
-      error => dispatch(apologize('The Sandwich Shop', forPerson, error))
+      error => dispatch(apologize('The Sandwich Shop', forPerson, error)),
     )
   }
 }
@@ -339,16 +339,16 @@ function makeSandwichesForEverybody() {
       .then(() =>
         Promise.all([
           dispatch(makeASandwichWithSecretSauce('Me')),
-          dispatch(makeASandwichWithSecretSauce('My wife'))
-        ])
+          dispatch(makeASandwichWithSecretSauce('My wife')),
+        ]),
       )
       .then(() => dispatch(makeASandwichWithSecretSauce('Our kids')))
       .then(() =>
         dispatch(
           getState().myMoney > 42
             ? withdrawMoney(42)
-            : apologize('Me', 'The Sandwich Shop')
-        )
+            : apologize('Me', 'The Sandwich Shop'),
+        ),
       )
   }
 }
@@ -359,7 +359,7 @@ function makeSandwichesForEverybody() {
 store
   .dispatch(makeSandwichesForEverybody())
   .then(() =>
-    response.send(ReactDOMServer.renderToString(<MyApp store={store} />))
+    response.send(ReactDOMServer.renderToString(<MyApp store={store} />)),
   )
 
 // I can also dispatch a thunk async action from a component
@@ -385,7 +385,7 @@ class SandwichShop extends Component {
 }
 
 export default connect(state => ({
-  sandwiches: state.sandwiches
+  sandwiches: state.sandwiches,
 }))(SandwichShop)
 ```
 
