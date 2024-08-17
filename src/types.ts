@@ -14,14 +14,14 @@ import type { Action, AnyAction, Middleware } from 'redux'
 export interface ThunkDispatch<
   State,
   ExtraThunkArg,
-  BasicAction extends Action
+  BasicAction extends Action,
 > {
   // When the thunk middleware is added, `store.dispatch` now has three overloads (NOTE: the order here matters for correct behavior and is very fragile - do not reorder these!):
 
   // 1) The specific thunk function overload
   /** Accepts a thunk function, runs it, and returns whatever the thunk itself returns */
   <ReturnType>(
-    thunkAction: ThunkAction<ReturnType, State, ExtraThunkArg, BasicAction>
+    thunkAction: ThunkAction<ReturnType, State, ExtraThunkArg, BasicAction>,
   ): ReturnType
 
   // 2) The base overload.
@@ -32,7 +32,7 @@ export interface ThunkDispatch<
   //   with TS inference ( see https://github.com/microsoft/TypeScript/issues/14107 )
   /** A union of the other two overloads for TS inference purposes */
   <ReturnType, Action extends BasicAction>(
-    action: Action | ThunkAction<ReturnType, State, ExtraThunkArg, BasicAction>
+    action: Action | ThunkAction<ReturnType, State, ExtraThunkArg, BasicAction>,
   ): Action | ReturnType
 }
 
@@ -53,11 +53,11 @@ export type ThunkAction<
   ReturnType,
   State,
   ExtraThunkArg,
-  BasicAction extends Action
+  BasicAction extends Action,
 > = (
   dispatch: ThunkDispatch<State, ExtraThunkArg, BasicAction>,
   getState: () => State,
-  extraArgument: ExtraThunkArg
+  extraArgument: ExtraThunkArg,
 ) => ReturnType
 
 /**
@@ -69,7 +69,7 @@ export type ThunkAction<
  * @template ActionCreator Thunk action creator to be wrapped
  */
 export type ThunkActionDispatch<
-  ActionCreator extends (...args: any[]) => ThunkAction<any, any, any, any>
+  ActionCreator extends (...args: any[]) => ThunkAction<any, any, any, any>,
 > = (
   ...args: Parameters<ActionCreator>
 ) => ReturnType<ReturnType<ActionCreator>>
@@ -83,7 +83,7 @@ export type ThunkActionDispatch<
 export type ThunkMiddleware<
   State = any,
   BasicAction extends Action = AnyAction,
-  ExtraThunkArg = undefined
+  ExtraThunkArg = undefined,
 > = Middleware<
   ThunkDispatch<State, ExtraThunkArg, BasicAction>,
   State,

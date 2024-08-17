@@ -5,7 +5,7 @@ export type {
   ThunkAction,
   ThunkActionDispatch,
   ThunkDispatch,
-  ThunkMiddleware
+  ThunkMiddleware,
 } from './types'
 
 /** A function that accepts a potential "extra argument" value to be injected later,
@@ -14,7 +14,7 @@ export type {
 function createThunkMiddleware<
   State = any,
   BasicAction extends Action = AnyAction,
-  ExtraThunkArg = undefined
+  ExtraThunkArg = undefined,
 >(extraArgument?: ExtraThunkArg) {
   // Standard Redux middleware definition pattern:
   // See: https://redux.js.org/tutorials/fundamentals/part-4-store#writing-custom-middleware

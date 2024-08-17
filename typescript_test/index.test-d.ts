@@ -5,7 +5,7 @@ import type {
   ThunkAction,
   ThunkActionDispatch,
   ThunkDispatch,
-  ThunkMiddleware
+  ThunkMiddleware,
 } from 'redux-thunk'
 import { thunk, withExtraArgument } from 'redux-thunk'
 
@@ -19,7 +19,7 @@ describe('type tests', () => {
   type ThunkResult<R> = ThunkAction<R, State, undefined, Actions>
 
   const initialState: State = {
-    foo: 'foo'
+    foo: 'foo',
   }
 
   function fakeReducer(state: State = initialState): State {
@@ -28,7 +28,7 @@ describe('type tests', () => {
 
   const store = createStore(
     fakeReducer,
-    applyMiddleware(thunk as ThunkMiddleware<State, Actions>)
+    applyMiddleware(thunk as ThunkMiddleware<State, Actions>),
   )
 
   function anotherThunkAction(): ThunkResult<string> {
@@ -89,7 +89,7 @@ describe('type tests', () => {
     const dispatch: ThunkDispatch<any, unknown, AnyAction> = undefined as any
 
     function dispatchWrap(
-      action: Action | ThunkAction<any, any, unknown, AnyAction>
+      action: Action | ThunkAction<any, any, unknown, AnyAction>,
     ) {
       // Should not have an error here thanks to the extra union overload
       expectTypeOf(dispatch).toBeCallableWith(action)
@@ -100,8 +100,8 @@ describe('type tests', () => {
     const storeThunkArg = createStore(
       fakeReducer,
       applyMiddleware(
-        withExtraArgument('bar') as ThunkMiddleware<State, Actions, string>
-      )
+        withExtraArgument('bar') as ThunkMiddleware<State, Actions, string>,
+      ),
     )
 
     expectTypeOf(storeThunkArg.dispatch).toBeCallableWith({ type: 'FOO' })
@@ -123,20 +123,20 @@ describe('type tests', () => {
 
   test('call dispatch async with any action', () => {})
   const callDispatchAsync_anyAction = (
-    dispatch: ThunkDispatch<State, undefined, any>
+    dispatch: ThunkDispatch<State, undefined, any>,
   ) => {
     const asyncThunk = (): ThunkResult<Promise<void>> => () =>
-      ({} as Promise<void>)
+      ({}) as Promise<void>
 
     expectTypeOf(dispatch).toBeCallableWith(asyncThunk())
   }
 
   test('call dispatch async with specific actions', () => {
     const callDispatchAsync_specificActions = (
-      dispatch: ThunkDispatch<State, undefined, Actions>
+      dispatch: ThunkDispatch<State, undefined, Actions>,
     ) => {
       const asyncThunk = (): ThunkResult<Promise<void>> => () =>
-        ({} as Promise<void>)
+        ({}) as Promise<void>
 
       expectTypeOf(dispatch).toBeCallableWith(asyncThunk())
     }
@@ -144,9 +144,9 @@ describe('type tests', () => {
 
   test('call dispatch any', () => {
     const callDispatchAny = (
-      dispatch: ThunkDispatch<State, undefined, Actions>
+      dispatch: ThunkDispatch<State, undefined, Actions>,
     ) => {
-      const asyncThunk = (): any => () => ({} as Promise<void>)
+      const asyncThunk = (): any => () => ({}) as Promise<void>
 
       dispatch(asyncThunk()) // result is any
         .then(() => console.log('done'))
@@ -176,9 +176,9 @@ describe('type tests', () => {
       {
         anotherThunkAction,
         promiseThunkAction,
-        standardAction
+        standardAction,
       },
-      store.dispatch
+      store.dispatch,
     )
 
     expectTypeOf(actions.anotherThunkAction()).toBeString()
