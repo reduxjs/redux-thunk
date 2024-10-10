@@ -48,7 +48,7 @@
     "redux": "^5.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.20",
+    "@types/node": "^22.7.5",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "cross-env": "^7.0.3",
@@ -58,6 +58,7 @@
     "redux": "^5",
     "rimraf": "^3.0.2",
     "tsup": "7.0.0",
+    "tsx": "^4.19.1",
     "typescript": "^5.5.4",
     "vitest": "^1.6.0"
   },
