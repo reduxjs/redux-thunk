@@ -59,7 +59,7 @@
     "rimraf": "^3.0.2",
     "tsup": "7.0.0",
     "tsx": "^4.19.1",
-    "typescript": "^5.5.4",
+    "typescript": "^5.8.2",
     "vitest": "^1.6.0"
   },
   "packageManager": "yarn@4.4.1"
